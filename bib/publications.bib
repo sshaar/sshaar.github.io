@@ -1,0 +1,263 @@
+@inproceedings{hassan-etal-2022-cross,
+    title = "Cross-lingual Emotion Detection",
+    author = "Hassan, Sabit  and
+      Shaar, Shaden  and
+      Darwish, Kareem",
+    booktitle = "Proceedings of the Thirteenth Language Resources and Evaluation Conference",
+    month = jun,
+    year = "2022",
+    address = "Marseille, France",
+    publisher = "European Language Resources Association",
+    url = "https://aclanthology.org/2022.lrec-1.751",
+    pages = "6948--6958",
+    abstract = "Emotion detection can provide us with a window into understanding human behavior. Due to the complex dynamics of human emotions, however, constructing annotated datasets to train automated models can be expensive. Thus, we explore the efficacy of cross-lingual approaches that would use data from a source language to build models for emotion detection in a target language. We compare three approaches, namely: i) using inherently multilingual models; ii) translating training data into the target language; and iii) using an automatically tagged parallel corpus. In our study, we consider English as the source language with Arabic and Spanish as target languages. We study the effectiveness of different classification models such as BERT and SVMs trained with different features. Our BERT-based monolingual models that are trained on target language data surpass state-of-the-art (SOTA) by 4{\%} and 5{\%} absolute Jaccard score for Arabic and Spanish respectively. Next, we show that using cross-lingual approaches with English data alone, we can achieve more than 90{\%} and 80{\%} relative effectiveness of the Arabic and Spanish BERT models respectively. Lastly, we use LIME to analyze the challenges of training cross-lingual models for different language pairs.",
+}
+
+@inproceedings{shaar-etal-2022-role,
+    title = "The Role of Context in Detecting Previously Fact-Checked Claims",
+    author = "Shaar, Shaden  and
+      Alam, Firoj  and
+      Da San Martino, Giovanni  and
+      Nakov, Preslav",
+    booktitle = "Findings of the Association for Computational Linguistics: NAACL 2022",
+    month = jul,
+    year = "2022",
+    address = "Seattle, United States",
+    publisher = "Association for Computational Linguistics",
+    url = "https://aclanthology.org/2022.findings-naacl.122",
+    doi = "10.18653/v1/2022.findings-naacl.122",
+    pages = "1619--1631",
+    abstract = "Recent years have seen the proliferation of disinformation and fake news online. Traditional approaches to mitigate these issues is to use manual or automatic fact-checking. Recently, another approach has emerged: checking whether the input claim has previously been fact-checked, which can be done automatically, and thus fast, while also offering credibility and explainability, thanks to the human fact-checking and explanations in the associated fact-checking article. Here, we focus on claims made in a political debate and we study the impact of modeling the context of the claim: both on the source side, i.e., in the debate, as well as on the target side, i.e., in the fact-checking explanation document. We do this by modeling the local context, the global context, as well as by means of co-reference resolution, and multi-hop reasoning over the sentences of the document describing the fact-checked claim. The experimental results show that each of these represents a valuable information source, but that modeling the source-side context is most important, and can yield 10+ points of absolute improvement over a state-of-the-art model.",
+}
+
+@inproceedings{shaar-etal-2022-assisting,
+    title = "Assisting the Human Fact-Checkers: Detecting All Previously Fact-Checked Claims in a Document",
+    author = "Shaar, Shaden  and
+      Georgiev, Nikola  and
+      Alam, Firoj  and
+      Da San Martino, Giovanni  and
+      Mohamed, Aisha  and
+      Nakov, Preslav",
+    booktitle = "Findings of the Association for Computational Linguistics: EMNLP 2022",
+    month = dec,
+    year = "2022",
+    address = "Abu Dhabi, United Arab Emirates",
+    publisher = "Association for Computational Linguistics",
+    url = "https://aclanthology.org/2022.findings-emnlp.151",
+    pages = "2069--2080",
+    abstract = "Given the recent proliferation of false claims online, there has been a lot of manual fact-checking effort. As this is very time-consuming, human fact-checkers can benefit from tools that can support them and make them more efficient. Here, we focus on building a system that could provide such support. Given an input document, it aims to detect all sentences that contain a claim that can be verified by some previously fact-checked claims (from a given database). The output is a re-ranked list of the document sentences, so that those that can be verified are ranked as high as possible, together with corresponding evidence. Unlike previous work, which has looked into claim retrieval, here we take a document-level perspective. We create a new manually annotated dataset for the task, and we propose suitable evaluation measures. We further experiment with a learning-to-rank approach, achieving sizable performance gains over several strong baselines. Our analysis demonstrates the importance of modeling text similarity and stance, while also taking into account the veracity of the retrieved previously fact-checked claims. We believe that this research would be of interest to fact-checkers, journalists, media, and regulatory authorities.",
+}
+
+@inproceedings{alam-etal-2022-survey,
+    title = "A Survey on Multimodal Disinformation Detection",
+    author = "Alam, Firoj  and
+      Cresci, Stefano  and
+      Chakraborty, Tanmoy  and
+      Silvestri, Fabrizio  and
+      Dimitrov, Dimiter  and
+      Martino, Giovanni Da San  and
+      Shaar, Shaden  and
+      Firooz, Hamed  and
+      Nakov, Preslav",
+    booktitle = "Proceedings of the 29th International Conference on Computational Linguistics",
+    month = oct,
+    year = "2022",
+    address = "Gyeongju, Republic of Korea",
+    publisher = "International Committee on Computational Linguistics",
+    url = "https://aclanthology.org/2022.coling-1.576",
+    pages = "6625--6643",
+    abstract = "Recent years have witnessed the proliferation of offensive content online such as fake news, propaganda, misinformation, and disinformation. While initially this was mostly about textual content, over time images and videos gained popularity, as they are much easier to consume, attract more attention, and spread further than text. As a result, researchers started leveraging different modalities and combinations thereof to tackle online multimodal offensive content. In this study, we offer a survey on the state-of-the-art on multimodal disinformation detection covering various combinations of modalities: text, images, speech, video, social media network structure, and temporal information. Moreover, while some studies focused on factuality, others investigated how harmful the content is. While these two components in the definition of disinformation {--} (i) factuality, and (ii) harmfulness {--}, are equally important, they are typically studied in isolation. Thus, we argue for the need to tackle disinformation detection by taking into account multiple modalities as well as both factuality and harmfulness, in the same framework. Finally, we discuss current challenges and future research directions.",
+}
+
+@inproceedings{alam-etal-2021-fighting-covid,
+    title = "Fighting the {COVID}-19 Infodemic: Modeling the Perspective of Journalists, Fact-Checkers, Social Media Platforms, Policy Makers, and the Society",
+    author = "Alam, Firoj  and
+      Shaar, Shaden  and
+      Dalvi, Fahim  and
+      Sajjad, Hassan  and
+      Nikolov, Alex  and
+      Mubarak, Hamdy  and
+      Da San Martino, Giovanni  and
+      Abdelali, Ahmed  and
+      Durrani, Nadir  and
+      Darwish, Kareem  and
+      Al-Homaid, Abdulaziz  and
+      Zaghouani, Wajdi  and
+      Caselli, Tommaso  and
+      Danoe, Gijs  and
+      Stolk, Friso  and
+      Bruntink, Britt  and
+      Nakov, Preslav",
+    booktitle = "Findings of the Association for Computational Linguistics: EMNLP 2021",
+    month = nov,
+    year = "2021",
+    address = "Punta Cana, Dominican Republic",
+    publisher = "Association for Computational Linguistics",
+    url = "https://aclanthology.org/2021.findings-emnlp.56",
+    doi = "10.18653/v1/2021.findings-emnlp.56",
+    pages = "611--649",
+    abstract = "With the emergence of the COVID-19 pandemic, the political and the medical aspects of disinformation merged as the problem got elevated to a whole new level to become the first global infodemic. Fighting this infodemic has been declared one of the most important focus areas of the World Health Organization, with dangers ranging from promoting fake cures, rumors, and conspiracy theories to spreading xenophobia and panic. Addressing the issue requires solving a number of challenging problems such as identifying messages containing claims, determining their check-worthiness and factuality, and their potential to do harm as well as the nature of that harm, to mention just a few. To address this gap, we release a large dataset of 16K manually annotated tweets for fine-grained disinformation analysis that (i) focuses on COVID-19, (ii) combines the perspectives and the interests of journalists, fact-checkers, social media platforms, policy makers, and society, and (iii) covers Arabic, Bulgarian, Dutch, and English. Finally, we show strong evaluation results using pretrained Transformers, thus confirming the practical utility of the dataset in monolingual vs. multilingual, and single task vs. multitask settings.",
+}
+
+@inproceedings{dimitrov-etal-2021-detecting,
+    title = "Detecting Propaganda Techniques in Memes",
+    author = "Dimitrov, Dimitar  and
+      Bin Ali, Bishr  and
+      Shaar, Shaden  and
+      Alam, Firoj  and
+      Silvestri, Fabrizio  and
+      Firooz, Hamed  and
+      Nakov, Preslav  and
+      Da San Martino, Giovanni",
+    booktitle = "Proceedings of the 59th Annual Meeting of the Association for Computational Linguistics and the 11th International Joint Conference on Natural Language Processing (Volume 1: Long Papers)",
+    month = aug,
+    year = "2021",
+    address = "Online",
+    publisher = "Association for Computational Linguistics",
+    url = "https://aclanthology.org/2021.acl-long.516",
+    doi = "10.18653/v1/2021.acl-long.516",
+    pages = "6603--6617",
+    abstract = "Propaganda can be defined as a form of communication that aims to influence the opinions or the actions of people towards a specific goal; this is achieved by means of well-defined rhetorical and psychological devices. Propaganda, in the form we know it today, can be dated back to the beginning of the 17th century. However, it is with the advent of the Internet and the social media that propaganda has started to spread on a much larger scale than before, thus becoming major societal and political issue. Nowadays, a large fraction of propaganda in social media is multimodal, mixing textual with visual content. With this in mind, here we propose a new multi-label multimodal task: detecting the type of propaganda techniques used in memes. We further create and release a new corpus of 950 memes, carefully annotated with 22 propaganda techniques, which can appear in the text, in the image, or in both. Our analysis of the corpus shows that understanding both modalities together is essential for detecting these techniques. This is further confirmed in our experiments with several state-of-the-art multimodal models.",
+}
+
+@inproceedings{shaar-etal-2021-findings,
+    title = "Findings of the {NLP}4{IF}-2021 Shared Tasks on Fighting the {COVID}-19 Infodemic and Censorship Detection",
+    author = "Shaar, Shaden  and
+      Alam, Firoj  and
+      Da San Martino, Giovanni  and
+      Nikolov, Alex  and
+      Zaghouani, Wajdi  and
+      Nakov, Preslav  and
+      Feldman, Anna",
+    booktitle = "Proceedings of the Fourth Workshop on NLP for Internet Freedom: Censorship, Disinformation, and Propaganda",
+    month = jun,
+    year = "2021",
+    address = "Online",
+    publisher = "Association for Computational Linguistics",
+    url = "https://aclanthology.org/2021.nlp4if-1.12",
+    doi = "10.18653/v1/2021.nlp4if-1.12",
+    pages = "82--92",
+    abstract = "We present the results and the main findings of the NLP4IF-2021 shared tasks. Task 1 focused on fighting the COVID-19 infodemic in social media, and it was offered in Arabic, Bulgarian, and English. Given a tweet, it asked to predict whether that tweet contains a verifiable claim, and if so, whether it is likely to be false, is of general interest, is likely to be harmful, and is worthy of manual fact-checking; also, whether it is harmful to society, and whether it requires the attention of policy makers. Task 2 focused on censorship detection, and was offered in Chinese. A total of ten teams submitted systems for task 1, and one team participated in task 2; nine teams also submitted a system description paper. Here, we present the tasks, analyze the results, and discuss the system submissions and the methods they used. Most submissions achieved sizable improvements over several baselines, and the best systems used pre-trained Transformers and ensembles. The data, the scorers and the leaderboards for the tasks are available at http://gitlab.com/NLP4IF/nlp4if-2021.",
+}
+
+@inproceedings{nakov-etal-2021-covid,
+    title = "{COVID}-19 in {B}ulgarian Social Media: Factuality, Harmfulness, Propaganda, and Framing",
+    author = "Nakov, Preslav  and
+      Alam, Firoj  and
+      Shaar, Shaden  and
+      Da San Martino, Giovanni  and
+      Zhang, Yifan",
+    booktitle = "Proceedings of the International Conference on Recent Advances in Natural Language Processing (RANLP 2021)",
+    month = sep,
+    year = "2021",
+    address = "Held Online",
+    publisher = "INCOMA Ltd.",
+    url = "https://aclanthology.org/2021.ranlp-1.113",
+    pages = "997--1009",
+    abstract = "With the emergence of the COVID-19 pandemic, the political and the medical aspects of disinformation merged as the problem got elevated to a whole new level to become the first global infodemic. Fighting this infodemic is currently ranked very high on the list of priorities of the World Health Organization, with dangers ranging from promoting fake cures, rumors, and conspiracy theories to spreading xenophobia and panic. With this in mind, we studied how COVID-19 is discussed in Bulgarian social media in terms of factuality, harmfulness, propaganda, and framing. We found that most Bulgarian tweets contain verifiable factual claims, are factually true, are of potential public interest, are not harmful, and are too trivial to fact-check; moreover, zooming into harmful tweets, we found that they spread not only rumors but also panic. We further analyzed articles shared in Bulgarian partisan pro/con-COVID-19 Facebook groups and found that propaganda is more prevalent in skeptical articles, which use doubt, flag waving, and slogans to convey their message; in contrast, concerned ones appeal to emotions, fear, and authority; moreover, skeptical articles frame the issue as one of quality of life, policy, legality, economy, and politics, while concerned articles focus on health {\&} safety. We release our manually and automatically analyzed datasets to enable further research.",
+}
+
+@inproceedings{nakov-etal-2021-second,
+    title = "A Second Pandemic? Analysis of Fake News about {COVID}-19 Vaccines in {Q}atar",
+    author = "Nakov, Preslav  and
+      Alam, Firoj  and
+      Shaar, Shaden  and
+      Da San Martino, Giovanni  and
+      Zhang, Yifan",
+    booktitle = "Proceedings of the International Conference on Recent Advances in Natural Language Processing (RANLP 2021)",
+    month = sep,
+    year = "2021",
+    address = "Held Online",
+    publisher = "INCOMA Ltd.",
+    url = "https://aclanthology.org/2021.ranlp-1.114",
+    pages = "1010--1021",
+    abstract = "While COVID-19 vaccines are finally becoming widely available, a second pandemic that revolves around the circulation of anti-vaxxer {``}fake news{''} may hinder efforts to recover from the first one. With this in mind, we performed an extensive analysis of Arabic and English tweets about COVID-19 vaccines, with focus on messages originating from Qatar. We found that Arabic tweets contain a lot of false information and rumors, while English tweets are mostly factual. However, English tweets are much more propagandistic than Arabic ones. In terms of propaganda techniques, about half of the Arabic tweets express doubt, and 1/5 use loaded language, while English tweets are abundant in loaded language, exaggeration, fear, name-calling, doubt, and flag-waving. Finally, in terms of framing, Arabic tweets adopt a health and safety perspective, while in English economic concerns dominate.",
+}
+
+@inproceedings{dimitrov-etal-2021-semeval,
+    title = "{S}em{E}val-2021 Task 6: Detection of Persuasion Techniques in Texts and Images",
+    author = "Dimitrov, Dimitar  and
+      Bin Ali, Bishr  and
+      Shaar, Shaden  and
+      Alam, Firoj  and
+      Silvestri, Fabrizio  and
+      Firooz, Hamed  and
+      Nakov, Preslav  and
+      Da San Martino, Giovanni",
+    booktitle = "Proceedings of the 15th International Workshop on Semantic Evaluation (SemEval-2021)",
+    month = aug,
+    year = "2021",
+    address = "Online",
+    publisher = "Association for Computational Linguistics",
+    url = "https://aclanthology.org/2021.semeval-1.7",
+    doi = "10.18653/v1/2021.semeval-1.7",
+    pages = "70--98",
+    abstract = "We describe SemEval-2021 task 6 on Detection of Persuasion Techniques in Texts and Images: the data, the annotation guidelines, the evaluation setup, the results, and the participating systems. The task focused on memes and had three subtasks: (i) detecting the techniques in the text, (ii) detecting the text spans where the techniques are used, and (iii) detecting techniques in the entire meme, i.e., both in the text and in the image. It was a popular task, attracting 71 registrations, and 22 teams that eventually made an official submission on the test set. The evaluation results for the third subtask confirmed the importance of both modalities, the text and the image. Moreover, some teams reported benefits when not just combining the two modalities, e.g., by using early or late fusion, but rather modeling the interaction between them in a joint model.",
+}
+
+
+@inproceedings{da-san-martino-etal-2020-prta,
+    title = "{P}rta: A System to Support the Analysis of Propaganda Techniques in the News",
+    author = "Da San Martino, Giovanni  and
+      Shaar, Shaden  and
+      Zhang, Yifan  and
+      Yu, Seunghak  and
+      Barr{\'o}n-Cede{\~n}o, Alberto  and
+      Nakov, Preslav",
+    booktitle = "Proceedings of the 58th Annual Meeting of the Association for Computational Linguistics: System Demonstrations",
+    month = jul,
+    year = "2020",
+    address = "Online",
+    publisher = "Association for Computational Linguistics",
+    url = "https://aclanthology.org/2020.acl-demos.32",
+    doi = "10.18653/v1/2020.acl-demos.32",
+    pages = "287--293",
+    abstract = "Recent events, such as the 2016 US Presidential Campaign, Brexit and the COVID-19 {``}infodemic{''}, have brought into the spotlight the dangers of online disinformation. There has been a lot of research focusing on fact-checking and disinformation detection. However, little attention has been paid to the specific rhetorical and psychological techniques used to convey propaganda messages. Revealing the use of such techniques can help promote media literacy and critical thinking, and eventually contribute to limiting the impact of {``}fake news{''} and disinformation campaigns. Prta (Propaganda Persuasion Techniques Analyzer) allows users to explore the articles crawled on a regular basis by highlighting the spans in which propaganda techniques occur and to compare them on the basis of their use of propaganda techniques. The system further reports statistics about the use of such techniques, overall and over time, or according to filtering criteria specified by the user based on time interval, keywords, and/or political orientation of the media. Moreover, it allows users to analyze any text or URL through a dedicated interface or via an API. The system is available online: https://www.tanbih.org/prta.",
+}
+
+@inproceedings{shaar-etal-2020-known,
+    title = "That is a Known Lie: Detecting Previously Fact-Checked Claims",
+    author = "Shaar, Shaden  and
+      Babulkov, Nikolay  and
+      Da San Martino, Giovanni  and
+      Nakov, Preslav",
+    booktitle = "Proceedings of the 58th Annual Meeting of the Association for Computational Linguistics",
+    month = jul,
+    year = "2020",
+    address = "Online",
+    publisher = "Association for Computational Linguistics",
+    url = "https://aclanthology.org/2020.acl-main.332",
+    doi = "10.18653/v1/2020.acl-main.332",
+    pages = "3607--3618",
+    abstract = "The recent proliferation of {''}fake news{''} has triggered a number of responses, most notably the emergence of several manual fact-checking initiatives. As a result and over time, a large number of fact-checked claims have been accumulated, which increases the likelihood that a new claim in social media or a new statement by a politician might have already been fact-checked by some trusted fact-checking organization, as viral claims often come back after a while in social media, and politicians like to repeat their favorite statements, true or false, over and over again. As manual fact-checking is very time-consuming (and fully automatic fact-checking has credibility issues), it is important to try to save this effort and to avoid wasting time on claims that have already been fact-checked. Interestingly, despite the importance of the task, it has been largely ignored by the research community so far. Here, we aim to bridge this gap. In particular, we formulate the task and we discuss how it relates to, but also differs from, previous work. We further create a specialized dataset, which we release to the research community. Finally, we present learning-to-rank experiments that demonstrate sizable improvements over state-of-the-art retrieval and textual similarity approaches.",
+}
+
+@inproceedings{Nakov2021AutomatedFF,
+  title={Automated Fact-Checking for Assisting Human Fact-Checkers},
+  author={Preslav Nakov and David P. A. Corney and Maram Hasanain and Firoj Alam and Tamer Elsayed and Alberto Barr'on-Cedeno and Paolo Papotti and Shaden Shaar and Giovanni Da San Martino},
+  booktitle={International Joint Conference on Artificial Intelligence},
+  year={2021}
+}
+
+@article{Alam_Dalvi_Shaar_Durrani_Mubarak_Nikolov_Da San Martino_Abdelali_Sajjad_Darwish_Nakov_2021, title={Fighting the COVID-19 Infodemic in Social Media: A Holistic Perspective and a Call to Arms}, volume={15}, url={https://ojs.aaai.org/index.php/ICWSM/article/view/18114}, DOI={10.1609/icwsm.v15i1.18114}, abstractNote={With the outbreak of the COVID-19 pandemic, people turned to social media to read and to share timely information including statistics, warnings, advice, and inspirational stories. Unfortunately, alongside all this useful information, there was also a new blending of medical and political misinformation and disinformation, which gave rise to the first global infodemic. While fighting this infodemic is typically thought of in terms of factuality, the problem is much broader as malicious content includes not only fake news, rumors, and conspiracy theories, but also promotion of fake cures, panic, racism, xenophobia, and mistrust in the authorities, among others. This is a complex problem that needs a holistic approach combining the perspectives of journalists, fact-checkers, policymakers, government entities, social media platforms, and society as a whole. With this in mind, we define an annotation schema and detailed annotation instructions that reflect these perspectives. We further deploy a multilingual annotation platform, and we issue a call to arms to the research community and beyond to join the fight by supporting our crowdsourcing annotation efforts. We perform initial annotations using the annotation schema, and our initial experiments demonstrated sizable improvements over the baselines.}, number={1}, journal={Proceedings of the International AAAI Conference on Web and Social Media}, author={Alam, Firoj and Dalvi, Fahim and Shaar, Shaden and Durrani, Nadir and Mubarak, Hamdy and Nikolov, Alex and Da San Martino, Giovanni and Abdelali, Ahmed and Sajjad, Hassan and Darwish, Kareem and Nakov, Preslav}, year={2021}, month={May}, pages={913-922} }
+
+@INPROCEEDINGS{8638142,
+  author={Shaar, Shaden and Razak, Saquib and Dalvi, Fahim and Moosavi, Syed Ali Hashim},
+  booktitle={2018 IEEE 43rd Conference on Local Computer Networks (LCN)}, 
+  title={Group Identification in Crowded Environments Using Proximity Sensing}, 
+  year={2018},
+  volume={},
+  number={},
+  pages={319-322},
+  doi={10.1109/LCN.2018.8638142}}
+
+@INPROCEEDINGS{8614058,
+  author={Hassan, Sabit and Shaar, Shaden and Raj, Bhiksha and Razak, Saquib},
+  booktitle={2018 17th IEEE International Conference on Machine Learning and Applications (ICMLA)}, 
+  title={Interactive Evaluation of Classifiers Under Limited Resources}, 
+  year={2018},
+  volume={},
+  number={},
+  pages={173-180},
+  doi={10.1109/ICMLA.2018.00033}}
+

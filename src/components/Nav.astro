@@ -12,9 +12,10 @@ const links = [
 ---
 
 <header class="border-b border-zinc-200 dark:border-zinc-800 bg-paper/80 dark:bg-zinc-950/80 backdrop-blur-sm sticky top-0 z-20">
-  <div class="container-wide flex items-center justify-between py-4">
-    <a href="/" class="font-semibold tracking-tight text-ink dark:text-zinc-200">Shaden Shaar</a>
-    <nav class="flex items-center gap-5">
+  <div class="container-wide flex items-center justify-between gap-3 py-4">
+    <a href="/" class="font-semibold tracking-tight text-ink dark:text-zinc-200 shrink-0">Shaden Shaar</a>
+
+    <nav class="hidden md:flex items-center gap-5">
       {links.map((link) => (
         <a href={link.href} class="nav-link">
           {link.label}
@@ -22,5 +23,54 @@ const links = [
       ))}
       <ThemeToggle />
     </nav>
+
+    <div class="md:hidden flex items-center gap-2">
+      <ThemeToggle />
+      <button
+        id="mobile-menu-toggle"
+        type="button"
+        class="rounded-md p-2 text-ink-muted hover:text-ink dark:text-zinc-300 dark:hover:text-zinc-200 transition-colors"
+        aria-label="Toggle menu"
+        aria-expanded="false"
+        aria-controls="mobile-menu"
+      >
+        <svg class="block" width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
+          <line x1="3" y1="6" x2="21" y2="6"></line>
+          <line x1="3" y1="12" x2="21" y2="12"></line>
+          <line x1="3" y1="18" x2="21" y2="18"></line>
+        </svg>
+      </button>
+    </div>
   </div>
+
+  <nav id="mobile-menu" class="md:hidden hidden border-t border-zinc-200 dark:border-zinc-800 bg-paper dark:bg-zinc-950">
+    <ul class="container-wide py-3 flex flex-col gap-1">
+      {links.map((link) => (
+        <li>
+          <a href={link.href} class="block py-2 text-sm text-ink-muted hover:text-ink dark:text-zinc-300 dark:hover:text-zinc-50 transition-colors">
+            {link.label}
+          </a>
+        </li>
+      ))}
+    </ul>
+  </nav>
 </header>
+
+<script is:inline>
+  (() => {
+    const toggle = document.getElementById('mobile-menu-toggle');
+    const menu = document.getElementById('mobile-menu');
+    if (!toggle || !menu) return;
+    toggle.addEventListener('click', () => {
+      const isOpen = !menu.classList.contains('hidden');
+      menu.classList.toggle('hidden');
+      toggle.setAttribute('aria-expanded', String(!isOpen));
+    });
+    menu.addEventListener('click', (e) => {
+      if (e.target && e.target.tagName === 'A') {
+        menu.classList.add('hidden');
+        toggle.setAttribute('aria-expanded', 'false');
+      }
+    });
+  })();
+</script>

@@ -1,0 +1,65 @@
+---
+import BaseLayout from '../../layouts/BaseLayout.astro';
+import TableOfContents from '../../components/TableOfContents.astro';
+import { getCollection } from 'astro:content';
+import { publications, ME } from '../../data/publications';
+
+export async function getStaticPaths() {
+  const entries = await getCollection('research');
+  return entries.map((entry) => ({
+    params: { slug: entry.slug },
+    props: { entry },
+  }));
+}
+
+const { entry } = Astro.props;
+const { Content } = await entry.render();
+
+const associated = publications
+  .filter((p) => entry.data.pubs.includes(p.id) || p.projects.includes(entry.slug))
+  .sort((a, b) => b.year - a.year);
+---
+
+<BaseLayout title={entry.data.title} description={entry.data.summary}>
+  <TableOfContents />
+  <article class="container-prose pt-12 pb-12" data-toc-content>
+    <p class="text-sm uppercase tracking-widest text-ink-muted dark:text-zinc-400 mb-2">Research</p>
+    <h1 class="font-serif text-3xl md:text-4xl text-ink dark:text-zinc-200 mb-4">{entry.data.title}</h1>
+    <p class="text-lg text-ink-muted dark:text-zinc-300 mb-8 leading-relaxed">{entry.data.summary}</p>
+
+    <div class="prose dark:prose-invert max-w-none">
+      <Content />
+    </div>
+  </article>
+
+  {associated.length > 0 && (
+    <section class="container-prose pb-24">
+      <h2 class="text-sm font-mono text-ink-muted dark:text-zinc-400 tracking-wider mb-4">RELATED PUBLICATIONS</h2>
+      <ul class="divide-y divide-zinc-200 dark:divide-zinc-800">
+        {associated.map((pub) => (
+          <li class="py-4">
+            <div class="flex gap-4">
+              <span class="font-mono text-xs text-ink-muted dark:text-zinc-400 pt-1 w-10 shrink-0">{pub.year}</span>
+              <div>
+                <div class="font-medium text-ink dark:text-zinc-200 leading-snug">
+                  {pub.url ? (
+                    <a href={pub.url} class="hover:text-accent-700 dark:hover:text-accent-300 transition-colors">{pub.title}</a>
+                  ) : pub.title}
+                </div>
+                <div class="text-xs text-ink-muted dark:text-zinc-400 mt-1">
+                  {pub.authors.map((a, i) => (
+                    <span>
+                      <span class={a === ME ? 'font-semibold text-ink dark:text-zinc-200' : ''}>{a}</span>
+                      {i < pub.authors.length - 1 ? ', ' : ''}
+                    </span>
+                  ))}
+                </div>
+                <div class="text-xs text-ink-muted dark:text-zinc-400 mt-0.5 italic">{pub.venueShort ?? pub.venue}</div>
+              </div>
+            </div>
+          </li>
+        ))}
+      </ul>
+    </section>
+  )}
+</BaseLayout>

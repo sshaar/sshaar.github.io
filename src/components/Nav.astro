@@ -1,0 +1,26 @@
+---
+import ThemeToggle from './ThemeToggle.astro';
+
+const links = [
+  { href: '/#education', label: 'Education' },
+  { href: '/#awards', label: 'Awards' },
+  { href: '/#work', label: 'Work' },
+  { href: '/#publications', label: 'Publications' },
+  { href: '/#teaching', label: 'Teaching' },
+  { href: '/cv/', label: 'CV' },
+];
+---
+
+<header class="border-b border-zinc-200 dark:border-zinc-800 bg-paper/80 dark:bg-zinc-950/80 backdrop-blur-sm sticky top-0 z-20">
+  <div class="container-wide flex items-center justify-between py-4">
+    <a href="/" class="font-semibold tracking-tight text-ink dark:text-zinc-200">Shaden Shaar</a>
+    <nav class="flex items-center gap-5">
+      {links.map((link) => (
+        <a href={link.href} class="nav-link">
+          {link.label}
+        </a>
+      ))}
+      <ThemeToggle />
+    </nav>
+  </div>
+</header>

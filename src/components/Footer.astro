@@ -1,0 +1,11 @@
+---
+import SocialLinks from './SocialLinks.astro';
+const year = new Date().getFullYear();
+---
+
+<footer class="border-t border-zinc-200 dark:border-zinc-800 mt-24">
+  <div class="container-wide py-8 flex flex-col sm:flex-row items-start sm:items-center justify-between gap-4 text-sm text-ink-muted dark:text-zinc-300">
+    <div>© {year} Shaden Shaar</div>
+    <SocialLinks iconSize={16} />
+  </div>
+</footer>

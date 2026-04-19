@@ -1,0 +1,40 @@
+---
+title: Long-form Video QA & Narrative Understanding
+short: Video QA
+summary: Benchmarks and models for open-ended question answering over long-form video and narrative content, with an emphasis on semantic coherence across extended passages.
+status: active
+order: 3
+pubs:
+  - shaar-2026-movierecapsqa
+---
+
+Most video QA benchmarks are short-clip and multiple-choice. Narrative content — movies,
+episodes, long-form recordings — demands a different kind of reasoning: linking events
+across time, grounding references to people and objects, tracking narrative state, and
+producing open-ended answers rather than picking A/B/C/D.
+
+## Why short-clip benchmarks aren't enough
+
+A two-minute clip lets you test whether a model can read a single scene. A two-hour movie
+lets you test whether it can follow a plot. Those are different capabilities, and the gap
+grows as models get better at the former without necessarily getting better at the latter.
+
+## MovieRecapsQA
+
+Our CVPR 2026 benchmark pairs full movies with open-ended questions grounded in
+human-written recaps. The recaps provide a dense, narrative-aware supervision signal:
+instead of asking *what color is the car*, we ask *why did this character betray the other*,
+and answers are scored against human-authored explanations rather than a fixed choice set.
+
+## Evaluating open-ended answers at scale
+
+Open-ended video QA is hard to evaluate. Automatic metrics like ROUGE or exact match are
+poor proxies for narrative understanding. We're developing LLM-judge pipelines calibrated
+against human judgments, and studying where they fail — a direction that connects back to
+the broader theme of *long-form generation evaluation*.
+
+## What's next
+
+Bigger models, longer contexts, and richer reasoning. The open question: do we need new
+architectures to get narrative-level coherence, or does long-context training on the right
+data get us there?

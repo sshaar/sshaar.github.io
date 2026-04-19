@@ -1,0 +1,201 @@
+---
+import BaseLayout from '../layouts/BaseLayout.astro';
+import { getCollection } from 'astro:content';
+import { publications } from '../data/publications';
+
+const experiences = (await getCollection('experiences')).sort(
+  (a, b) => b.data.startDate.getTime() - a.data.startDate.getTime(),
+);
+
+const teachingAll = (await getCollection('teaching')).sort(
+  (a, b) => b.data.year - a.data.year || a.data.order - b.data.order,
+);
+const teachingCornell = teachingAll.filter((t) => t.data.institution === 'Cornell University');
+const teachingCMU = teachingAll.filter((t) => t.data.institution === 'Carnegie Mellon University');
+
+const selectedPubs = [...publications]
+  .sort((a, b) => b.year - a.year || (b.citations ?? 0) - (a.citations ?? 0))
+  .slice(0, 10);
+
+const fmtDate = (d: Date) =>
+  d.toLocaleDateString('en-US', { year: 'numeric', month: 'short' });
+
+const education = [
+  {
+    school: 'Cornell University',
+    location: 'Ithaca, NY',
+    degree: 'PhD, Computer Science',
+    detail: 'Minor: Applied Mathematics',
+    dates: '2021 — present',
+  },
+  {
+    school: 'Cornell University',
+    location: 'Ithaca, NY',
+    degree: 'M.S., Computer Science',
+    dates: '2021 — 2024',
+  },
+  {
+    school: 'Carnegie Mellon University',
+    location: 'Doha, Qatar',
+    degree: 'B.S., Computer Science',
+    detail: 'Minor: Mathematics · University Honors',
+    dates: '2015 — 2019',
+  },
+];
+
+const awards = [
+  { year: 2021, body: 'University Fellowship, Cornell University — for exceptional preparation and promise.' },
+  { year: 2020, body: 'Best Demo Award, Honorable Mention, ACL 2020 — for the Prta propaganda-analysis system.' },
+  { year: 2019, body: 'University Honors, Carnegie Mellon University — for outstanding GPA.' },
+  { year: 2017, body: "Dean's List, Carnegie Mellon University — F15, S16, F16, F17." },
+  { year: 2015, body: '50% Academic Merit Scholarship, Carnegie Mellon University.' },
+];
+
+const skills = [
+  { label: 'Programming', items: ['Python', 'C', 'SML', 'Assembly'] },
+  { label: 'Deep Learning', items: ['HuggingFace', 'PyTorch', 'TensorFlow', 'Keras'] },
+  { label: 'Machine Learning', items: ['scikit-learn'] },
+];
+---
+
+<BaseLayout title="CV" description="Curriculum vitae of Shaden Shaar.">
+  <article class="container-prose pt-12 pb-24">
+    <div class="flex flex-wrap items-baseline justify-between gap-4 mb-2">
+      <div>
+        <h1 class="font-serif text-3xl md:text-4xl text-ink dark:text-zinc-200 mb-1">Shaden Shaar</h1>
+        <p class="text-ink-muted dark:text-zinc-300">PhD Student · Cornell University · Computer Science</p>
+      </div>
+      <a
+        href="/cv.pdf"
+        class="text-sm rounded-md border border-zinc-300 dark:border-zinc-700 px-3 py-1.5 hover:border-accent-600 hover:text-accent-700 dark:hover:text-accent-300 transition-colors"
+      >
+        Download PDF
+      </a>
+    </div>
+    <p class="text-xs text-ink-muted dark:text-zinc-400 mb-10">
+      <a href="mailto:sshaar31@gmail.com" class="hover:text-accent-700 dark:hover:text-accent-300">sshaar31@gmail.com</a>
+      · Ithaca, NY
+    </p>
+
+    <section class="mb-12">
+      <h2 class="text-sm font-mono text-ink-muted dark:text-zinc-400 tracking-wider mb-4">RESEARCH INTERESTS</h2>
+      <p class="text-ink dark:text-zinc-200 leading-relaxed">
+        Natural Language Processing for complex textual analysis, specializing in
+        <strong>long-form text generation and evaluation</strong>. My current work explores
+        narrative summarization and document-level question answering, with an emphasis on
+        maintaining semantic coherence across extended passages. Previously, I developed
+        automated fact-checking systems and detection mechanisms for propaganda in
+        multi-length documents, contributing to information integrity in digital content.
+      </p>
+    </section>
+
+    <section class="mb-12">
+      <h2 class="text-sm font-mono text-ink-muted dark:text-zinc-400 tracking-wider mb-4">EDUCATION</h2>
+      <ul class="space-y-4">
+        {education.map((e) => (
+          <li class="grid grid-cols-[10rem_1fr] gap-4">
+            <div class="text-xs text-ink-muted dark:text-zinc-400 font-mono pt-1">{e.dates}</div>
+            <div>
+              <div class="font-medium text-ink dark:text-zinc-200">{e.degree}</div>
+              <div class="text-sm text-ink-muted dark:text-zinc-300">{e.school} · {e.location}</div>
+              {e.detail && <div class="text-xs text-ink-muted dark:text-zinc-400 mt-0.5">{e.detail}</div>}
+            </div>
+          </li>
+        ))}
+      </ul>
+    </section>
+
+    <section class="mb-12">
+      <h2 class="text-sm font-mono text-ink-muted dark:text-zinc-400 tracking-wider mb-4">EXPERIENCE</h2>
+      <ul class="space-y-5">
+        {experiences.map((e) => (
+          <li class="grid grid-cols-[10rem_1fr] gap-4">
+            <div class="text-xs text-ink-muted dark:text-zinc-400 font-mono pt-1">
+              {fmtDate(e.data.startDate)} — {e.data.ongoing ? 'present' : e.data.endDate ? fmtDate(e.data.endDate) : ''}
+            </div>
+            <div>
+              <div class="font-medium text-ink dark:text-zinc-200">{e.data.title}</div>
+              <div class="text-sm text-ink-muted dark:text-zinc-300">
+                {e.data.organization}{e.data.location ? ` · ${e.data.location}` : ''}
+              </div>
+            </div>
+          </li>
+        ))}
+      </ul>
+    </section>
+
+    <section class="mb-12">
+      <h2 class="text-sm font-mono text-ink-muted dark:text-zinc-400 tracking-wider mb-4">TEACHING</h2>
+
+      {teachingCornell.length > 0 && (
+        <>
+          <p class="text-xs text-ink-muted dark:text-zinc-400 mb-2 uppercase tracking-wider">Cornell University</p>
+          <ul class="space-y-2 mb-6">
+            {teachingCornell.map((t) => (
+              <li class="grid grid-cols-[10rem_1fr] gap-4">
+                <div class="text-xs text-ink-muted dark:text-zinc-400 font-mono pt-0.5">{t.data.term}</div>
+                <div class="text-sm text-ink dark:text-zinc-200">{t.data.title}</div>
+              </li>
+            ))}
+          </ul>
+        </>
+      )}
+
+      {teachingCMU.length > 0 && (
+        <>
+          <p class="text-xs text-ink-muted dark:text-zinc-400 mb-2 uppercase tracking-wider">Carnegie Mellon University</p>
+          <ul class="space-y-2">
+            {teachingCMU.map((t) => (
+              <li class="grid grid-cols-[10rem_1fr] gap-4">
+                <div class="text-xs text-ink-muted dark:text-zinc-400 font-mono pt-0.5">{t.data.term}</div>
+                <div class="text-sm text-ink dark:text-zinc-200">{t.data.title}</div>
+              </li>
+            ))}
+          </ul>
+        </>
+      )}
+    </section>
+
+    <section class="mb-12">
+      <div class="flex items-baseline justify-between mb-4">
+        <h2 class="text-sm font-mono text-ink-muted dark:text-zinc-400 tracking-wider">SELECTED PUBLICATIONS</h2>
+        <a href="/publications/" class="text-xs text-ink-muted hover:text-accent-700 dark:hover:text-accent-300 transition-colors">see all →</a>
+      </div>
+      <ul class="space-y-3">
+        {selectedPubs.map((p) => (
+          <li>
+            <div class="text-sm text-ink dark:text-zinc-200 leading-snug">{p.title}</div>
+            <div class="text-xs text-ink-muted dark:text-zinc-400">
+              <span class="italic">{p.venueShort ?? p.venue}</span> · {p.year}
+              {p.citations ? ` · ${p.citations} citations` : ''}
+            </div>
+          </li>
+        ))}
+      </ul>
+    </section>
+
+    <section class="mb-12">
+      <h2 class="text-sm font-mono text-ink-muted dark:text-zinc-400 tracking-wider mb-4">AWARDS & HONORS</h2>
+      <ul class="space-y-2">
+        {awards.map((a) => (
+          <li class="grid grid-cols-[10rem_1fr] gap-4">
+            <div class="text-xs text-ink-muted dark:text-zinc-400 font-mono pt-0.5">{a.year}</div>
+            <div class="text-sm text-ink dark:text-zinc-200">{a.body}</div>
+          </li>
+        ))}
+      </ul>
+    </section>
+
+    <section>
+      <h2 class="text-sm font-mono text-ink-muted dark:text-zinc-400 tracking-wider mb-4">TECHNICAL SKILLS</h2>
+      <ul class="space-y-2">
+        {skills.map((s) => (
+          <li class="grid grid-cols-[10rem_1fr] gap-4">
+            <div class="text-xs text-ink-muted dark:text-zinc-400 font-mono pt-0.5">{s.label}</div>
+            <div class="text-sm text-ink dark:text-zinc-200">{s.items.join(' · ')}</div>
+          </li>
+        ))}
+      </ul>
+    </section>
+  </article>
+</BaseLayout>

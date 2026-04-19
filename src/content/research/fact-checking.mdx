@@ -1,0 +1,47 @@
+---
+title: Fact-checking & Claim Detection
+short: Fact-checking
+summary: Building systems that assist human fact-checkers — identifying check-worthy claims, matching them to previously fact-checked evidence, and the shared-task ecosystem around them.
+status: past
+order: 1
+pubs:
+  - shaar-2020-known-lie
+  - shaar-2022-assisting-fact-checkers
+  - shaar-2021-context
+  - nakov-2021-automated-fact-checking-ijcai
+---
+
+Human fact-checkers are overwhelmed. Every hour, a flood of political claims, viral posts,
+and ambiguous half-truths arrives, and only a small fraction of them can be investigated in
+depth. My work in this area focused on *assisting* fact-checkers rather than replacing them:
+surfacing which claims deserve a closer look, and — when a claim has already been checked
+somewhere — finding that prior verdict quickly.
+
+## Check-worthiness estimation
+
+Given a stream of tweets or debate transcripts, predict which sentences a fact-checker
+would actually choose to verify. The signal here is subtle: many claims are technically
+falsifiable but pragmatically unimportant, and prioritization is a core bottleneck in
+real-world fact-checking operations.
+
+## Previously fact-checked claim matching
+
+Given a new claim, retrieve the most relevant already-fact-checked claim from a database of
+past verdicts — the "known lie" problem. Our ACL 2020 paper *That Is a Known Lie* introduced
+the task; follow-ups explored the role of *context* (the surrounding document) and the
+document-level variant of the problem, where multiple claims need to be matched jointly.
+
+## Shared-task infrastructure
+
+The CLEF **CheckThat!** lab has run yearly tasks on these problems since 2018, driving
+reproducible benchmarks for the community. I co-organized the English tracks in 2020 and
+2021, and contributed to lab overviews through 2022. These shared tasks shaped how the
+community measures progress on the assistive-fact-checking problem.
+
+## Why I stepped back
+
+The pandemic-era work (below) was intense and largely convergent — the same core methods
+applied across many languages and platforms. After 2022, I shifted my focus to long-form
+generation and evaluation, which I felt had more open questions and room to develop a
+distinctive research agenda. The fact-checking work continues without me; the infrastructure
+is in good hands.

@@ -1,0 +1,128 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+@layer base {
+  html {
+    scroll-behavior: smooth;
+    scroll-padding-top: 6rem;
+  }
+
+  :root {
+    color-scheme: light;
+    --bg: 250 250 249;
+    --bg-raised: 255 255 255;
+    --fg: 24 24 27;
+    --fg-muted: 82 82 91;
+    --border: 228 228 231;
+    --accent: 29 78 216;
+  }
+
+  html.dark {
+    color-scheme: dark;
+    --bg: 12 12 14;
+    --bg-raised: 24 24 27;
+    --fg: 228 228 231;       /* zinc-200 — softer than pure white */
+    --fg-muted: 212 212 216; /* zinc-300 — brighter so muted text stays readable */
+    --border: 39 39 42;
+    --accent: 96 165 250;
+  }
+
+  html {
+    font-family: 'Inter', ui-sans-serif, system-ui, sans-serif;
+    font-feature-settings: 'ss01', 'cv11';
+    -webkit-font-smoothing: antialiased;
+    text-rendering: optimizeLegibility;
+  }
+
+  body {
+    background-color: rgb(var(--bg));
+    color: rgb(var(--fg));
+    transition: background-color 200ms ease, color 200ms ease;
+  }
+
+  ::selection {
+    background-color: rgb(var(--accent) / 0.2);
+  }
+
+  a {
+    text-underline-offset: 2px;
+  }
+
+  hr {
+    border-color: rgb(var(--border));
+  }
+}
+
+@layer components {
+  .container-prose {
+    @apply mx-auto max-w-2xl px-6 md:px-8;
+  }
+
+  .container-wide {
+    @apply mx-auto max-w-4xl px-6 md:px-8;
+  }
+
+  .nav-link {
+    @apply text-sm text-ink-muted hover:text-ink transition-colors dark:text-zinc-300 dark:hover:text-zinc-200;
+  }
+
+  .nav-link.is-active {
+    @apply text-ink dark:text-zinc-200;
+  }
+
+  .tag-chip {
+    @apply inline-flex items-center gap-1 rounded-full border border-zinc-200 dark:border-zinc-700
+      px-2.5 py-0.5 text-xs font-medium text-ink-muted dark:text-zinc-400
+      transition-colors hover:border-accent-600 hover:text-accent-700
+      dark:hover:border-accent-400 dark:hover:text-accent-300;
+  }
+
+  .tag-chip[aria-pressed='true'] {
+    @apply border-accent-700 bg-accent-50 text-accent-800
+      dark:border-accent-400 dark:bg-accent-900/30 dark:text-accent-200;
+  }
+
+  .pub-card {
+    @apply border-b border-zinc-200 dark:border-zinc-800 py-5;
+  }
+
+  .expandable {
+    @apply my-6 rounded-md border border-zinc-200 dark:border-zinc-800
+      bg-zinc-50/50 dark:bg-zinc-900/40;
+  }
+
+  .expandable > summary {
+    @apply cursor-pointer select-none px-4 py-2.5 text-sm font-medium
+      text-ink-muted dark:text-zinc-300 hover:text-ink dark:hover:text-zinc-200;
+  }
+
+  .expandable[open] > summary {
+    @apply border-b border-zinc-200 dark:border-zinc-800 text-ink dark:text-zinc-200;
+  }
+
+  .expandable-body {
+    @apply px-4 py-3 text-sm;
+  }
+}
+
+@layer utilities {
+  .animate-reveal {
+    opacity: 0;
+    transform: translateY(8px);
+    transition: opacity 500ms ease, transform 500ms ease;
+  }
+
+  .animate-reveal.is-visible {
+    opacity: 1;
+    transform: translateY(0);
+  }
+
+  @media (prefers-reduced-motion: reduce) {
+    .animate-reveal {
+      opacity: 1;
+      transform: none;
+      transition: none;
+    }
+  }
+}

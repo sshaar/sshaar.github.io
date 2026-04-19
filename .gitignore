@@ -1,0 +1,34 @@
+# build output
+dist/
+.output/
+
+# generated types
+.astro/
+
+# dependencies
+node_modules/
+
+# logs
+npm-debug.log*
+yarn-debug.log*
+yarn-error.log*
+pnpm-debug.log*
+
+# environment
+.env
+.env.production
+.env.local
+
+# macOS
+.DS_Store
+
+# editor
+.vscode/
+.idea/
+*.swp
+
+# original CV source (served version lives at public/cv.pdf)
+Shaden_PhD_application_CV*.pdf
+
+# claude
+.claude/

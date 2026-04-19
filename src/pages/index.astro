@@ -1,0 +1,213 @@
+---
+import BaseLayout from '../layouts/BaseLayout.astro';
+import TableOfContents from '../components/TableOfContents.astro';
+import ScrollReveal from '../components/ScrollReveal.astro';
+import PublicationList from '../components/PublicationList.tsx';
+import SocialLinks from '../components/SocialLinks.astro';
+import { getCollection } from 'astro:content';
+import { publications, ME } from '../data/publications';
+import { projects } from '../data/projects';
+
+const researchActive = (await getCollection('research'))
+  .filter((r) => r.data.status === 'active')
+  .sort((a, b) => a.data.order - b.data.order);
+const researchPast = (await getCollection('research'))
+  .filter((r) => r.data.status === 'past')
+  .sort((a, b) => a.data.order - b.data.order);
+
+const experiences = (await getCollection('experiences')).sort(
+  (a, b) => b.data.startDate.getTime() - a.data.startDate.getTime(),
+);
+
+const teachingAll = (await getCollection('teaching')).sort(
+  (a, b) => b.data.year - a.data.year || a.data.order - b.data.order,
+);
+const teachingCornell = teachingAll.filter((t) => t.data.institution === 'Cornell University');
+const teachingCMU = teachingAll.filter((t) => t.data.institution === 'Carnegie Mellon University');
+
+const pubs = [...publications].sort((a, b) => b.year - a.year);
+
+const fmtDate = (d: Date) =>
+  d.toLocaleDateString('en-US', { year: 'numeric', month: 'short' });
+
+const education = [
+  { school: 'Cornell University', location: 'Ithaca, NY', degree: 'PhD, Computer Science', detail: 'Minor: Applied Mathematics', dates: '2021 — present' },
+  { school: 'Cornell University', location: 'Ithaca, NY', degree: 'M.S., Computer Science', dates: '2021 — 2024' },
+  { school: 'Carnegie Mellon University', location: 'Doha, Qatar', degree: 'B.S., Computer Science', detail: 'Minor: Mathematics · University Honors', dates: '2015 — 2019' },
+];
+
+const awards = [
+  { year: 2021, body: 'Cornell University Fellowship' },
+  { year: 2020, body: 'ACL 2020 Best Demo — Honorable Mention (Prta)' },
+  { year: 2019, body: 'Graduated with University Honors, Carnegie Mellon University' },
+  { year: 2017, body: "Dean's List — Carnegie Mellon (F15, S16, F16, F17)" },
+  { year: 2015, body: '50% Academic Merit Scholarship, Carnegie Mellon University' },
+];
+---
+
+<BaseLayout>
+  <TableOfContents selector="h2, h3.toc-item" />
+  <div data-toc-content>
+    <section class="container-wide pt-16 md:pt-24 pb-20">
+      <ScrollReveal>
+        <div class="grid md:grid-cols-[1fr_auto] gap-8 md:gap-12 items-start">
+          <div class="order-2 md:order-1 max-w-2xl">
+            <h1 class="font-serif text-5xl md:text-6xl leading-tight text-ink dark:text-zinc-200 mb-3">
+              Shaden Shaar
+            </h1>
+            <p class="text-base md:text-lg uppercase tracking-widest text-ink-muted dark:text-zinc-400 mb-8">
+              PhD Candidate @ Cornell University
+            </p>
+            <div class="space-y-4 text-lg text-ink-muted dark:text-zinc-300 leading-relaxed">
+              <p>
+                I'm a PhD Candidate in Computer Science at Cornell, advised by
+                <a href="https://www.cs.cornell.edu/home/cardie/" class="underline underline-offset-2 decoration-accent-600 hover:text-accent-700 dark:hover:text-accent-300">Claire Cardie</a>,
+                working on <strong>long-form generation in multi-modal settings</strong> —
+                specifically
+                <a href="/research/multimodal-video-qa/" class="underline underline-offset-2 decoration-accent-600 hover:text-accent-700 dark:hover:text-accent-300">long-form video QA and narrative understanding</a>
+                and
+                <a href="/research/clinical/" class="underline underline-offset-2 decoration-accent-600 hover:text-accent-700 dark:hover:text-accent-300">clinical NLP</a>,
+                with a focus on the semantic coherence that makes extended reasoning possible.
+              </p>
+              <p>
+                Before Cornell, I spent two years at
+                <a href="https://www.hbku.edu.qa/en/qcri" class="underline underline-offset-2 decoration-accent-600 hover:text-accent-700 dark:hover:text-accent-300">QCRI</a>
+                on automated
+                <a href="/research/fact-checking/" class="underline underline-offset-2 decoration-accent-600 hover:text-accent-700 dark:hover:text-accent-300">fact-checking and claim detection</a>,
+                <a href="/research/covid/" class="underline underline-offset-2 decoration-accent-600 hover:text-accent-700 dark:hover:text-accent-300">COVID-19 misinformation</a>,
+                and
+                <a href="/research/propaganda/" class="underline underline-offset-2 decoration-accent-600 hover:text-accent-700 dark:hover:text-accent-300">propaganda and persuasion detection</a>,
+                co-organizing several editions of the CLEF <em>CheckThat!</em> shared-task
+                series — work that shaped how I think about machines reading carefully, at scale.
+              </p>
+            </div>
+            <SocialLinks class="mt-6" />
+          </div>
+          <div class="order-1 md:order-2 shrink-0">
+            <img
+              src="/portrait.jpg"
+              alt="Shaden Shaar"
+              width="280"
+              height="326"
+              class="w-48 md:w-64 lg:w-72 aspect-[6/7] object-cover rounded-lg shadow-sm ring-1 ring-zinc-200 dark:ring-zinc-800"
+            />
+          </div>
+        </div>
+      </ScrollReveal>
+    </section>
+
+    <section class="container-wide pb-20">
+      <ScrollReveal>
+        <h2 id="education" class="font-serif text-2xl md:text-3xl text-ink dark:text-zinc-200 mb-6">Education</h2>
+        <ul class="space-y-4 max-w-2xl">
+          {education.map((e, i) => (
+            <li class="grid grid-cols-[10rem_1fr] gap-4">
+              <h3 id={`edu-${i}`} class="toc-item text-xs text-ink-muted dark:text-zinc-400 font-mono pt-1 font-normal scroll-mt-24">{e.dates}</h3>
+              <div>
+                <div class="font-medium text-ink dark:text-zinc-200">{e.degree}</div>
+                <div class="text-sm text-ink-muted dark:text-zinc-300">{e.school} · {e.location}</div>
+                {e.detail && <div class="text-xs text-ink-muted dark:text-zinc-400 mt-0.5">{e.detail}</div>}
+              </div>
+            </li>
+          ))}
+        </ul>
+      </ScrollReveal>
+    </section>
+
+    <section class="container-wide pb-20">
+      <ScrollReveal>
+        <h2 id="awards" class="font-serif text-2xl md:text-3xl text-ink dark:text-zinc-200 mb-6">Awards & Honors</h2>
+        <ul class="space-y-2 max-w-2xl">
+          {awards.map((a) => (
+            <li class="grid grid-cols-[10rem_1fr] gap-4">
+              <div class="text-xs text-ink-muted dark:text-zinc-400 font-mono pt-0.5">{a.year}</div>
+              <div class="text-sm text-ink dark:text-zinc-200">{a.body}</div>
+            </li>
+          ))}
+        </ul>
+      </ScrollReveal>
+    </section>
+
+    <section class="container-wide pb-20">
+      <ScrollReveal>
+        <h2 id="work" class="font-serif text-2xl md:text-3xl text-ink dark:text-zinc-200 mb-6">Work Experience</h2>
+        <ul class="space-y-5 max-w-2xl">
+          {experiences.map((e, i) => (
+            <li class="grid grid-cols-[10rem_1fr] gap-4">
+              <h3 id={`exp-${i}`} class="toc-item text-xs text-ink-muted dark:text-zinc-400 font-mono pt-1 font-normal scroll-mt-24">
+                {fmtDate(e.data.startDate)} — {e.data.ongoing ? 'present' : e.data.endDate ? fmtDate(e.data.endDate) : ''}
+              </h3>
+              <div>
+                <div class="font-medium text-ink dark:text-zinc-200">{e.data.title}</div>
+                <div class="text-sm text-ink-muted dark:text-zinc-300">
+                  {e.data.organization}{e.data.location ? ` · ${e.data.location}` : ''}
+                </div>
+              </div>
+            </li>
+          ))}
+        </ul>
+      </ScrollReveal>
+    </section>
+
+    <section class="container-wide pb-20">
+      <ScrollReveal>
+        <h2 id="publications" class="font-serif text-2xl md:text-3xl text-ink dark:text-zinc-200 mb-4">Publications</h2>
+        <p class="text-ink-muted dark:text-zinc-300 mb-8 max-w-2xl">
+          {publications.length} papers across {projects.length} research threads. Filter by
+          project or search to narrow down. Also on
+          <a href="https://scholar.google.com/citations?user=yMArLRcAAAAJ" class="underline underline-offset-2 decoration-accent-600 hover:text-accent-700 dark:hover:text-accent-300">Google Scholar</a>.
+        </p>
+        <PublicationList client:load publications={pubs} projects={projects} me={ME} />
+      </ScrollReveal>
+    </section>
+
+    <section class="container-wide pb-20">
+      <ScrollReveal>
+        <h2 id="teaching" class="font-serif text-2xl md:text-3xl text-ink dark:text-zinc-200 mb-6">Teaching</h2>
+
+        <div class="max-w-2xl">
+          {teachingCornell.length > 0 && (
+            <>
+              <p class="text-xs font-mono tracking-widest text-ink-muted dark:text-zinc-400 mb-3">Cornell University</p>
+              <ul class="space-y-2 mb-6">
+                {teachingCornell.map((t) => (
+                  <li class="grid grid-cols-[10rem_1fr] gap-4">
+                    <div class="text-xs text-ink-muted dark:text-zinc-400 font-mono pt-0.5">{t.data.term}</div>
+                    <div class="text-sm text-ink dark:text-zinc-200">{t.data.title}</div>
+                  </li>
+                ))}
+              </ul>
+            </>
+          )}
+
+          {teachingCMU.length > 0 && (
+            <>
+              <p class="text-xs font-mono tracking-widest text-ink-muted dark:text-zinc-400 mb-3">Carnegie Mellon University</p>
+              <ul class="space-y-2">
+                {teachingCMU.map((t) => (
+                  <li class="grid grid-cols-[10rem_1fr] gap-4">
+                    <div class="text-xs text-ink-muted dark:text-zinc-400 font-mono pt-0.5">{t.data.term}</div>
+                    <div class="text-sm text-ink dark:text-zinc-200">{t.data.title}</div>
+                  </li>
+                ))}
+              </ul>
+            </>
+          )}
+        </div>
+      </ScrollReveal>
+    </section>
+
+    <section class="container-wide pb-24">
+      <ScrollReveal>
+        <h2 id="contact" class="font-serif text-2xl md:text-3xl text-ink dark:text-zinc-200 mb-4">Contact</h2>
+        <p class="text-ink-muted dark:text-zinc-300 leading-relaxed max-w-2xl mb-6">
+          Happy to hear from potential collaborators or anyone curious about the work.
+          The best way to reach me is by email:
+          <a href="mailto:sshaar31@gmail.com" class="underline underline-offset-2 decoration-accent-600 hover:text-accent-700 dark:hover:text-accent-300"><code>sshaar31@gmail.com</code></a>.
+          A printable CV is available at <a href="/cv/" class="underline underline-offset-2 decoration-accent-600 hover:text-accent-700 dark:hover:text-accent-300">/cv</a>.
+        </p>
+        <SocialLinks iconSize={20} />
+      </ScrollReveal>
+    </section>
+  </div>
+</BaseLayout>

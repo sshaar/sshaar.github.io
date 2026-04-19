@@ -1,0 +1,13 @@
+---
+interface Props {
+  summary: string;
+}
+const { summary } = Astro.props;
+---
+
+<details class="expandable">
+  <summary>{summary}</summary>
+  <div class="expandable-body prose prose-sm dark:prose-invert max-w-none">
+    <slot />
+  </div>
+</details>

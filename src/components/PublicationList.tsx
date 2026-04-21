@@ -16,6 +16,34 @@ const typeLabel: Record<Publication['type'], string> = {
   preprint: 'Preprint',
 };
 
+// Approximate calendar month each venue is typically held (1 = Jan … 12 = Dec).
+// Used to order venues within a year chronologically. Journals and unknown
+// venues fall back to 12 so they sort last.
+const VENUE_MONTH: Record<string, number> = {
+  ECIR: 4,
+  LREC: 5,
+  JHLT: 5,
+  ICWSM: 6,
+  NAACL: 6,
+  CVPR: 6,
+  ACL: 7,
+  NLP4IF: 7,
+  SemEval: 7,
+  IJCAI: 8,
+  ArgMining: 8,
+  CLEF: 9,
+  CEUR: 9,
+  RANLP: 9,
+  LCN: 10,
+  EMNLP: 11,
+  COLING: 12,
+  ICMLA: 12,
+  TACL: 12,
+  FACT: 12,
+};
+
+const venueMonth = (v: string): number => VENUE_MONTH[v] ?? 12;
+
 function formatAuthors(authors: string[], me: string) {
   return authors.map((a, i) => {
     const isMe = a === me;
@@ -62,7 +90,24 @@ export default function PublicationList({ publications, projects, me }: Props) {
       list.push(pub);
       byYear.set(pub.year, list);
     }
-    return [...byYear.entries()].sort((a, b) => b[0] - a[0]);
+    // For each year, cluster papers by venue (same conference contiguous)
+    // and order venues by their typical calendar month so the year reads
+    // chronologically.
+    return [...byYear.entries()]
+      .sort((a, b) => b[0] - a[0])
+      .map(([year, pubs]) => {
+        const byVenue = new Map<string, Publication[]>();
+        for (const pub of pubs) {
+          const key = pub.venueShort ?? pub.venue;
+          const list = byVenue.get(key) ?? [];
+          list.push(pub);
+          byVenue.set(key, list);
+        }
+        const venueGroups = [...byVenue.entries()].sort(
+          ([a], [b]) => venueMonth(a) - venueMonth(b) || a.localeCompare(b),
+        );
+        return { year, venueGroups };
+      });
   }, [filtered]);
 
   return (
@@ -113,17 +158,25 @@ export default function PublicationList({ publications, projects, me }: Props) {
         <p className="text-sm text-ink-muted dark:text-zinc-300 py-8">No publications match these filters.</p>
       )}
 
-      {grouped.map(([year, pubs]) => (
+      {grouped.map(({ year, venueGroups }) => (
         <section key={year} className="mb-10">
-          <h3
+          <h2
             id={`pub-${year}`}
-            className="toc-item text-sm font-mono text-ink-muted dark:text-zinc-400 mb-2 tracking-wider scroll-mt-24"
+            className="block h-0 overflow-hidden m-0 scroll-mt-24"
           >
-            {year}
-          </h3>
-          <ul>
-            {pubs.map((pub) => (
-              <li key={pub.id} className="pub-card">
+            <span className="sr-only">{year}</span>
+          </h2>
+          {venueGroups.map(([venue, venuePubs]) => (
+            <div key={venue} className="mb-4">
+              <h3
+                id={`pub-${year}-${venue.replace(/\s+/g, '-')}`}
+                className="toc-item block h-0 overflow-hidden m-0 scroll-mt-24"
+              >
+                <span className="sr-only">{venue}</span>
+              </h3>
+              <ul>
+                {venuePubs.map((pub) => (
+                  <li key={pub.id} className="pub-card">
                 <div className="flex flex-col gap-1.5">
                   <div>
                     {pub.url ? (
@@ -175,8 +228,10 @@ export default function PublicationList({ publications, projects, me }: Props) {
                   )}
                 </div>
               </li>
-            ))}
-          </ul>
+                ))}
+              </ul>
+            </div>
+          ))}
         </section>
       ))}
     </div>

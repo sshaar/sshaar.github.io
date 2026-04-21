@@ -15,6 +15,19 @@ export interface Publication {
   bibtex?: string;
   citations?: number;
   findings?: boolean;
+  /** Feature on the home page's "Selected papers" section. */
+  selected?: boolean;
+  /**
+   * Figure/poster/diagram for the selected card.
+   * Accepts any of:
+   *   - a basename like `movierecapsqa` (resolves to `/public/publications/movierecapsqa.{png,jpg,webp,...}`)
+   *   - a path relative to /public like `/publications/movierecapsqa.png`
+   *   - an absolute URL
+   * Supported extensions: .png .jpg .jpeg .webp .gif .svg .avif
+   */
+  image?: string;
+  /** Short 1-3 sentence blurb shown on the selected card. */
+  description?: string;
 }
 
 // Highlight author in rendered lists
@@ -32,6 +45,11 @@ export const publications: Publication[] = [
     year: 2026,
     type: 'journal',
     projects: ['clinical'],
+    url: 'https://www.jhltonline.org/article/S1053-2498(26)01051-X/fulltext',
+    selected: true,
+    image: '/publications/heart-transplant.jpg',
+    description:
+      'Uses an LLM to perform thematic analysis of accepted exception requests for heart transplant candidates, surfacing the clinical rationales that drive decisions in a setting where manual review at scale is infeasible.',
   },
   {
     id: 'shaar-2026-movierecapsqa',
@@ -43,6 +61,10 @@ export const publications: Publication[] = [
     type: 'conference',
     projects: ['multimodal-video-qa'],
     url: 'https://arxiv.org/abs/2601.02536',
+    selected: true,
+    image: '/publications/movierecapsqa.jpg',
+    description:
+      'An open-ended video-QA benchmark built from movie recaps that stress-tests whether models can reason over long-form narrative, not just short clips. Paired with baselines that expose a large gap between human and model performance on grounded, cross-modal questions.',
   },
   {
     id: 'shaar-2025-triggers',
@@ -52,8 +74,13 @@ export const publications: Publication[] = [
     venueShort: 'TACL',
     year: 2025,
     type: 'journal',
-    projects: [],
+    projects: ['event-extraction'],
     citations: 2,
+    url: 'https://direct.mit.edu/tacl/article/doi/10.1162/TACL.a.51/134151',
+    selected: true,
+    image: '/publications/triggers.jpg',
+    description:
+      'Revisits a long-standing assumption in event extraction — that explicit trigger annotations are required — and shows that trigger-free formulations can match or exceed trigger-based pipelines at the document level.',
   },
   {
     id: 'chaixanien-2024-pungene',
@@ -157,6 +184,11 @@ export const publications: Publication[] = [
     projects: ['fact-checking'],
     citations: 45,
     findings: true,
+    url: 'https://aclanthology.org/2022.findings-emnlp.151/',
+    selected: true,
+    image: '/publications/assisting-fact-checkers.jpg',
+    description:
+      'Scales fact-checked-claim detection from isolated sentences to full documents, where each claim must be located and matched jointly. Introduces a document-level dataset and retrieval+ranking system tuned for real fact-checker workflows.',
   },
   {
     id: 'nakov-2021-checkthat-overview',
@@ -336,6 +368,10 @@ export const publications: Publication[] = [
     projects: ['propaganda'],
     citations: 93,
     url: 'https://arxiv.org/abs/2005.05854',
+    selected: true,
+    image: '/publications/prta.jpg',
+    description:
+      'An end-to-end system for highlighting 18 propaganda techniques in news articles, paired with a public web interface. Recognized with an Honorable Mention for Best Demo at ACL 2020.',
   },
   {
     id: 'shaar-2020-known-lie',
@@ -347,6 +383,11 @@ export const publications: Publication[] = [
     type: 'conference',
     projects: ['fact-checking'],
     citations: 241,
+    url: 'https://aclanthology.org/2020.acl-main.332/',
+    selected: true,
+    image: '/publications/known-lie.jpg',
+    description:
+      'Formalizes "previously fact-checked claim detection" as a ranking task and releases the first dataset for it, showing that reusing existing fact-checks is a practical alternative to verifying every claim from scratch.',
   },
   {
     id: 'alam-2021-infodemic-emnlp',

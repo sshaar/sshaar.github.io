@@ -60,6 +60,14 @@ export const projects: ResearchProject[] = [
       'Identifying propositional and illocutionary relations in argumentative dialogue (DialAM 2024).',
   },
   {
+    slug: 'event-extraction',
+    name: 'Event Extraction',
+    short: 'Events',
+    color: 'amber',
+    summary:
+      'Document-level event extraction — revisiting whether trigger annotations are necessary and building trigger-free models that match or exceed trigger-based pipelines.',
+  },
+  {
     slug: 'clinical',
     name: 'Clinical & Applied NLP',
     short: 'Clinical',

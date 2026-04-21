@@ -1,0 +1,40 @@
+---
+import BaseLayout from '../layouts/BaseLayout.astro';
+import ScrollReveal from '../components/ScrollReveal.astro';
+import TableOfContents from '../components/TableOfContents.astro';
+import PublicationList from '../components/PublicationList.tsx';
+import { publications, ME } from '../data/publications';
+import { projects } from '../data/projects';
+
+const pubs = [...publications].sort((a, b) => b.year - a.year);
+---
+
+<BaseLayout
+  title="Publications"
+  description="Full list of publications by Shaden Shaar."
+>
+  <TableOfContents selector="h2, h3.toc-item" />
+  <div data-toc-content>
+    <section class="container-wide pt-16 md:pt-20 pb-12">
+      <ScrollReveal>
+        <p class="text-xs font-mono tracking-widest text-ink-muted dark:text-zinc-400 mb-3">
+          <a href="/" class="hover:text-ink dark:hover:text-zinc-200 transition-colors">← back</a>
+        </p>
+        <h1 class="font-serif text-4xl md:text-5xl leading-tight text-ink dark:text-zinc-200 mb-4">
+          Publications
+        </h1>
+        <p class="text-ink-muted dark:text-zinc-300 max-w-2xl">
+          {publications.length} papers across {projects.length} research threads. Filter by
+          project or search to narrow down. Also on
+          <a href="https://scholar.google.com/citations?user=yMArLRcAAAAJ" class="underline underline-offset-2 decoration-accent-600 hover:text-accent-700 dark:hover:text-accent-300">Google Scholar</a>.
+        </p>
+      </ScrollReveal>
+    </section>
+
+    <section class="container-wide pb-24">
+      <ScrollReveal>
+        <PublicationList client:load publications={pubs} projects={projects} me={ME} />
+      </ScrollReveal>
+    </section>
+  </div>
+</BaseLayout>

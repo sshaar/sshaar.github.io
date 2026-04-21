@@ -1,0 +1,144 @@
+---
+import fs from 'node:fs';
+import path from 'node:path';
+import type { Publication } from '../data/publications';
+import type { ResearchProject } from '../data/projects';
+import { COLOR_CLASSES } from '../data/projects';
+
+interface Props {
+  publications: Publication[];
+  projects: ResearchProject[];
+  me: string;
+}
+
+const { publications, projects, me } = Astro.props;
+
+const typeLabel: Record<Publication['type'], string> = {
+  journal: 'Journal',
+  conference: 'Conference',
+  workshop: 'Workshop',
+  preprint: 'Preprint',
+};
+
+const sorted = [...publications].sort((a, b) => b.year - a.year);
+
+const IMAGE_EXTS = ['.png', '.jpg', '.jpeg', '.webp', '.gif', '.svg', '.avif'];
+const pubsDir = path.resolve('./public/publications');
+const available = fs.existsSync(pubsDir) ? fs.readdirSync(pubsDir) : [];
+
+function resolveImage(image: string | undefined): string | null {
+  if (!image) return null;
+  if (/^(https?:)?\/\//.test(image)) return image;
+  const cleaned = image.replace(/^\/+/, '');
+  const fullPath = path.join('./public', cleaned);
+  if (path.extname(cleaned) && fs.existsSync(fullPath)) return '/' + cleaned;
+  const basename = path.basename(cleaned, path.extname(cleaned));
+  const match = available.find((f) => {
+    const ext = path.extname(f).toLowerCase();
+    return IMAGE_EXTS.includes(ext) && path.basename(f, ext) === basename;
+  });
+  return match ? `/publications/${match}` : null;
+}
+---
+
+<ul class="space-y-10">
+  {sorted.map((pub) => {
+    const resolvedImage = resolveImage(pub.image);
+    return (
+    <li class="grid md:grid-cols-[14rem_1fr] gap-5 md:gap-7 items-start">
+      <div class="shrink-0">
+        {resolvedImage ? (
+          <img
+            src={resolvedImage}
+            alt={`Figure from ${pub.title}`}
+            loading="lazy"
+            class="w-full aspect-[4/3] object-cover rounded-md ring-1 ring-zinc-200 dark:ring-zinc-800 bg-zinc-100 dark:bg-zinc-900"
+          />
+        ) : (
+          <div
+            class="w-full aspect-[4/3] rounded-md ring-1 ring-dashed ring-zinc-300 dark:ring-zinc-700 bg-zinc-50 dark:bg-zinc-900/60 flex items-center justify-center text-center px-3"
+            aria-label={`Placeholder for ${pub.venueShort ?? pub.venue} figure`}
+          >
+            <span class="font-mono text-[11px] uppercase tracking-widest text-ink-muted dark:text-zinc-400">
+              {pub.venueShort ?? pub.venue} {pub.year}
+            </span>
+          </div>
+        )}
+      </div>
+
+      <div class="flex flex-col gap-2">
+        <div>
+          {pub.url ? (
+            <a
+              href={pub.url}
+              class="font-serif text-xl md:text-2xl leading-snug text-ink dark:text-zinc-200 hover:text-accent-700 dark:hover:text-accent-300 transition-colors"
+            >
+              {pub.title}
+            </a>
+          ) : (
+            <span class="font-serif text-xl md:text-2xl leading-snug text-ink dark:text-zinc-200">
+              {pub.title}
+            </span>
+          )}
+        </div>
+
+        <div class="text-sm text-ink-muted dark:text-zinc-300">
+          {pub.authors.map((a, i) => {
+            const isMe = a === me;
+            const sep = i < pub.authors.length - 1 ? ', ' : '';
+            return isMe ? (
+              <><span class="font-semibold text-ink dark:text-zinc-200">{a}</span>{sep}</>
+            ) : (
+              <>{a}{sep}</>
+            );
+          })}
+        </div>
+
+        <div class="flex flex-wrap items-center gap-x-3 gap-y-1 text-xs text-ink-muted dark:text-zinc-400">
+          <span class="italic">{pub.venueShort ?? pub.venue}</span>
+          <span>·</span>
+          <span>{pub.year}</span>
+          {pub.findings && (
+            <>
+              <span>·</span>
+              <span>Findings</span>
+            </>
+          )}
+          <span>·</span>
+          <span>{typeLabel[pub.type]}</span>
+          {pub.citations !== undefined && pub.citations > 0 && (
+            <>
+              <span>·</span>
+              <span>{pub.citations} citation{pub.citations === 1 ? '' : 's'}</span>
+            </>
+          )}
+        </div>
+
+        {pub.description && (
+          <p class="mt-1 text-sm md:text-base leading-relaxed text-ink-muted dark:text-zinc-300 max-w-prose">
+            {pub.description}
+          </p>
+        )}
+
+        {pub.projects.length > 0 && (
+          <div class="mt-1 flex flex-wrap gap-1.5">
+            {pub.projects.map((slug) => {
+              const proj = projects.find((p) => p.slug === slug);
+              if (!proj) return null;
+              const colors = COLOR_CLASSES[proj.color];
+              return (
+                <a
+                  href={`/publications/#pub-${pub.year}`}
+                  class={`text-[11px] rounded-full px-2 py-0.5 font-medium transition-colors ${colors.tag}`}
+                >
+                  {proj.short ?? proj.name}
+                </a>
+              );
+            })}
+          </div>
+        )}
+      </div>
+    </li>
+    );
+  })}
+</ul>

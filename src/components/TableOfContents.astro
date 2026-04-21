@@ -59,10 +59,9 @@ const { selector = 'h2' } = Astro.props;
     const SVG_NS = 'http://www.w3.org/2000/svg';
     const STICKY_HEADER_OFFSET = 100;
 
-    const MINI_SLOT = 18;   // compact h2 when clustered at edges
+    const MINI_SLOT = 18;   // uniform stride between any two adjacent dots
     const Y_START = 10;
     const Y_END_PAD = 12;
-    const ACTIVE_BUFFER = 22; // gap between active h2 and its first sub
 
     let allHeadings = [];
     let parentOf = new Map();
@@ -70,6 +69,7 @@ const { selector = 'h2' } = Astro.props;
     let subsBySection = new Map();
     let activeSection = null;
     let lastSignature = '';
+    let topTag = 'h2';
 
     function queryHeadings() {
       const found = Array.from(content.querySelectorAll(selector)).filter(
@@ -86,9 +86,10 @@ const { selector = 'h2' } = Astro.props;
       parentOf = new Map();
       sectionIds = [];
       subsBySection = new Map();
+      topTag = allHeadings[0]?.tagName.toLowerCase() || 'h2';
       let cur = null;
       for (const h of allHeadings) {
-        if (h.tagName.toLowerCase() === 'h2') {
+        if (h.tagName.toLowerCase() === topTag) {
           cur = h.id;
           sectionIds.push(h.id);
           parentOf.set(h.id, null);
@@ -136,34 +137,20 @@ const { selector = 'h2' } = Astro.props;
 
       if (expanded) {
         const activeIdx = sectionIds.indexOf(activeSection);
-        const before = sectionIds.slice(0, activeIdx);
-        const after = sectionIds.slice(activeIdx + 1);
-        const topBlock = before.length * MINI_SLOT;
-        const bottomBlock = after.length * MINI_SLOT;
+        const ordered = [
+          ...sectionIds.slice(0, activeIdx),
+          activeSection,
+          ...activeSubs,
+          ...sectionIds.slice(activeIdx + 1),
+        ];
+        const gaps = Math.max(1, ordered.length - 1);
+        const naturalSpan = gaps * MINI_SLOT;
+        const availableSpan = yRange;
+        const stride = naturalSpan <= availableSpan ? MINI_SLOT : availableSpan / gaps;
 
-        before.forEach((sid, i) => {
-          positions.set(sid, yStart + i * MINI_SLOT);
-          visibilities.set(sid, true);
-        });
-
-        const mainStart = yStart + topBlock + (before.length ? 6 : 0);
-        positions.set(activeSection, mainStart);
-        visibilities.set(activeSection, true);
-
-        const mainEnd = yEnd - bottomBlock - (after.length ? 6 : 0);
-        const subStart = mainStart + ACTIVE_BUFFER;
-        const subSpaceEnd = Math.max(subStart + 1, mainEnd);
-        const subRange = subSpaceEnd - subStart;
-        const stride = activeSubs.length > 1 ? subRange / (activeSubs.length - 1) : 0;
-
-        activeSubs.forEach((subId, i) => {
-          positions.set(subId, activeSubs.length === 1 ? subStart + subRange / 2 : subStart + i * stride);
-          visibilities.set(subId, true);
-        });
-
-        after.forEach((sid, i) => {
-          positions.set(sid, yEnd - (after.length - i) * MINI_SLOT);
-          visibilities.set(sid, true);
+        ordered.forEach((id, i) => {
+          positions.set(id, yStart + i * stride);
+          visibilities.set(id, true);
         });
 
         // Park inactive subs at their parent's position, hidden
@@ -210,7 +197,7 @@ const { selector = 'h2' } = Astro.props;
       svg.appendChild(fill);
 
       allHeadings.forEach((h) => {
-        const isTop = h.tagName.toLowerCase() === 'h2';
+        const isTop = h.tagName.toLowerCase() === topTag;
         const r = isTop ? 3.5 : 2.5;
 
         const g = document.createElementNS(SVG_NS, 'g');
@@ -283,7 +270,7 @@ const { selector = 'h2' } = Astro.props;
         const activeIdx = sectionIds.indexOf(activeSection);
         const nextId = sectionIds[activeIdx + 1];
         const activeY = positions.get(activeSection) ?? Y_START;
-        const nextY = nextId ? positions.get(nextId) ?? activeY : activeY + BASE_SLOT;
+        const nextY = nextId ? positions.get(nextId) ?? activeY : activeY + MINI_SLOT;
 
         const activeEl = document.getElementById(activeSection);
         const nextEl = nextId ? document.getElementById(nextId) : null;

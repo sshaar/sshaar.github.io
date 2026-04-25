@@ -41,9 +41,31 @@ const awards = [
   { date: 'Jul 2020', body: 'Prta received an Honorable Mention for Best Demo at ACL 2020.' },
   { date: 'Aug 2015', body: 'Awarded a 50% Academic Merit Scholarship to attend Carnegie Mellon University.' },
 ];
+
+const personJsonLd = {
+  '@context': 'https://schema.org',
+  '@type': 'Person',
+  name: 'Shaden Shaar',
+  url: 'https://sshaar.github.io',
+  image: 'https://sshaar.github.io/portrait.jpg',
+  jobTitle: 'PhD Candidate in Computer Science',
+  affiliation: {
+    '@type': 'CollegeOrUniversity',
+    name: 'Cornell University',
+    url: 'https://www.cornell.edu',
+  },
+  alumniOf: [
+    { '@type': 'CollegeOrUniversity', name: 'Cornell University', url: 'https://www.cornell.edu' },
+    { '@type': 'CollegeOrUniversity', name: 'Carnegie Mellon University', url: 'https://www.cmu.edu' },
+  ],
+  sameAs: [
+    'https://github.com/sshaar',
+  ],
+};
 ---
 
 <BaseLayout>
+  <script type="application/ld+json" set:html={JSON.stringify(personJsonLd)} />
   <TableOfContents selector="h2" />
   <div data-toc-content>
     <section class="container-wide pt-16 md:pt-24 pb-20">

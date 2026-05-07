@@ -203,16 +203,6 @@ export const publications: Publication[] = [
     citations: 119,
   },
   {
-    id: 'nakov-2021-automated-fact-checking-korean',
-    title: '인간 팩트체커를 보조하는 팩트체크 자동화 (Automated Fact-Checking for Assisting Human Fact-Checkers)',
-    authors: ['P. Nakov', 'D. Corney', 'M. Hasanain', 'F. Alam', 'T. Elsayed', 'A. Barrón-Cedeño', ME, 'et al.'],
-    venue: '팩트체크 동향리포트 FACT',
-    venueShort: 'FACT',
-    year: 2021,
-    type: 'journal',
-    projects: ['fact-checking'],
-  },
-  {
     id: 'nakov-2021-bulgarian-covid',
     title: 'COVID-19 in Bulgarian Social Media: Factuality, Harmfulness, Propaganda, and Framing',
     authors: ['P. Nakov', 'F. Alam', ME, 'G. Da San Martino', 'Y. Zhang'],

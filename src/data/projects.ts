@@ -21,11 +21,11 @@ export interface ResearchProject {
 export const projects: ResearchProject[] = [
   {
     slug: 'multimodal-video-qa',
-    name: 'Multimodal & Video QA',
-    short: 'Video QA',
+    name: 'Multi-modal Long-form Generation',
+    short: 'Long-form Generation',
     color: 'sky',
     summary:
-      'Benchmarks and models for open-ended question answering over long-form video, focused on grounded reasoning across modalities.',
+      'Long-form question-answering and summarization over videos and other multi-modal narratives, with an emphasis on coherence across extended outputs.',
   },
   {
     slug: 'fact-checking',
@@ -69,11 +69,11 @@ export const projects: ResearchProject[] = [
   },
   {
     slug: 'clinical',
-    name: 'Clinical & Applied NLP',
+    name: 'Clinical NLP',
     short: 'Clinical',
     color: 'pink',
     summary:
-      'Applying LLMs to high-stakes medical decision narratives, including thematic analysis of heart transplant exception requests.',
+      'Using LLMs to surface clinical decision patterns from unstructured medical narratives, with a focus on heart failure and heart transplant care — in collaboration with NewYork-Presbyterian Hospital.',
   },
   {
     slug: 'values',

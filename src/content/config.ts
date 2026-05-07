@@ -47,6 +47,7 @@ const experiences = defineCollection({
     ongoing: z.boolean().default(false),
     url: z.string().url().optional(),
     description: z.string().optional(),
+    bullets: z.array(z.string()).default([]),
   }),
 });
 

@@ -1,0 +1,83 @@
+---
+import BaseLayout from '../../layouts/BaseLayout.astro';
+import { getCollection } from 'astro:content';
+import { publications } from '../../data/publications';
+
+const entries = await getCollection('research');
+const active = entries
+  .filter((e) => e.data.status === 'active')
+  .sort((a, b) => a.data.order - b.data.order);
+const past = entries
+  .filter((e) => e.data.status === 'past')
+  .sort((a, b) => a.data.order - b.data.order);
+
+const pubCount = (slug: string) =>
+  publications.filter((p) => p.projects.includes(slug)).length;
+---
+
+<BaseLayout title="Projects" description="Research projects and threads in long-form generation, clinical NLP, fact-checking, and propaganda detection.">
+  <article class="container-prose pt-12 pb-24">
+    <p class="text-sm uppercase tracking-widest text-ink-muted dark:text-zinc-400 mb-2">Projects</p>
+    <h1 class="font-serif text-3xl md:text-4xl text-ink dark:text-zinc-200 mb-4">Research Projects</h1>
+    <p class="text-lg text-ink-muted dark:text-zinc-300 mb-12 leading-relaxed max-w-2xl">
+      The threads that make up my research, grouped by where I am now and where I've been.
+      Each links to a longer write-up and the related publications.
+    </p>
+
+    {active.length > 0 && (
+      <section class="mb-12">
+        <h2 class="text-sm font-mono text-ink-muted dark:text-zinc-400 tracking-wider mb-6">CURRENT</h2>
+        <ul class="space-y-8">
+          {active.map((e) => (
+            <li>
+              <a
+                href={`/research/${e.slug}/`}
+                class="group block"
+              >
+                <div class="flex items-baseline justify-between gap-4 flex-wrap mb-1">
+                  <h3 class="font-serif text-xl md:text-2xl text-ink dark:text-zinc-200 group-hover:text-accent-700 dark:group-hover:text-accent-300 transition-colors">
+                    {e.data.title}
+                  </h3>
+                  <span class="text-xs text-ink-muted dark:text-zinc-400 font-mono">
+                    {pubCount(e.slug)} {pubCount(e.slug) === 1 ? 'paper' : 'papers'}
+                  </span>
+                </div>
+                <p class="text-sm text-ink-muted dark:text-zinc-300 leading-relaxed">
+                  {e.data.summary}
+                </p>
+              </a>
+            </li>
+          ))}
+        </ul>
+      </section>
+    )}
+
+    {past.length > 0 && (
+      <section>
+        <h2 class="text-sm font-mono text-ink-muted dark:text-zinc-400 tracking-wider mb-6">PRIOR</h2>
+        <ul class="space-y-8">
+          {past.map((e) => (
+            <li>
+              <a
+                href={`/research/${e.slug}/`}
+                class="group block"
+              >
+                <div class="flex items-baseline justify-between gap-4 flex-wrap mb-1">
+                  <h3 class="font-serif text-xl md:text-2xl text-ink dark:text-zinc-200 group-hover:text-accent-700 dark:group-hover:text-accent-300 transition-colors">
+                    {e.data.title}
+                  </h3>
+                  <span class="text-xs text-ink-muted dark:text-zinc-400 font-mono">
+                    {pubCount(e.slug)} {pubCount(e.slug) === 1 ? 'paper' : 'papers'}
+                  </span>
+                </div>
+                <p class="text-sm text-ink-muted dark:text-zinc-300 leading-relaxed">
+                  {e.data.summary}
+                </p>
+              </a>
+            </li>
+          ))}
+        </ul>
+      </section>
+    )}
+  </article>
+</BaseLayout>

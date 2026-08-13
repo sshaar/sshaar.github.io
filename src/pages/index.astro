@@ -1,6 +1,6 @@
 ---
 import BaseLayout from '../layouts/BaseLayout.astro';
-import TableOfContents from '../components/TableOfContents.astro';
+import SectionNav from '../components/SectionNav.astro';
 import ScrollReveal from '../components/ScrollReveal.astro';
 import SelectedPublications from '../components/SelectedPublications.astro';
 import SocialLinks from '../components/SocialLinks.astro';
@@ -8,98 +8,94 @@ import { getCollection } from 'astro:content';
 import { publications, ME } from '../data/publications';
 import { projects } from '../data/projects';
 
-const researchActive = (await getCollection('research'))
-  .filter((r) => r.data.status === 'active')
-  .sort((a, b) => a.data.order - b.data.order);
-const researchPast = (await getCollection('research'))
-  .filter((r) => r.data.status === 'past')
-  .sort((a, b) => a.data.order - b.data.order);
+const interests = [
+  {
+    title: 'NLP over long inputs',
+    status: 'current' as const,
+    summary:
+      'Question-answering and summarization over full-length videos and other extended, multi-modal narratives — including the long-form generation some of these tasks demand, and the challenge of evaluating open-ended outputs no fixed reference can capture.',
+  },
+  {
+    title: 'Clinical NLP',
+    status: 'current' as const,
+    summary:
+      'Using LLMs to surface clinical decision patterns from unstructured medical narratives, with a focus on heart failure and heart transplant care.',
+  },
+  {
+    title: 'Automated fact-checking',
+    status: 'prior' as const,
+    summary:
+      'Detecting, verifying, and justifying claim veracity across multi-modal, variable-length inputs.',
+  },
+  {
+    title: 'Propaganda detection',
+    status: 'prior' as const,
+    summary:
+      'Identifying propaganda and persuasion techniques across multi-modal inputs in news articles, memes, and other media.',
+  },
+  {
+    title: 'COVID-19 misinformation',
+    status: 'prior' as const,
+    summary:
+      'Analyzing misinformation, vaccine-related fake news, and the broader infodemic on social platforms during the COVID-19 pandemic.',
+  },
+];
 
 const experiences = (await getCollection('experiences')).sort(
   (a, b) => b.data.startDate.getTime() - a.data.startDate.getTime(),
 );
 
-const teachingAll = (await getCollection('teaching')).sort(
-  (a, b) => b.data.year - a.data.year || a.data.order - b.data.order,
-);
-const teachingCornell = teachingAll.filter((t) => t.data.institution === 'Cornell University');
-const teachingCMU = teachingAll.filter((t) => t.data.institution === 'Carnegie Mellon University');
-
 const selectedPubs = publications.filter((p) => p.selected);
 
-const fmtDate = (d: Date) =>
-  d.toLocaleDateString('en-US', { year: 'numeric', month: 'short' });
+// Format in UTC — frontmatter dates parse as UTC midnight, so local-time
+// formatting shifts them a month early in US timezones.
+const fmtMonth = (d: Date) =>
+  d.toLocaleDateString('en-US', { month: 'short', timeZone: 'UTC' });
+const fmtMonthYear = (d: Date) =>
+  d.toLocaleDateString('en-US', { year: 'numeric', month: 'short', timeZone: 'UTC' });
+
+// "May — Aug 2025" when the range stays within one year, otherwise
+// "Jul 2019 — Aug 2021".
+const fmtRange = (start: Date, end: Date | undefined, ongoing: boolean) => {
+  if (ongoing || !end) return `${fmtMonthYear(start)} — present`;
+  if (start.getUTCFullYear() === end.getUTCFullYear())
+    return `${fmtMonth(start)} — ${fmtMonthYear(end)}`;
+  return `${fmtMonthYear(start)} — ${fmtMonthYear(end)}`;
+};
+
+const sections = [
+  { id: 'about', label: 'About' },
+  { id: 'news', label: 'News' },
+  { id: 'research', label: 'Research' },
+  { id: 'experience', label: 'Experience' },
+  { id: 'publications', label: 'Publications' },
+  { id: 'education', label: 'Education' },
+  { id: 'contact', label: 'Contact' },
+];
+
+const news = [
+  {
+    date: 'Jun 2026',
+    body: '<em>MovieRecapsQA</em>, our open-ended benchmark for question-answering over full-length movies, appeared at <strong>CVPR 2026</strong>.',
+  },
+  {
+    date: 'May 2026',
+    body: 'Our <strong>JHLT</strong> paper with NewYork-Presbyterian uses an LLM for thematic analysis of accepted heart-transplant exception requests.',
+  },
+  {
+    date: 'Aug 2025',
+    body: 'Wrapped up a summer as an Applied Scientist Intern at <strong>Zillow</strong>, building conversational real-estate agents with reinforcement learning.',
+  },
+  {
+    date: 'May 2025',
+    body: '"Are Triggers Needed for Document-Level Event Extraction?" was published in <strong>TACL</strong>. Also finished an ML research engineering internship at <strong>Scale AI</strong>.',
+  },
+];
 
 const education = [
-  { school: 'Cornell University', location: 'Ithaca, NY, USA', degree: 'Ph.D. in Computer Science', detail: 'Minor: Applied Mathematics.', dates: 'Aug. 2021 — Present' },
-  { school: 'Cornell University', location: 'Ithaca, NY, USA', degree: 'M.S. in Computer Science', dates: 'Aug. 2021 — May 2024' },
-  { school: 'Carnegie Mellon University', location: 'Doha, Qatar', degree: 'B.S. in Computer Science', detail: 'Minor in Mathematics; University Honors', dates: 'Aug. 2015 — May 2019' },
-];
-
-const awards = [
-  { date: '2021', title: 'University Fellowship', detail: 'Cornell University, awarded for exceptional preparation and promise.' },
-  { date: '2020', title: 'Best Demo Award (Honorable Mention)', detail: 'ACL 2020, for Prta: A System to Support the Analysis of Propaganda Techniques.' },
-  { date: '2019', title: 'University Honors', detail: 'Carnegie Mellon University, for outstanding cumulative GPA.' },
-  { date: '2019', title: 'Dean’s List (5 awards)', detail: 'Carnegie Mellon University: F15, S16, F16, F17.' },
-  { date: '2015', title: '50% Academic Merit Scholarship', detail: 'Carnegie Mellon University, awarded to a select group of incoming students.' },
-];
-
-const interests = [
-  {
-    title: 'Multi-modal long-form generation',
-    status: 'current' as const,
-    summary: 'Long-form question-answering and summarization over videos and other multi-modal narratives, with an emphasis on coherence across extended outputs.',
-    href: '/research/multimodal-video-qa/',
-  },
-  {
-    title: 'Clinical NLP',
-    status: 'current' as const,
-    summary: 'Using LLMs to surface clinical decision patterns from unstructured medical narratives, with a focus on heart failure and heart transplant care.',
-    href: '/research/clinical/',
-  },
-  {
-    title: 'Automated fact-checking',
-    status: 'prior' as const,
-    summary: 'Detecting, verifying, and justifying claim veracity across multi-modal, variable-length inputs.',
-    href: '/research/fact-checking/',
-  },
-  {
-    title: 'Propaganda detection',
-    status: 'prior' as const,
-    summary: 'Identifying propaganda and persuasion techniques across multi-modal inputs in news articles, memes, and other media.',
-    href: '/research/propaganda/',
-  },
-  {
-    title: 'COVID-19 misinformation',
-    status: 'prior' as const,
-    summary: 'Analyzing misinformation, vaccine-related fake news, and the broader infodemic on social platforms during the COVID-19 pandemic.',
-    href: '/research/covid/',
-  },
-];
-
-const highlights = [
-  {
-    body: '<strong>h-index 24</strong> with ~2,858 citations on <a href="https://scholar.google.com/citations?user=yMArLRcAAAAJ" class="underline underline-offset-2 decoration-accent-600 hover:text-accent-700 dark:hover:text-accent-300">Google Scholar</a>.',
-  },
-  {
-    body: '<strong>Best Demo Award (Honorable Mention)</strong> at ACL 2020 for <em>Prta</em>, a system for analyzing propaganda techniques in news.',
-  },
-  {
-    body: '<strong>University Fellowship</strong> at Cornell University (2021) for exceptional preparation and promise.',
-  },
-  {
-    body: '<strong>University Honors</strong> at Carnegie Mellon University (2019); <strong>50% Academic Merit Scholarship</strong> at CMU (2015); five-time Dean’s List awardee.',
-  },
-  {
-    body: 'Co-organized multiple shared tasks at <strong>CLEF–CheckThat!</strong> (2020, 2021) and <strong>SemEval</strong> (2021) on automated fact-checking and propaganda detection.',
-  },
-];
-
-const service = [
-  { date: '2021', title: 'Co-organizer', detail: 'SemEval–2021 Task 6: Detection of Persuasion Techniques in Texts and Images.' },
-  { date: '2021', title: 'Co-organizer', detail: 'CLEF–2021 CheckThat! Lab on detecting check-worthy and previously fact-checked claims (Bucharest, Romania).' },
-  { date: '2020', title: 'Co-organizer', detail: 'CLEF–2020 CheckThat! Lab on automatic identification and verification of claims.' },
-  { date: '2020', title: 'Reviewer', detail: 'ACL, EMNLP, NAACL, EACL, COLING, AAAI, CIKM (Program Committee).' },
+  { school: 'Cornell University', location: 'Ithaca, NY', degree: 'PhD in Computer Science', detail: 'Advised by Prof. Claire Cardie · Minor in Applied Mathematics · Graduating Jan 2027', award: 'University Fellowship (2021)', dates: '2021 — present' },
+  { school: 'Cornell University', location: 'Ithaca, NY', degree: 'MS in Computer Science', dates: '2021 — 2024' },
+  { school: 'Carnegie Mellon University', location: 'Doha, Qatar', degree: 'BS in Computer Science', detail: 'Minor in Mathematics · University Honors', award: '50% Academic Merit Scholarship (2015)', dates: '2015 — 2019' },
 ];
 
 const personJsonLd = {
@@ -120,229 +116,185 @@ const personJsonLd = {
   ],
   sameAs: [
     'https://github.com/sshaar',
+    'https://scholar.google.com/citations?user=yMArLRcAAAAJ',
+    'https://www.linkedin.com/in/shaden-shaar/',
+    'https://x.com/shadenshaar',
   ],
 };
 ---
 
 <BaseLayout>
   <script type="application/ld+json" set:html={JSON.stringify(personJsonLd)} />
-  <TableOfContents selector="h2" />
-  <div data-toc-content>
-    <section class="container-wide pt-16 md:pt-24 pb-20">
-      <ScrollReveal>
-        <div class="grid md:grid-cols-[1fr_auto] gap-8 md:gap-12 items-start">
-          <div class="order-2 md:order-1 max-w-2xl">
-            <h1 class="font-serif text-5xl md:text-6xl leading-tight text-ink dark:text-zinc-200 mb-3">
-              Shaden Shaar
-            </h1>
-            <p class="text-base md:text-lg uppercase tracking-widest text-ink-muted dark:text-zinc-400 mb-8">
-              PhD Candidate @ Cornell University
-            </p>
-            <div class="space-y-4 text-lg text-ink-muted dark:text-zinc-300 leading-relaxed">
-              <p>
-                A PhD Candidate in Computer Science at <a href="https://www.cornell.edu" class="underline underline-offset-2 decoration-accent-600 hover:text-accent-700 dark:hover:text-accent-300">Cornell University</a>, advised by
-                Prof. <a href="https://www.cs.cornell.edu/home/cardie/" class="underline underline-offset-2 decoration-accent-600 hover:text-accent-700 dark:hover:text-accent-300">Claire Cardie</a>,
-                working on <strong>long-form generation in multi-modal settings</strong> —
-                specifically
-                <a href="/research/multimodal-video-qa/" class="underline underline-offset-2 decoration-accent-600 hover:text-accent-700 dark:hover:text-accent-300">long-form question-answering and summarization over videos</a>.
-                In parallel, I collaborate with
-                <a href="https://www.nyp.org/" class="underline underline-offset-2 decoration-accent-600 hover:text-accent-700 dark:hover:text-accent-300">NewYork-Presbyterian Hospital</a>
-                on
-                <a href="/research/clinical/" class="underline underline-offset-2 decoration-accent-600 hover:text-accent-700 dark:hover:text-accent-300">clinical NLP for heart failure and heart transplant patients</a>.
-                Previously, at the
-                <a href="https://www.hbku.edu.qa/en/qcri" class="underline underline-offset-2 decoration-accent-600 hover:text-accent-700 dark:hover:text-accent-300">Qatar Computing Research Institute (QCRI, HBKU)</a>,
-                I worked with Prof.
-                <a href="https://mbzuai.ac.ae/study/faculty/preslav-nakov/" class="underline underline-offset-2 decoration-accent-600 hover:text-accent-700 dark:hover:text-accent-300">Preslav Nakov</a>
-                on automated
-                <a href="/research/fact-checking/" class="underline underline-offset-2 decoration-accent-600 hover:text-accent-700 dark:hover:text-accent-300">fact-checking</a>,
-                <a href="/research/propaganda/" class="underline underline-offset-2 decoration-accent-600 hover:text-accent-700 dark:hover:text-accent-300">propaganda detection</a>,
-                and
-                <a href="/research/covid/" class="underline underline-offset-2 decoration-accent-600 hover:text-accent-700 dark:hover:text-accent-300">COVID-19 misinformation</a>.
-              </p>
+
+  <div class="page-shell pt-14 md:pt-20">
+    <SectionNav sections={sections} />
+
+    <div class="page-main">
+      <!-- Hero -->
+      <section id="about" class="pb-16">
+        <ScrollReveal>
+          <p class="section-label mb-3">PhD Candidate · Cornell University</p>
+          <h1 class="font-serif text-4xl leading-tight text-ink dark:text-zinc-100 md:text-5xl">
+            Shaden Shaar
+          </h1>
+          <div class="mt-8 grid items-start gap-8 sm:grid-cols-[minmax(0,1fr)_auto] sm:gap-10">
+            <div class="order-2 min-w-0 sm:order-1">
+              <div class="space-y-4 leading-relaxed text-ink-muted dark:text-zinc-300">
+                <p>
+                  I'm a PhD candidate in Computer Science at
+                  <a href="https://www.cornell.edu" class="link">Cornell University</a>, advised by
+                  Prof. <a href="https://www.cs.cornell.edu/home/cardie/" class="link">Claire Cardie</a>.
+                  My thesis focuses on <strong class="text-ink dark:text-zinc-100">NLP tasks over long
+                  inputs</strong> — some of which involve long-form generation — most recently
+                  open-ended question-answering and summarization over full-length videos,
+                  which produced <em>MovieRecapsQA</em> (CVPR 2026). In parallel, I collaborate with
+                  <a href="https://www.nyp.org/" class="link">NewYork-Presbyterian Hospital</a> on
+                  clinical NLP for heart failure and heart transplant care.
+                </p>
+                <p>
+                  Before Cornell, I was at the
+                  <a href="https://www.hbku.edu.qa/en/qcri" class="link">Qatar Computing Research Institute (QCRI, HBKU)</a>
+                  working with Prof.
+                  <a href="https://mbzuai.ac.ae/study/faculty/preslav-nakov/" class="link">Preslav Nakov</a>
+                  on automated fact-checking, propaganda detection, and COVID-19 misinformation —
+                  including <em>That Is a Known Lie</em> (ACL 2020), which introduced the task of
+                  detecting previously fact-checked claims.
+                </p>
+              </div>
+              <SocialLinks class="mt-7" iconSize={20} />
             </div>
-            <SocialLinks class="mt-6" />
-          </div>
-          <div class="order-1 md:order-2 shrink-0">
             <img
               src="/portrait.jpg"
               alt="Shaden Shaar"
               width="280"
               height="326"
-              class="w-48 md:w-64 lg:w-72 aspect-[6/7] object-cover rounded-lg shadow-sm ring-1 ring-zinc-200 dark:ring-zinc-800"
+              class="order-1 aspect-[3/4] w-44 shrink-0 rounded-xl object-cover ring-1 ring-zinc-200 dark:ring-zinc-800 sm:order-2 sm:w-56 md:w-64"
             />
           </div>
-        </div>
-      </ScrollReveal>
-    </section>
+        </ScrollReveal>
+      </section>
 
-    <section class="container-wide pb-20">
-      <ScrollReveal>
-        <h2 id="interests" class="font-serif text-2xl md:text-3xl text-ink dark:text-zinc-200 mb-6">Research Interests</h2>
-        <ul class="space-y-4 max-w-2xl">
-          {interests.map((it) => (
-            <li class="text-sm text-ink dark:text-zinc-200 leading-relaxed">
-              <a
-                href={it.href}
-                class="font-medium underline underline-offset-2 decoration-accent-600 hover:text-accent-700 dark:hover:text-accent-300"
-              >
-                {it.title}
-              </a>
-              {it.status === 'prior' && (
-                <span class="ml-2 text-xs uppercase tracking-widest text-ink-muted dark:text-zinc-400">prior</span>
-              )}
-              <span class="text-ink-muted dark:text-zinc-300">. {it.summary}</span>
-            </li>
-          ))}
-        </ul>
-      </ScrollReveal>
-    </section>
+      <!-- News -->
+      <section id="news" class="scroll-mt-24 border-t border-zinc-200 py-14 dark:border-zinc-800">
+        <ScrollReveal>
+          <p class="section-label mb-6">News</p>
+          <ul class="space-y-4">
+            {news.map((n) => (
+              <li class="grid grid-cols-[5.5rem_1fr] gap-4 sm:gap-6">
+                <span class="meta pt-0.5">{n.date}</span>
+                <p class="text-[15px] leading-relaxed text-ink-muted dark:text-zinc-300" set:html={n.body} />
+              </li>
+            ))}
+          </ul>
+        </ScrollReveal>
+      </section>
 
-    <section class="container-wide pb-20">
-      <ScrollReveal>
-        <h2 id="highlights" class="font-serif text-2xl md:text-3xl text-ink dark:text-zinc-200 mb-6">Highlights</h2>
-        <ul class="space-y-3 max-w-2xl list-disc pl-5 marker:text-ink-muted dark:marker:text-zinc-500">
-          {highlights.map((h) => (
-            <li class="text-sm text-ink dark:text-zinc-200 leading-relaxed" set:html={h.body} />
-          ))}
-        </ul>
-      </ScrollReveal>
-    </section>
+      <!-- Research interests -->
+      <section id="research" class="scroll-mt-24 border-t border-zinc-200 py-14 dark:border-zinc-800">
+        <ScrollReveal>
+          <h2 class="section-heading mb-7">Research interests</h2>
+          <ul class="space-y-6">
+            {interests.map((it) => (
+              <li>
+                <p class="font-medium text-ink dark:text-zinc-100">
+                  {it.title}
+                  {it.status === 'prior' && (
+                    <span class="ml-2 align-middle font-mono text-[10px] font-normal uppercase tracking-widest text-ink-subtle dark:text-zinc-500">prior</span>
+                  )}
+                </p>
+                <p class="mt-1 max-w-prose text-sm leading-relaxed text-ink-muted dark:text-zinc-400">
+                  {it.summary}
+                </p>
+              </li>
+            ))}
+          </ul>
+        </ScrollReveal>
+      </section>
 
-    <section class="container-wide pb-20">
-      <ScrollReveal>
-        <h2 id="work" class="font-serif text-2xl md:text-3xl text-ink dark:text-zinc-200 mb-6">Work Experience</h2>
-        <ul class="space-y-6 max-w-2xl">
-          {experiences.map((e, i) => (
-            <li class="grid grid-cols-[10rem_1fr] gap-4">
-              <h3 id={`exp-${i}`} class="toc-item text-xs text-ink-muted dark:text-zinc-400 font-mono pt-1 font-normal scroll-mt-24">
-                {fmtDate(e.data.startDate)} — {e.data.ongoing ? 'present' : e.data.endDate ? fmtDate(e.data.endDate) : ''}
-              </h3>
-              <div>
-                <div class="font-medium text-ink dark:text-zinc-200">{e.data.title}</div>
-                <div class="text-sm text-ink-muted dark:text-zinc-300">
-                  {e.data.organization}{e.data.location ? ` · ${e.data.location}` : ''}
+      <!-- Experience -->
+      <section id="experience" class="scroll-mt-24 border-t border-zinc-200 py-14 dark:border-zinc-800">
+        <ScrollReveal>
+          <h2 class="section-heading mb-8">Experience</h2>
+          <ul class="space-y-8">
+            {experiences.map((e) => (
+              <li class="grid gap-1.5 sm:grid-cols-[8.5rem_1fr] sm:gap-6">
+                <span class="meta sm:pt-1">
+                  {fmtRange(e.data.startDate, e.data.endDate, e.data.ongoing)}
+                </span>
+                <div>
+                  <h3 class="font-medium text-ink dark:text-zinc-100">
+                    {e.data.title} · <span class="font-normal">{e.data.organization}</span>
+                  </h3>
+                  {e.data.location && (
+                    <p class="mt-0.5 text-xs text-ink-subtle dark:text-zinc-500">{e.data.location}</p>
+                  )}
+                  {e.data.bullets && e.data.bullets.length > 0 ? (
+                    <ul class="mt-2 space-y-1.5 text-sm leading-relaxed text-ink-muted marker:text-zinc-400 dark:text-zinc-400 dark:marker:text-zinc-600 list-disc pl-4">
+                      {e.data.bullets.map((b) => <li>{b}</li>)}
+                    </ul>
+                  ) : e.data.description ? (
+                    <p class="mt-2 text-sm leading-relaxed text-ink-muted dark:text-zinc-400">{e.data.description}</p>
+                  ) : null}
                 </div>
-                {e.data.bullets && e.data.bullets.length > 0 ? (
-                  <ul class="mt-2 space-y-1 list-disc pl-5 text-sm text-ink-muted dark:text-zinc-300 leading-relaxed marker:text-ink-muted dark:marker:text-zinc-500">
-                    {e.data.bullets.map((b) => (
-                      <li>{b}</li>
-                    ))}
-                  </ul>
-                ) : e.data.description ? (
-                  <p class="mt-2 text-sm text-ink-muted dark:text-zinc-300 leading-relaxed">
-                    {e.data.description}
-                  </p>
-                ) : null}
-              </div>
-            </li>
-          ))}
-        </ul>
-      </ScrollReveal>
-    </section>
+              </li>
+            ))}
+          </ul>
+        </ScrollReveal>
+      </section>
 
-    <section class="container-wide pb-20">
-      <ScrollReveal>
-        <div class="flex items-baseline justify-between gap-6 mb-4 flex-wrap">
-          <h2 id="publications" class="font-serif text-2xl md:text-3xl text-ink dark:text-zinc-200">Selected Publications</h2>
-          <a
-            href="/publications/"
-            class="text-sm text-ink-muted dark:text-zinc-300 hover:text-accent-700 dark:hover:text-accent-300 underline underline-offset-2 decoration-accent-600"
-          >
-            See all {publications.length} publications →
-          </a>
-        </div>
-        <p class="text-ink-muted dark:text-zinc-300 mb-10 max-w-2xl">
-          Selected recent and impactful publications. Full list on the
-          <a href="/publications/" class="underline underline-offset-2 decoration-accent-600 hover:text-accent-700 dark:hover:text-accent-300">publications page</a>
-          or
-          <a href="https://scholar.google.com/citations?user=yMArLRcAAAAJ" class="underline underline-offset-2 decoration-accent-600 hover:text-accent-700 dark:hover:text-accent-300">Google Scholar</a>.
-        </p>
-        <SelectedPublications publications={selectedPubs} projects={projects} me={ME} />
-      </ScrollReveal>
-    </section>
+      <!-- Selected publications -->
+      <section id="publications" class="scroll-mt-24 border-t border-zinc-200 py-14 dark:border-zinc-800">
+        <ScrollReveal>
+          <div class="mb-6 flex flex-wrap items-baseline justify-between gap-x-6 gap-y-1">
+            <h2 class="section-heading">Selected publications</h2>
+            <a href="/publications/" class="text-sm text-ink-muted dark:text-zinc-400 link">
+              All {publications.length} publications →
+            </a>
+          </div>
+          <p class="mb-10 text-sm leading-relaxed text-ink-muted dark:text-zinc-400">
+            A few representative papers. The full list is on the
+            <a href="/publications/" class="link">publications page</a> and
+            <a href="https://scholar.google.com/citations?user=yMArLRcAAAAJ" class="link">Google Scholar</a>.
+          </p>
+          <SelectedPublications publications={selectedPubs} projects={projects} me={ME} />
+        </ScrollReveal>
+      </section>
 
-    <section class="container-wide pb-20">
-      <ScrollReveal>
-        <h2 id="education" class="font-serif text-2xl md:text-3xl text-ink dark:text-zinc-200 mb-6">Education</h2>
-        <ul class="space-y-4 max-w-2xl">
-          {education.map((e, i) => (
-            <li class="grid grid-cols-[10rem_1fr] gap-4">
-              <h3 id={`edu-${i}`} class="toc-item text-xs text-ink-muted dark:text-zinc-400 font-mono pt-1 font-normal scroll-mt-24">{e.dates}</h3>
-              <div>
-                <div class="font-medium text-ink dark:text-zinc-200">{e.degree}</div>
-                <div class="text-sm text-ink-muted dark:text-zinc-300">{e.school} · {e.location}</div>
-                {e.detail && <div class="text-xs text-ink-muted dark:text-zinc-400 mt-0.5">{e.detail}</div>}
-              </div>
-            </li>
-          ))}
-        </ul>
-      </ScrollReveal>
-    </section>
+      <!-- Education -->
+      <section id="education" class="scroll-mt-24 border-t border-zinc-200 py-14 dark:border-zinc-800">
+        <ScrollReveal>
+          <h2 class="section-heading mb-8">Education</h2>
+          <ul class="space-y-5">
+            {education.map((e) => (
+              <li class="grid gap-1 sm:grid-cols-[8.5rem_1fr] sm:gap-6">
+                <span class="meta sm:pt-0.5">{e.dates}</span>
+                <div>
+                  <p class="font-medium text-ink dark:text-zinc-100">{e.degree}</p>
+                  <p class="text-sm text-ink-muted dark:text-zinc-400">{e.school} · {e.location}</p>
+                  {e.detail && <p class="mt-0.5 text-xs text-ink-subtle dark:text-zinc-500">{e.detail}</p>}
+                  {e.award && (
+                    <p class="mt-0.5 text-xs font-medium text-ink-muted dark:text-zinc-300">{e.award}</p>
+                  )}
+                </div>
+              </li>
+            ))}
+          </ul>
+        </ScrollReveal>
+      </section>
 
-    <section class="container-wide pb-20">
-      <ScrollReveal>
-        <h2 id="teaching" class="font-serif text-2xl md:text-3xl text-ink dark:text-zinc-200 mb-6">Teaching Experience</h2>
-
-        <div class="max-w-2xl">
-          {teachingCornell.length > 0 && (
-            <>
-              <p class="text-xs font-mono tracking-widest text-ink-muted dark:text-zinc-400 mb-3">Cornell University</p>
-              <ul class="space-y-2 mb-6">
-                {teachingCornell.map((t) => (
-                  <li class="grid grid-cols-[10rem_1fr] gap-4">
-                    <div class="text-xs text-ink-muted dark:text-zinc-400 font-mono pt-0.5">{t.data.term}</div>
-                    <div class="text-sm text-ink dark:text-zinc-200">{t.data.title}</div>
-                  </li>
-                ))}
-              </ul>
-            </>
-          )}
-
-          {teachingCMU.length > 0 && (
-            <>
-              <p class="text-xs font-mono tracking-widest text-ink-muted dark:text-zinc-400 mb-3">Carnegie Mellon University</p>
-              <ul class="space-y-2">
-                {teachingCMU.map((t) => (
-                  <li class="grid grid-cols-[10rem_1fr] gap-4">
-                    <div class="text-xs text-ink-muted dark:text-zinc-400 font-mono pt-0.5">{t.data.term}</div>
-                    <div class="text-sm text-ink dark:text-zinc-200">{t.data.title}</div>
-                  </li>
-                ))}
-              </ul>
-            </>
-          )}
-        </div>
-      </ScrollReveal>
-    </section>
-
-    <section class="container-wide pb-20">
-      <ScrollReveal>
-        <h2 id="service" class="font-serif text-2xl md:text-3xl text-ink dark:text-zinc-200 mb-6">Academic Services</h2>
-        <ul class="space-y-3 max-w-2xl">
-          {service.map((s) => (
-            <li class="grid grid-cols-[6rem_1fr] gap-4">
-              <div class="text-xs text-ink-muted dark:text-zinc-400 font-mono pt-1">{s.date}</div>
-              <div class="text-sm text-ink dark:text-zinc-200 leading-relaxed">
-                <span class="font-medium">{s.title}.</span>{' '}
-                <span class="text-ink-muted dark:text-zinc-300">{s.detail}</span>
-              </div>
-            </li>
-          ))}
-        </ul>
-      </ScrollReveal>
-    </section>
-
-    <section class="container-wide pb-24">
-      <ScrollReveal>
-        <h2 id="contact" class="font-serif text-2xl md:text-3xl text-ink dark:text-zinc-200 mb-4">Contact</h2>
-        <p class="text-ink-muted dark:text-zinc-300 leading-relaxed max-w-2xl mb-6">
-          Happy to hear from potential collaborators or anyone curious about the work.
-          The best way to reach me is by email:
-          <a href="mailto:sshaar31@gmail.com" class="underline underline-offset-2 decoration-accent-600 hover:text-accent-700 dark:hover:text-accent-300"><code>sshaar31@gmail.com</code></a>.
-          A printable CV is available as a <a href="/cv.pdf" class="underline underline-offset-2 decoration-accent-600 hover:text-accent-700 dark:hover:text-accent-300" target="_blank" rel="noopener noreferrer">PDF</a>.
-        </p>
-        <SocialLinks iconSize={20} />
-      </ScrollReveal>
-    </section>
+      <!-- Contact -->
+      <section id="contact" class="scroll-mt-24 border-t border-zinc-200 py-14 pb-8 dark:border-zinc-800">
+        <ScrollReveal>
+          <h2 class="section-heading mb-4">Contact</h2>
+          <p class="max-w-xl leading-relaxed text-ink-muted dark:text-zinc-300">
+            The best way to reach me is by email at
+            <a href="mailto:sshaar31@gmail.com" class="link font-medium text-ink dark:text-zinc-100">sshaar31@gmail.com</a>
+            — whether about roles, collaborations, or anything related to the work. A printable CV
+            is available as a <a href="/cv.pdf" target="_blank" rel="noopener noreferrer" class="link">PDF</a>.
+          </p>
+          <SocialLinks class="mt-6" iconSize={20} />
+        </ScrollReveal>
+      </section>
+    </div>
   </div>
 </BaseLayout>

@@ -1,0 +1,79 @@
+---
+/**
+ * Sticky "on this page" rail. Rendered as a real grid column inside
+ * `.page-shell` (see global.css), so unlike the old fixed-position sidebar it
+ * can never overlap the content — below the xl breakpoint it simply isn't
+ * shown. A small scroll-spy highlights the section currently in view.
+ */
+interface Props {
+  sections: { id: string; label: string }[];
+}
+const { sections } = Astro.props;
+---
+
+<aside class="hidden xl:block" aria-label="On this page">
+  <nav id="section-nav" class="sticky top-24 border-l border-zinc-200 dark:border-zinc-800">
+    <ul class="-ml-px">
+      {sections.map((s) => (
+        <li>
+          <a href={`#${s.id}`} class="rail-link" data-rail-link={s.id}>{s.label}</a>
+        </li>
+      ))}
+    </ul>
+  </nav>
+</aside>
+
+<script is:inline>
+  (() => {
+    // This component renders before the page content, so wait for the full
+    // DOM — the section elements the rail points at don't exist yet.
+    const init = () => {
+    const nav = document.getElementById('section-nav');
+    if (!nav) return;
+    const links = Array.from(nav.querySelectorAll('[data-rail-link]'));
+    const ids = links.map((a) => a.getAttribute('data-rail-link'));
+    const targets = ids
+      .map((id) => document.getElementById(id))
+      .filter(Boolean);
+    if (targets.length === 0) return;
+
+    const setActive = (id) => {
+      links.forEach((a) => {
+        const on = a.getAttribute('data-rail-link') === id;
+        a.classList.toggle('is-active', on);
+        if (on) a.setAttribute('aria-current', 'true');
+        else a.removeAttribute('aria-current');
+      });
+    };
+
+    // The active section is the last heading above the top third of the viewport.
+    const update = () => {
+      const threshold = window.innerHeight * 0.33;
+      let current = ids[0];
+      for (const t of targets) {
+        if (t.getBoundingClientRect().top <= threshold) current = t.id;
+      }
+      setActive(current);
+    };
+
+    let raf = 0;
+    const onScroll = () => {
+      if (raf) return;
+      raf = requestAnimationFrame(() => {
+        raf = 0;
+        update();
+      });
+    };
+
+    window.addEventListener('scroll', onScroll, { passive: true });
+    window.addEventListener('resize', onScroll, { passive: true });
+    update();
+    };
+
+    if (document.readyState === 'loading') {
+      document.addEventListener('DOMContentLoaded', init);
+    } else {
+      init();
+    }
+  })();
+</script>

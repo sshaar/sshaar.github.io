@@ -18,12 +18,12 @@ export default {
           900: '#1e3a8a',
         },
         ink: {
-          DEFAULT: '#18181b',
-          muted: '#52525b',
-          subtle: '#71717a',
+          DEFAULT: '#1a1a1f',
+          muted: '#55555e',
+          subtle: '#75757e',
         },
         paper: {
-          DEFAULT: '#fafaf9',
+          DEFAULT: '#fbfaf8',
           raised: '#ffffff',
         },
       },

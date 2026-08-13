@@ -90,29 +90,23 @@ export default function PublicationList({ publications, projects, me }: Props) {
       list.push(pub);
       byYear.set(pub.year, list);
     }
-    // For each year, cluster papers by venue (same conference contiguous)
-    // and order venues by their typical calendar month so the year reads
-    // chronologically.
+    // Within each year, order papers by the venue's typical calendar month so
+    // the year reads chronologically.
     return [...byYear.entries()]
       .sort((a, b) => b[0] - a[0])
-      .map(([year, pubs]) => {
-        const byVenue = new Map<string, Publication[]>();
-        for (const pub of pubs) {
-          const key = pub.venueShort ?? pub.venue;
-          const list = byVenue.get(key) ?? [];
-          list.push(pub);
-          byVenue.set(key, list);
-        }
-        const venueGroups = [...byVenue.entries()].sort(
-          ([a], [b]) => venueMonth(a) - venueMonth(b) || a.localeCompare(b),
-        );
-        return { year, venueGroups };
-      });
+      .map(([year, pubs]) => ({
+        year,
+        pubs: [...pubs].sort(
+          (a, b) =>
+            venueMonth(a.venueShort ?? a.venue) - venueMonth(b.venueShort ?? b.venue) ||
+            (a.venueShort ?? a.venue).localeCompare(b.venueShort ?? b.venue),
+        ),
+      }));
   }, [filtered]);
 
   return (
     <div>
-      <div className="mb-6 space-y-4">
+      <div className="mb-8 space-y-4">
         <div className="flex flex-wrap items-center gap-2">
           {projects.map((proj) => {
             const isActive = active.has(proj.slug);
@@ -135,7 +129,7 @@ export default function PublicationList({ publications, projects, me }: Props) {
             <button
               type="button"
               onClick={clear}
-              className="ml-1 text-xs text-ink-muted hover:text-ink dark:text-zinc-300 dark:hover:text-zinc-200 underline underline-offset-2"
+              className="ml-1 text-xs text-ink-muted underline underline-offset-2 hover:text-ink dark:text-zinc-400 dark:hover:text-zinc-200"
             >
               clear
             </button>
@@ -146,69 +140,64 @@ export default function PublicationList({ publications, projects, me }: Props) {
           value={query}
           onChange={(e) => setQuery(e.target.value)}
           placeholder="Search title, author, venue…"
-          className="w-full rounded-md border border-zinc-200 dark:border-zinc-700 bg-transparent px-3 py-2 text-sm focus:border-accent-600 focus:outline-none focus:ring-1 focus:ring-accent-600"
+          className="w-full rounded-lg border border-zinc-200 bg-transparent px-3.5 py-2 text-sm focus:border-accent-600 focus:outline-none focus:ring-1 focus:ring-accent-600 dark:border-zinc-700"
         />
-        <div className="text-xs text-ink-muted dark:text-zinc-300">
+        <p className="meta">
           {filtered.length} of {publications.length} publications
           {active.size > 0 ? ` · filtered by ${active.size} project${active.size > 1 ? 's' : ''}` : ''}
-        </div>
+        </p>
       </div>
 
       {grouped.length === 0 && (
-        <p className="text-sm text-ink-muted dark:text-zinc-300 py-8">No publications match these filters.</p>
+        <p className="py-8 text-sm text-ink-muted dark:text-zinc-400">
+          No publications match these filters.
+        </p>
       )}
 
-      {grouped.map(({ year, venueGroups }) => (
-        <section key={year} className="mb-10">
-          <h2
-            id={`pub-${year}`}
-            className="block h-0 overflow-hidden m-0 scroll-mt-24"
-          >
-            <span className="sr-only">{year}</span>
-          </h2>
-          {venueGroups.map(([venue, venuePubs]) => (
-            <div key={venue} className="mb-4">
-              <h3
-                id={`pub-${year}-${venue.replace(/\s+/g, '-')}`}
-                className="toc-item block h-0 overflow-hidden m-0 scroll-mt-24"
-              >
-                <span className="sr-only">{venue}</span>
-              </h3>
-              <ul>
-                {venuePubs.map((pub) => (
-                  <li key={pub.id} className="pub-card">
-                <div className="flex flex-col gap-1.5">
-                  <div>
-                    {pub.url ? (
-                      <a href={pub.url} className="font-medium text-ink dark:text-zinc-200 hover:text-accent-700 dark:hover:text-accent-300 transition-colors">
-                        {pub.title}
-                      </a>
-                    ) : (
-                      <span className="font-medium text-ink dark:text-zinc-200">{pub.title}</span>
-                    )}
-                  </div>
-                  <div className="text-sm text-ink-muted dark:text-zinc-300">
-                    {formatAuthors(pub.authors, me)}
-                  </div>
-                  <div className="flex flex-wrap items-center gap-x-3 gap-y-1 text-xs text-ink-muted dark:text-zinc-400">
+      {grouped.map(({ year, pubs }) => (
+        <section key={year} className="mb-4">
+          <div className="grid gap-x-8 sm:grid-cols-[4rem_1fr]">
+            <h2
+              id={`pub-${year}`}
+              className="scroll-mt-24 pt-5 font-serif text-2xl text-ink-subtle dark:text-zinc-600 sm:sticky sm:top-20 sm:self-start"
+            >
+              {year}
+            </h2>
+            <ul className="min-w-0 divide-y divide-zinc-200 dark:divide-zinc-800">
+              {pubs.map((pub) => (
+                <li key={pub.id} className="py-5">
+                  <p className="meta mb-1">
                     <span className="italic">{pub.venueShort ?? pub.venue}</span>
-                    {pub.findings && (
-                      <>
-                        <span>·</span>
-                        <span>Findings</span>
-                      </>
-                    )}
-                    <span>·</span>
-                    <span>{typeLabel[pub.type]}</span>
-                    {pub.citations !== undefined && pub.citations > 0 && (
-                      <>
-                        <span>·</span>
-                        <span>{pub.citations} citation{pub.citations === 1 ? '' : 's'}</span>
-                      </>
-                    )}
-                  </div>
+                    {pub.findings ? ' · Findings' : ''} · {typeLabel[pub.type]}
+                  </p>
+                  {pub.award && (
+                    <p className="mb-1 flex items-center gap-1.5 text-xs font-medium text-amber-700 dark:text-amber-400">
+                      <svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" aria-hidden="true">
+                        <path d="M6 9H4.5a2.5 2.5 0 0 1 0-5H6"></path>
+                        <path d="M18 9h1.5a2.5 2.5 0 0 0 0-5H18"></path>
+                        <path d="M4 22h16"></path>
+                        <path d="M10 14.66V17c0 .55-.47.98-.97 1.21C7.85 18.75 7 20.24 7 22"></path>
+                        <path d="M14 14.66V17c0 .55.47.98.97 1.21C16.15 18.75 17 20.24 17 22"></path>
+                        <path d="M18 2H6v7a6 6 0 0 0 12 0V2Z"></path>
+                      </svg>
+                      {pub.award}
+                    </p>
+                  )}
+                  {pub.url ? (
+                    <a
+                      href={pub.url}
+                      className="font-medium leading-snug text-ink transition-colors hover:text-accent-700 dark:text-zinc-200 dark:hover:text-accent-300"
+                    >
+                      {pub.title}
+                    </a>
+                  ) : (
+                    <span className="font-medium leading-snug text-ink dark:text-zinc-200">{pub.title}</span>
+                  )}
+                  <p className="mt-1 text-sm text-ink-muted dark:text-zinc-400">
+                    {formatAuthors(pub.authors, me)}
+                  </p>
                   {pub.projects.length > 0 && (
-                    <div className="mt-1 flex flex-wrap gap-1.5">
+                    <div className="mt-2 flex flex-wrap gap-1.5">
                       {pub.projects.map((slug) => {
                         const proj = projects.find((p) => p.slug === slug);
                         if (!proj) return null;
@@ -218,7 +207,7 @@ export default function PublicationList({ publications, projects, me }: Props) {
                             key={slug}
                             type="button"
                             onClick={() => toggle(slug)}
-                            className={`text-[11px] rounded-full px-2 py-0.5 font-medium transition-colors ${colors.tag}`}
+                            className={`rounded-full px-2 py-0.5 text-[11px] font-medium transition-colors ${colors.tag}`}
                           >
                             {proj.short ?? proj.name}
                           </button>
@@ -226,12 +215,10 @@ export default function PublicationList({ publications, projects, me }: Props) {
                       })}
                     </div>
                   )}
-                </div>
-              </li>
-                ))}
-              </ul>
-            </div>
-          ))}
+                </li>
+              ))}
+            </ul>
+          </div>
         </section>
       ))}
     </div>

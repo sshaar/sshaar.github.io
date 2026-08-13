@@ -13,13 +13,6 @@ interface Props {
 
 const { publications, projects, me } = Astro.props;
 
-const typeLabel: Record<Publication['type'], string> = {
-  journal: 'Journal',
-  conference: 'Conference',
-  workshop: 'Workshop',
-  preprint: 'Preprint',
-};
-
 const sorted = [...publications].sort((a, b) => b.year - a.year);
 
 const IMAGE_EXTS = ['.png', '.jpg', '.jpeg', '.webp', '.gif', '.svg', '.avif'];
@@ -45,100 +38,94 @@ function resolveImage(image: string | undefined): string | null {
   {sorted.map((pub) => {
     const resolvedImage = resolveImage(pub.image);
     return (
-    <li class="grid md:grid-cols-[14rem_1fr] gap-5 md:gap-7 items-start">
-      <div class="shrink-0">
-        {resolvedImage ? (
-          <img
-            src={resolvedImage}
-            alt={`Figure from ${pub.title}`}
-            loading="lazy"
-            class="w-full aspect-[4/3] object-cover rounded-md ring-1 ring-zinc-200 dark:ring-zinc-800 bg-zinc-100 dark:bg-zinc-900"
-          />
-        ) : (
-          <div
-            class="w-full aspect-[4/3] rounded-md ring-1 ring-dashed ring-zinc-300 dark:ring-zinc-700 bg-zinc-50 dark:bg-zinc-900/60 flex items-center justify-center text-center px-3"
-            aria-label={`Placeholder for ${pub.venueShort ?? pub.venue} figure`}
-          >
-            <span class="font-mono text-[11px] uppercase tracking-widest text-ink-muted dark:text-zinc-400">
-              {pub.venueShort ?? pub.venue} {pub.year}
-            </span>
-          </div>
-        )}
-      </div>
+      <li class="grid items-start gap-4 sm:grid-cols-[11rem_1fr] sm:gap-6">
+        <div class="max-w-[16rem] sm:max-w-none">
+          {resolvedImage ? (
+            <img
+              src={resolvedImage}
+              alt={`Figure from ${pub.title}`}
+              loading="lazy"
+              class="aspect-[4/3] w-full rounded-lg bg-zinc-100 object-cover ring-1 ring-zinc-200 dark:bg-zinc-900 dark:ring-zinc-800"
+            />
+          ) : (
+            <div
+              class="flex aspect-[4/3] w-full items-center justify-center rounded-lg bg-zinc-100/60 px-3 text-center ring-1 ring-zinc-200 dark:bg-zinc-900/60 dark:ring-zinc-800"
+              aria-hidden="true"
+            >
+              <span class="font-mono text-[11px] uppercase tracking-widest text-ink-subtle dark:text-zinc-500">
+                {pub.venueShort ?? pub.venue} {pub.year}
+              </span>
+            </div>
+          )}
+        </div>
 
-      <div class="flex flex-col gap-2">
-        <div>
+        <div class="min-w-0">
+          <p class="meta mb-1.5">
+            {pub.venueShort ?? pub.venue} {pub.year}
+            {pub.findings && ' · Findings'}
+          </p>
+          {pub.award && (
+            <p class="mb-1.5 flex items-center gap-1.5 text-xs font-medium text-amber-700 dark:text-amber-400">
+              <svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
+                <path d="M6 9H4.5a2.5 2.5 0 0 1 0-5H6"></path>
+                <path d="M18 9h1.5a2.5 2.5 0 0 0 0-5H18"></path>
+                <path d="M4 22h16"></path>
+                <path d="M10 14.66V17c0 .55-.47.98-.97 1.21C7.85 18.75 7 20.24 7 22"></path>
+                <path d="M14 14.66V17c0 .55.47.98.97 1.21C16.15 18.75 17 20.24 17 22"></path>
+                <path d="M18 2H6v7a6 6 0 0 0 12 0V2Z"></path>
+              </svg>
+              {pub.award}
+            </p>
+          )}
           {pub.url ? (
             <a
               href={pub.url}
-              class="font-serif text-xl md:text-2xl leading-snug text-ink dark:text-zinc-200 hover:text-accent-700 dark:hover:text-accent-300 transition-colors"
+              class="font-serif text-lg leading-snug text-ink transition-colors hover:text-accent-700 dark:text-zinc-100 dark:hover:text-accent-300 md:text-xl"
             >
               {pub.title}
             </a>
           ) : (
-            <span class="font-serif text-xl md:text-2xl leading-snug text-ink dark:text-zinc-200">
+            <span class="font-serif text-lg leading-snug text-ink dark:text-zinc-100 md:text-xl">
               {pub.title}
             </span>
           )}
-        </div>
 
-        <div class="text-sm text-ink-muted dark:text-zinc-300">
-          {pub.authors.map((a, i) => {
-            const isMe = a === me;
-            const sep = i < pub.authors.length - 1 ? ', ' : '';
-            return isMe ? (
-              <><span class="font-semibold text-ink dark:text-zinc-200">{a}</span>{sep}</>
-            ) : (
-              <>{a}{sep}</>
-            );
-          })}
-        </div>
-
-        <div class="flex flex-wrap items-center gap-x-3 gap-y-1 text-xs text-ink-muted dark:text-zinc-400">
-          <span class="italic">{pub.venueShort ?? pub.venue}</span>
-          <span>·</span>
-          <span>{pub.year}</span>
-          {pub.findings && (
-            <>
-              <span>·</span>
-              <span>Findings</span>
-            </>
-          )}
-          <span>·</span>
-          <span>{typeLabel[pub.type]}</span>
-          {pub.citations !== undefined && pub.citations > 0 && (
-            <>
-              <span>·</span>
-              <span>{pub.citations} citation{pub.citations === 1 ? '' : 's'}</span>
-            </>
-          )}
-        </div>
-
-        {pub.description && (
-          <p class="mt-1 text-sm md:text-base leading-relaxed text-ink-muted dark:text-zinc-300 max-w-prose">
-            {pub.description}
-          </p>
-        )}
-
-        {pub.projects.length > 0 && (
-          <div class="mt-1 flex flex-wrap gap-1.5">
-            {pub.projects.map((slug) => {
-              const proj = projects.find((p) => p.slug === slug);
-              if (!proj) return null;
-              const colors = COLOR_CLASSES[proj.color];
-              return (
-                <a
-                  href={`/publications/#pub-${pub.year}`}
-                  class={`text-[11px] rounded-full px-2 py-0.5 font-medium transition-colors ${colors.tag}`}
-                >
-                  {proj.short ?? proj.name}
-                </a>
+          <p class="mt-1.5 text-sm text-ink-muted dark:text-zinc-400">
+            {pub.authors.map((a, i) => {
+              const sep = i < pub.authors.length - 1 ? ', ' : '';
+              return a === me ? (
+                <><span class="font-semibold text-ink dark:text-zinc-200">{a}</span>{sep}</>
+              ) : (
+                <>{a}{sep}</>
               );
             })}
-          </div>
-        )}
-      </div>
-    </li>
+          </p>
+
+          {pub.description && (
+            <p class="mt-2 max-w-prose text-sm leading-relaxed text-ink-muted dark:text-zinc-400">
+              {pub.description}
+            </p>
+          )}
+
+          {pub.projects.length > 0 && (
+            <div class="mt-2.5 flex flex-wrap gap-1.5">
+              {pub.projects.map((slug) => {
+                const proj = projects.find((p) => p.slug === slug);
+                if (!proj) return null;
+                const colors = COLOR_CLASSES[proj.color];
+                return (
+                  <a
+                    href="/publications/"
+                    class={`rounded-full px-2 py-0.5 text-[11px] font-medium transition-colors ${colors.tag}`}
+                  >
+                    {proj.short ?? proj.name}
+                  </a>
+                );
+              })}
+            </div>
+          )}
+        </div>
+      </li>
     );
   })}
 </ul>

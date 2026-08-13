@@ -28,6 +28,8 @@ export interface Publication {
   image?: string;
   /** Short 1-3 sentence blurb shown on the selected card. */
   description?: string;
+  /** Award or honor the paper received, shown as a badge on paper cards. */
+  award?: string;
 }
 
 // Highlight author in rendered lists
@@ -359,6 +361,7 @@ export const publications: Publication[] = [
     citations: 93,
     url: 'https://arxiv.org/abs/2005.05854',
     selected: true,
+    award: 'Best Demo Award, Honorable Mention',
     image: '/publications/prta.jpg',
     description:
       'An end-to-end system for highlighting 18 propaganda techniques in news articles, paired with a public web interface. Recognized with an Honorable Mention for Best Demo at ACL 2020.',

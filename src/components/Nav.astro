@@ -4,20 +4,26 @@ import ThemeToggle from './ThemeToggle.astro';
 const links = [
   { href: '/', label: 'Home' },
   { href: '/publications/', label: 'Publications' },
-  { href: '/research/', label: 'Projects' },
+  { href: '/blog/', label: 'Blog' },
   { href: '/cv.pdf', label: 'CV', external: true },
 ];
+
+const path = Astro.url.pathname;
+const isActive = (href: string) => path === href || (href !== '/' && path.startsWith(href));
 ---
 
-<header class="border-b border-zinc-200 dark:border-zinc-800 bg-paper/80 dark:bg-zinc-950/80 backdrop-blur-sm sticky top-0 z-20">
-  <div class="container-wide flex items-center justify-between gap-3 py-4">
-    <a href="/" class="font-semibold tracking-tight text-ink dark:text-zinc-200 shrink-0">Shaden Shaar</a>
+<header class="sticky top-0 z-30 border-b border-zinc-200/80 bg-paper/85 backdrop-blur-md dark:border-zinc-800/80 dark:bg-zinc-950/85">
+  <div class="mx-auto flex max-w-6xl items-center justify-between gap-3 px-5 py-3.5 sm:px-8">
+    <a href="/" class="shrink-0 font-serif text-lg tracking-tight text-ink dark:text-zinc-100">
+      Shaden Shaar
+    </a>
 
-    <nav class="hidden md:flex items-center gap-5">
+    <nav class="hidden items-center gap-6 sm:flex" aria-label="Site">
       {links.map((link) => (
         <a
           href={link.href}
-          class="nav-link"
+          class:list={['nav-link', { 'is-active': !link.external && isActive(link.href) }]}
+          aria-current={!link.external && isActive(link.href) ? 'page' : undefined}
           target={link.external ? '_blank' : undefined}
           rel={link.external ? 'noopener noreferrer' : undefined}
         >
@@ -27,34 +33,43 @@ const links = [
       <ThemeToggle />
     </nav>
 
-    <div class="md:hidden flex items-center gap-2">
+    <div class="flex items-center gap-1 sm:hidden">
       <ThemeToggle />
       <button
         id="mobile-menu-toggle"
         type="button"
-        class="rounded-md p-2 text-ink-muted hover:text-ink dark:text-zinc-300 dark:hover:text-zinc-200 transition-colors"
+        class="rounded-md p-2 text-ink-muted transition-colors hover:text-ink dark:text-zinc-400 dark:hover:text-zinc-100"
         aria-label="Toggle menu"
         aria-expanded="false"
         aria-controls="mobile-menu"
       >
-        <svg class="block" width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
-          <line x1="3" y1="6" x2="21" y2="6"></line>
-          <line x1="3" y1="12" x2="21" y2="12"></line>
-          <line x1="3" y1="18" x2="21" y2="18"></line>
+        <svg id="menu-icon-open" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" aria-hidden="true">
+          <line x1="4" y1="7" x2="20" y2="7"></line>
+          <line x1="4" y1="12" x2="20" y2="12"></line>
+          <line x1="4" y1="17" x2="20" y2="17"></line>
+        </svg>
+        <svg id="menu-icon-close" class="hidden" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" aria-hidden="true">
+          <line x1="6" y1="6" x2="18" y2="18"></line>
+          <line x1="6" y1="18" x2="18" y2="6"></line>
         </svg>
       </button>
     </div>
   </div>
 
-  <nav id="mobile-menu" class="md:hidden hidden border-t border-zinc-200 dark:border-zinc-800 bg-paper dark:bg-zinc-950">
-    <ul class="container-wide py-3 flex flex-col gap-1">
+  <nav id="mobile-menu" class="hidden border-t border-zinc-200 bg-paper dark:border-zinc-800 dark:bg-zinc-950 sm:hidden" aria-label="Site (mobile)">
+    <ul class="mx-auto max-w-6xl px-5 py-2">
       {links.map((link) => (
         <li>
           <a
             href={link.href}
             target={link.external ? '_blank' : undefined}
             rel={link.external ? 'noopener noreferrer' : undefined}
-            class="block py-2 text-sm text-ink-muted hover:text-ink dark:text-zinc-300 dark:hover:text-zinc-50 transition-colors"
+            class:list={[
+              'block py-2.5 text-[15px] transition-colors',
+              !link.external && isActive(link.href)
+                ? 'font-medium text-ink dark:text-zinc-100'
+                : 'text-ink-muted hover:text-ink dark:text-zinc-400 dark:hover:text-zinc-100',
+            ]}
           >
             {link.label}
           </a>
@@ -68,17 +83,18 @@ const links = [
   (() => {
     const toggle = document.getElementById('mobile-menu-toggle');
     const menu = document.getElementById('mobile-menu');
+    const iconOpen = document.getElementById('menu-icon-open');
+    const iconClose = document.getElementById('menu-icon-close');
     if (!toggle || !menu) return;
-    toggle.addEventListener('click', () => {
-      const isOpen = !menu.classList.contains('hidden');
-      menu.classList.toggle('hidden');
-      toggle.setAttribute('aria-expanded', String(!isOpen));
-    });
+    const setOpen = (open) => {
+      menu.classList.toggle('hidden', !open);
+      iconOpen?.classList.toggle('hidden', open);
+      iconClose?.classList.toggle('hidden', !open);
+      toggle.setAttribute('aria-expanded', String(open));
+    };
+    toggle.addEventListener('click', () => setOpen(menu.classList.contains('hidden')));
     menu.addEventListener('click', (e) => {
-      if (e.target && e.target.tagName === 'A') {
-        menu.classList.add('hidden');
-        toggle.setAttribute('aria-expanded', 'false');
-      }
+      if (e.target && e.target.tagName === 'A') setOpen(false);
     });
   })();
 </script>

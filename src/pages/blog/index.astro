@@ -1,0 +1,60 @@
+---
+import BaseLayout from '../../layouts/BaseLayout.astro';
+import { getCollection } from 'astro:content';
+
+const posts = (await getCollection('blog', ({ data }) => !data.draft)).sort(
+  (a, b) => b.data.date.valueOf() - a.data.date.valueOf()
+);
+
+const fmt = (d: Date) =>
+  d.toLocaleDateString('en-US', { year: 'numeric', month: 'long', day: 'numeric' });
+---
+
+<BaseLayout title="Blog" description="Short notes on papers, half-formed research ideas, and PhD-life reflections.">
+  <article class="container-prose pt-14 pb-24 md:pt-20">
+    <p class="section-label mb-3">Blog</p>
+    <h1 class="font-serif text-4xl leading-tight text-ink dark:text-zinc-100 md:text-5xl">
+      Notes & writing
+    </h1>
+    <p class="mt-4 mb-12 max-w-2xl leading-relaxed text-ink-muted dark:text-zinc-300">
+      Short notes on papers I'm reading, half-formed research ideas, conference planning,
+      and occasional PhD-life reflections.
+    </p>
+
+    {posts.length > 0 ? (
+      <ul class="space-y-10">
+        {posts.map((post) => (
+          <li>
+            <a
+              href={post.data.externalUrl ?? `/blog/${post.slug}/`}
+              target={post.data.externalUrl ? '_blank' : undefined}
+              rel={post.data.externalUrl ? 'noopener noreferrer' : undefined}
+              class="group block"
+            >
+              <p class="meta mb-1">{fmt(post.data.date)}</p>
+              <h2 class="font-serif text-xl leading-snug text-ink transition-colors group-hover:text-accent-700 dark:text-zinc-100 dark:group-hover:text-accent-300 md:text-2xl">
+                {post.data.title}
+              </h2>
+              {post.data.description && (
+                <p class="mt-1.5 text-sm leading-relaxed text-ink-muted dark:text-zinc-400">
+                  {post.data.description}
+                </p>
+              )}
+              {post.data.tags.length > 0 && (
+                <div class="mt-2.5 flex flex-wrap gap-2">
+                  {post.data.tags.map((tag) => (
+                    <span class="rounded-full border border-zinc-200 px-2 py-0.5 font-mono text-[11px] text-ink-subtle dark:border-zinc-800 dark:text-zinc-500">
+                      {tag}
+                    </span>
+                  ))}
+                </div>
+              )}
+            </a>
+          </li>
+        ))}
+      </ul>
+    ) : (
+      <p class="text-ink-muted dark:text-zinc-400">No posts yet.</p>
+    )}
+  </article>
+</BaseLayout>

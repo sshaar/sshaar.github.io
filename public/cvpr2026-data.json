@@ -1,0 +1,2541 @@
+{
+ "meta": {
+  "conference": "CVPR 2026",
+  "location": "Denver, CO",
+  "days": {
+   "1": {
+    "title": "Wednesday, June 3",
+    "tag": "JUN 3"
+   },
+   "2": {
+    "title": "Thursday, June 4",
+    "tag": "JUN 4"
+   }
+  },
+  "window": {
+   "start": 480,
+   "end": 1095,
+   "pxPerMin": 2.6
+  },
+  "weights": {
+   "1": 5,
+   "2": 3,
+   "3": 1.5
+  }
+ },
+ "topics": {
+  "video": {
+   "label": "Video understanding",
+   "c": "#3fc6bd"
+  },
+  "mm": {
+   "label": "Multimodal / MLLM",
+   "c": "#f0a830"
+  },
+  "reason": {
+   "label": "Reasoning",
+   "c": "#b78bff"
+  },
+  "trends": {
+   "label": "Big-picture / Trends",
+   "c": "#8fd24f"
+  },
+  "off": {
+   "label": "Robotics / 3D / Sensors",
+   "c": "#737a87"
+  }
+ },
+ "tags": {
+  "video-understanding": {
+   "label": "Video understanding",
+   "c": "#3fc6bd"
+  },
+  "long-video": {
+   "label": "Long-form video",
+   "c": "#3fc6bd"
+  },
+  "video-generation": {
+   "label": "Video generation",
+   "c": "#3fc6bd"
+  },
+  "egocentric": {
+   "label": "Egocentric / first-person",
+   "c": "#3fc6bd"
+  },
+  "skill-assessment": {
+   "label": "Skill assessment",
+   "c": "#3fc6bd"
+  },
+  "medical": {
+   "label": "Medical",
+   "c": "#3fc6bd"
+  },
+  "multimodal-llm": {
+   "label": "Multimodal LLMs",
+   "c": "#f0a830"
+  },
+  "vision-language": {
+   "label": "Vision–language",
+   "c": "#f0a830"
+  },
+  "grounding": {
+   "label": "Grounding",
+   "c": "#f0a830"
+  },
+  "retrieval": {
+   "label": "Retrieval",
+   "c": "#f0a830"
+  },
+  "interpretability": {
+   "label": "Interpretability",
+   "c": "#f0a830"
+  },
+  "reasoning": {
+   "label": "Reasoning",
+   "c": "#b78bff"
+  },
+  "agents": {
+   "label": "Agents",
+   "c": "#b78bff"
+  },
+  "world-models": {
+   "label": "World models",
+   "c": "#b78bff"
+  },
+  "causal": {
+   "label": "Causal",
+   "c": "#b78bff"
+  },
+  "cognition": {
+   "label": "Cognition",
+   "c": "#b78bff"
+  },
+  "evaluation": {
+   "label": "Evaluation / benchmarks",
+   "c": "#8fd24f"
+  },
+  "data-centric": {
+   "label": "Data-centric",
+   "c": "#8fd24f"
+  },
+  "scaling": {
+   "label": "Scaling",
+   "c": "#8fd24f"
+  },
+  "efficiency": {
+   "label": "Efficiency",
+   "c": "#8fd24f"
+  },
+  "robotics": {
+   "label": "Robotics",
+   "c": "#737a87"
+  },
+  "3d": {
+   "label": "3D perception",
+   "c": "#737a87"
+  },
+  "embodied": {
+   "label": "Embodied",
+   "c": "#737a87"
+  },
+  "diffusion": {
+   "label": "Diffusion",
+   "c": "#737a87"
+  },
+  "ar-vr": {
+   "label": "AR / VR",
+   "c": "#737a87"
+  }
+ },
+ "workshops": {
+  "BitterLessons": {
+   "name": "\"Bitter Lessons\" Workshop",
+   "url": "https://sites.google.com/view/bitterlessonscv",
+   "speaker": "William T. \"Bill\" Freeman — MIT CSAIL",
+   "about": "Headline opening talk, \"Bitter and non-bitter lessons\" — which hard-won computer-vision lessons genuinely held up under scale and compute, and which did not.",
+   "bio": "Thomas & Gerd Perkins Professor of EECS at MIT CSAIL; foundational work on Bayesian / learning-based vision, computational photography, and motion magnification.",
+   "note": "Field-reflection workshop — Freeman opens; Alyosha Efros (\"Sweet Lessons\") and Georgia Gkioxari also feature.",
+   "day": 1,
+   "room": "3A–3D",
+   "speakers": [
+    {
+     "name": "Bill Freeman",
+     "affil": "MIT",
+     "role": "invited"
+    },
+    {
+     "name": "Vincent Sitzmann",
+     "affil": "MIT",
+     "role": "invited"
+    },
+    {
+     "name": "Dima Damen",
+     "affil": "University of Bristol",
+     "role": "invited"
+    },
+    {
+     "name": "Alyosha Efros",
+     "affil": "UC Berkeley",
+     "role": "invited"
+    },
+    {
+     "name": "Georgia Gkioxari",
+     "affil": "Caltech",
+     "role": "invited"
+    },
+    {
+     "name": "Evan Shelhamer",
+     "affil": "UBC",
+     "role": "invited"
+    },
+    {
+     "name": "Bharath Hariharan",
+     "affil": "Cornell",
+     "role": "invited"
+    },
+    {
+     "name": "Shenlong Wang",
+     "affil": "UIUC",
+     "role": "invited"
+    },
+    {
+     "name": "Jon Barron",
+     "affil": "Google",
+     "role": "invited"
+    },
+    {
+     "name": "Derek Hoiem",
+     "affil": "UIUC",
+     "role": "invited"
+    }
+   ]
+  },
+  "VAR": {
+   "name": "Vision-based Assistants in the Real World (VAR)",
+   "url": "https://varworkshop.github.io/",
+   "speaker": "Michael S. Ryoo — Google DeepMind / Stony Brook (opens the session)",
+   "about": "Opening talk of the morning session. Per-talk titles are not yet published, but the program now lists individual times.",
+   "bio": "Professor at Stony Brook University and researcher at Google DeepMind; works on video understanding, robot learning, and vision-language models.",
+   "note": "All six talks are billed as co-equal \"keynote\" talks; titles are not posted yet.",
+   "day": 1,
+   "room": "TBD",
+   "speakers": [
+    {
+     "name": "Katerina Fragkiadaki",
+     "affil": "Carnegie Mellon University",
+     "role": "invited"
+    },
+    {
+     "name": "Wenhu Chen",
+     "affil": "University of Waterloo",
+     "role": "invited"
+    },
+    {
+     "name": "Michael S. Ryoo",
+     "affil": "DeepMind / Stony Brook University",
+     "role": "invited"
+    },
+    {
+     "name": "Ziwei Liu",
+     "affil": "Nanyang Technological University",
+     "role": "invited"
+    },
+    {
+     "name": "Yao Qin",
+     "affil": "UC Santa Barbara",
+     "role": "invited"
+    },
+    {
+     "name": "Vicente Ordonez-Roman",
+     "affil": "Rice University",
+     "role": "invited"
+    }
+   ]
+  },
+  "EgoVis": {
+   "name": "3rd Joint Egocentric Vision (EgoVis) Workshop",
+   "url": "https://egovis.github.io/cvpr26/",
+   "speaker": "Lorenzo Torresani — Northeastern University",
+   "about": "\"Where Perception Isn’t Enough: Anticipation, Guidance & Reasoning Over Video\" — recognising actions in first-person video isn’t enough; systems must anticipate, guide the user, and reason over video.",
+   "bio": "Professor & Aoun Chair at Northeastern; former Meta Research Director. Works on multimodal video understanding and wearable \"perceptual AI assistants\".",
+   "day": 1,
+   "room": "704/706",
+   "speakers": [
+    {
+     "name": "Marc Pollefeys",
+     "affil": "ETH Zurich",
+     "role": "keynote"
+    },
+    {
+     "name": "Saurabh Gupta",
+     "affil": "University of Illinois",
+     "role": "keynote"
+    },
+    {
+     "name": "Jawahar C V",
+     "affil": "IIIT Hyderabad",
+     "role": "keynote"
+    },
+    {
+     "name": "Lorenzo Torresani",
+     "affil": "Northeastern University",
+     "role": "keynote"
+    },
+    {
+     "name": "Hazel Doughty",
+     "affil": "Leiden University",
+     "role": "keynote"
+    },
+    {
+     "name": "Ziwei Liu",
+     "affil": "Nanyang Technological University",
+     "role": "keynote"
+    }
+   ]
+  },
+  "T4V": {
+   "name": "5th Workshop on Transformers for Vision (T4V)",
+   "url": "https://sites.google.com/view/t4v-cvpr26/",
+   "speaker": "Juan Carlos Niebles — Salesforce AI Research / Stanford",
+   "about": "Talk topic not published on the official page (six invited slots with times but no titles).",
+   "bio": "Senior Research Director at Salesforce AI Research and affiliated with the Stanford Vision & Learning Lab; works on video understanding and visual reasoning.",
+   "note": "No formal keynote designated; the talk topic is unconfirmed by the official page.",
+   "day": 1,
+   "room": "607",
+   "speakers": [
+    {
+     "name": "Ranjay Krishna",
+     "affil": "University of Washington",
+     "role": "invited"
+    },
+    {
+     "name": "Jiatao Gu",
+     "affil": "UPenn / Apple",
+     "role": "invited"
+    },
+    {
+     "name": "Sherry Yang",
+     "affil": "NYU / Google DeepMind",
+     "role": "invited"
+    },
+    {
+     "name": "Juan Carlos Niebles",
+     "affil": "Salesforce / Stanford University",
+     "role": "invited"
+    },
+    {
+     "name": "Zhuang Liu",
+     "affil": "Princeton University",
+     "role": "invited"
+    },
+    {
+     "name": "Peter Tong",
+     "affil": "AMI Labs (NYU)",
+     "role": "invited"
+    }
+   ]
+  },
+  "COGVL": {
+   "name": "CogVL: Cognitive Foundations for Multimodal Models",
+   "url": "https://cogvl.github.io/",
+   "speaker": "Trevor Darrell — UC Berkeley / BAIR",
+   "about": "Closing 40-minute keynote on cognitively-inspired frameworks for vision-language models. (No talk title published.)",
+   "bio": "Professor of EECS at UC Berkeley and founding member of the Berkeley AI Research (BAIR) lab; long-standing work in vision-language learning.",
+   "day": 1,
+   "room": "610/612",
+   "speakers": [
+    {
+     "name": "Katerina Fragkiadaki",
+     "affil": "Carnegie Mellon University",
+     "role": "keynote"
+    },
+    {
+     "name": "Judith E. Fan",
+     "affil": "Stanford University",
+     "role": "keynote"
+    },
+    {
+     "name": "Alane Suhr",
+     "affil": "UC Berkeley / BAIR",
+     "role": "keynote"
+    },
+    {
+     "name": "Trevor Darrell",
+     "affil": "UC Berkeley / BAIR",
+     "role": "keynote"
+    }
+   ]
+  },
+  "VITA": {
+   "name": "1st Workshop on Vision for Intelligent Task Assistants (VITA)",
+   "url": "https://vita-workshop.github.io/cvpr2026/",
+   "speaker": "Kristen Grauman — UT Austin / FAIR (co-headline: Gedas Bertasius, UNC)",
+   "about": "\"Skill++: Learning to Assess and Improve Physical Skills from Video\" — using (egocentric) video to gauge how well someone performs a physical activity and give feedback to improve.",
+   "bio": "Professor at UT Austin and research scientist at FAIR; a leading figure in egocentric video (Ego4D / Ego-Exo4D) and embodied perception.",
+   "note": "All eight talks are co-equal \"invited talks\"; the headliner is inferred.",
+   "day": 1,
+   "room": "108",
+   "speakers": [
+    {
+     "name": "David Hayden",
+     "affil": "Meta",
+     "role": "invited"
+    },
+    {
+     "name": "Evgeniy Oleinik",
+     "affil": "Meta",
+     "role": "invited"
+    },
+    {
+     "name": "Kristen Grauman",
+     "affil": "University of Texas at Austin",
+     "role": "invited"
+    },
+    {
+     "name": "Ivan Laptev",
+     "affil": "MBZUAI",
+     "role": "invited"
+    },
+    {
+     "name": "Gedas Bertasius",
+     "affil": "UNC Chapel Hill",
+     "role": "invited"
+    },
+    {
+     "name": "Marc Pollefeys",
+     "affil": "ETH Zurich",
+     "role": "invited"
+    },
+    {
+     "name": "Juan Carlos Niebles",
+     "affil": "Salesforce AI Research",
+     "role": "invited"
+    },
+    {
+     "name": "Antonino Furnari",
+     "affil": "University of Catania",
+     "role": "invited"
+    },
+    {
+     "name": "Steven Feiner",
+     "affil": "Columbia University",
+     "role": "invited"
+    }
+   ]
+  },
+  "CV4Smalls": {
+   "name": "Computer Vision with Small Data (CV4Smalls)",
+   "url": "https://cv4smalls2026.sites.northeastern.edu/",
+   "speaker": "Juan Carlos Niebles — Salesforce AI Research / Stanford (co-keynote: Vasudev Lal, Oracle)",
+   "about": "\"Agentic Ambient Intelligence: Perception, Reasoning & Action\" — systems that perceive their environment, reason about it, and autonomously take action.",
+   "bio": "Research Director at Salesforce AI Research and co-director of the Stanford Vision & Learning Lab.",
+   "day": 1,
+   "room": "102/104",
+   "speakers": [
+    {
+     "name": "Vasudev Lal",
+     "affil": "Oracle",
+     "role": "keynote"
+    },
+    {
+     "name": "Juan Carlos Niebles",
+     "affil": "Salesforce AI Research & Stanford University",
+     "role": "keynote"
+    },
+    {
+     "name": "Jason Corso",
+     "affil": "Voxel51",
+     "role": "panel"
+    },
+    {
+     "name": "Jose M. Alvarez",
+     "affil": "NVIDIA",
+     "role": "panel"
+    },
+    {
+     "name": "Shuai Zhang",
+     "affil": "Qualcomm",
+     "role": "panel"
+    },
+    {
+     "name": "Vimal Bhat",
+     "affil": "Amazon",
+     "role": "panel"
+    },
+    {
+     "name": "Sanjeev J. Koppal",
+     "affil": "Amazon",
+     "role": "panel"
+    }
+   ]
+  },
+  "ViSCALE": {
+   "name": "2nd ViSCALE: Test-Time Scaling for Computer Vision",
+   "url": "https://viscale.github.io/",
+   "speaker": "Sergey Levine — UC Berkeley (opening slot; no single keynote designated)",
+   "about": "Opening invited talk. No talk titles or abstracts are published on the official page.",
+   "bio": "Associate professor at UC Berkeley; known for deep reinforcement learning and robotic control.",
+   "note": "Six speakers under a \"Keynote Speakers\" header, all billed as equal invited talks.",
+   "day": 1,
+   "room": "506",
+   "speakers": [
+    {
+     "name": "Sergey Levine",
+     "affil": "UC Berkeley",
+     "role": "invited"
+    },
+    {
+     "name": "Yong Jae Lee",
+     "affil": "University of Wisconsin-Madison",
+     "role": "invited"
+    },
+    {
+     "name": "Ranjay Krishna",
+     "affil": "University of Washington",
+     "role": "invited"
+    },
+    {
+     "name": "Ziwei Liu",
+     "affil": "Nanyang Technological University",
+     "role": "invited"
+    },
+    {
+     "name": "Manling Li",
+     "affil": "Northwestern University",
+     "role": "invited"
+    },
+    {
+     "name": "Mahmoud Assran",
+     "affil": "Meta AI",
+     "role": "invited"
+    }
+   ]
+  },
+  "ReLearn": {
+   "name": "ReLearn: Rediscovering Intelligence — Can AI Still Learn from Humans?",
+   "url": "https://relearncvpr26.github.io/ReLearn/",
+   "speaker": "Alexei \"Alyosha\" Efros — UC Berkeley",
+   "about": "Opening keynote on the workshop’s central question — what human and cognitive insight can still teach AI vision systems.",
+   "bio": "Professor of EECS at UC Berkeley (formerly CMU); works at the intersection of computer vision and graphics.",
+   "note": "Closing keynote by William T. Freeman (MIT).",
+   "day": 1,
+   "room": "4AB",
+   "speakers": [
+    {
+     "name": "Alexei (Alyosha) Efros",
+     "affil": "UC Berkeley",
+     "role": "keynote"
+    },
+    {
+     "name": "Manling Li",
+     "affil": "Northwestern University",
+     "role": "keynote"
+    },
+    {
+     "name": "Dima Damen",
+     "affil": "University of Bristol / Google DeepMind",
+     "role": "keynote"
+    },
+    {
+     "name": "Alan Yuille",
+     "affil": "Johns Hopkins University",
+     "role": "keynote"
+    },
+    {
+     "name": "Saining Xie",
+     "affil": "NYU Courant",
+     "role": "keynote"
+    },
+    {
+     "name": "William T. Freeman",
+     "affil": "MIT CSAIL / Google Research",
+     "role": "keynote"
+    }
+   ]
+  },
+  "DataMFM": {
+   "name": "Emerging Directions in Data for Multimodal Foundation Models (DataMFM)",
+   "url": "https://datamfm.github.io/",
+   "speaker": "No keynote designated",
+   "about": "Four equally-billed invited talks (Ranjay Krishna, Ziwei Liu, Aishwarya Agrawal, Yilun Du).",
+   "bio": "—",
+   "note": "The workshop lists no keynote.",
+   "day": 1,
+   "room": "111",
+   "speakers": [
+    {
+     "name": "Ranjay Krishna",
+     "affil": "University of Washington",
+     "role": "invited"
+    },
+    {
+     "name": "Ziwei Liu",
+     "affil": "Nanyang Technological University",
+     "role": "invited"
+    },
+    {
+     "name": "Aishwarya Agrawal",
+     "affil": "University of Montreal / Mila",
+     "role": "invited"
+    },
+    {
+     "name": "Yilun Du",
+     "affil": "Harvard University",
+     "role": "invited"
+    }
+   ]
+  },
+  "CVinW": {
+   "name": "5th Workshop on Computer Vision in the Wild (CVinW)",
+   "url": "https://computer-vision-in-the-wild.github.io/cvpr-2026/",
+   "speaker": "Mohit Bansal — UNC Chapel Hill",
+   "about": "\"Memory, Action, and Skill Planning for Multimodal Agents\" — memory, action, and planning capabilities for multimodal AI agents.",
+   "bio": "Professor at UNC Chapel Hill and director of the MURGe-Lab; prominent in multimodal / vision-language learning and grounding.",
+   "note": "2026 theme: multimodal agents with verbal, spatial & temporal intelligence.",
+   "day": 2,
+   "room": "TBD",
+   "speakers": [
+    {
+     "name": "Manling Li",
+     "affil": "Northwestern University",
+     "role": "invited"
+    },
+    {
+     "name": "Xiaolong Wang",
+     "affil": "UC San Diego",
+     "role": "invited"
+    },
+    {
+     "name": "Scott Yih",
+     "affil": "Meta FAIR",
+     "role": "invited"
+    },
+    {
+     "name": "Kate Saenko",
+     "affil": "Boston University / Meta MSL",
+     "role": "invited"
+    },
+    {
+     "name": "Chelsea Finn",
+     "affil": "Stanford University",
+     "role": "invited"
+    },
+    {
+     "name": "Mohit Bansal",
+     "affil": "UNC Chapel Hill",
+     "role": "invited"
+    },
+    {
+     "name": "Jianfeng Gao",
+     "affil": "Microsoft",
+     "role": "panel"
+    }
+   ]
+  },
+  "KnowledgeMR": {
+   "name": "2nd Workshop on Knowledge-Intensive Multimodal Reasoning (KnowledgeMR)",
+   "url": "https://knowledgemr-workshop.github.io/",
+   "speaker": "Paul Liang — MIT",
+   "about": "\"Self-Evolving Multimodal AI\" — multimodal systems that adapt and improve themselves over time across modalities.",
+   "bio": "Faculty at MIT (Media Lab / EECS); foundational work on multimodal and multisensory machine learning.",
+   "day": 2,
+   "room": "704/706",
+   "speakers": [
+    {
+     "name": "Biwei Huang",
+     "affil": "UC San Diego",
+     "role": "invited"
+    },
+    {
+     "name": "Xin (Eric) Wang",
+     "affil": "UC Santa Barbara",
+     "role": "invited"
+    },
+    {
+     "name": "Paul Liang",
+     "affil": "MIT",
+     "role": "invited"
+    },
+    {
+     "name": "Jiatao Gu",
+     "affil": "UPenn & Apple",
+     "role": "invited"
+    },
+    {
+     "name": "Mengdi Wang",
+     "affil": "Princeton",
+     "role": "invited"
+    }
+   ]
+  },
+  "MAR": {
+   "name": "6th Multimodal Algorithmic Reasoning Workshop (MAR)",
+   "url": "https://marworkshop.github.io/cvpr26/",
+   "speaker": "Melanie Mitchell — Santa Fe Institute",
+   "about": "\"Six Principles for Evaluating Cognitive Capabilities in AI Models\" — a framework for rigorously assessing reasoning and understanding rather than surface-level performance.",
+   "bio": "Professor at the Santa Fe Institute; known for work on analogy, abstraction and AI evaluation, and author of \"Artificial Intelligence: A Guide for Thinking Humans\".",
+   "day": 2,
+   "room": "601",
+   "speakers": [
+    {
+     "name": "Juan Carlos Niebles",
+     "affil": "Salesforce AI Research",
+     "role": "keynote"
+    },
+    {
+     "name": "Jiayuan Mao",
+     "affil": "University of Pennsylvania",
+     "role": "keynote"
+    },
+    {
+     "name": "Melanie Mitchell",
+     "affil": "Santa Fe Institute",
+     "role": "keynote"
+    },
+    {
+     "name": "Jialong Wu",
+     "affil": "Tsinghua University",
+     "role": "keynote"
+    }
+   ]
+  },
+  "A2A-MML": {
+   "name": "Workshop on Any-to-Any Multimodal Learning (A2A-MML)",
+   "url": "https://any2any-mllm.github.io/workshop-cvpr26/",
+   "speaker": "Mohit Bansal — UNC Chapel Hill (co-headline: Saining Xie, NYU)",
+   "about": "\"Multimodal Unification, Communication & Composable Generalization\" — unifying modalities into shared models and enabling composable generalization across them.",
+   "bio": "Bansal: professor at UNC Chapel Hill (multimodal NLP / vision-language). Saining Xie (NYU): ConvNeXt, Diffusion Transformers (DiT) and Cambrian MLLMs.",
+   "day": 2,
+   "room": "502",
+   "speakers": [
+    {
+     "name": "Zhedong Zheng",
+     "affil": "University of Macau",
+     "role": "keynote"
+    },
+    {
+     "name": "Saining Xie",
+     "affil": "NYU",
+     "role": "keynote"
+    },
+    {
+     "name": "Georgia Gkioxari",
+     "affil": "Caltech",
+     "role": "keynote"
+    },
+    {
+     "name": "Mohit Bansal",
+     "affil": "UNC Chapel Hill",
+     "role": "keynote"
+    },
+    {
+     "name": "Yossi Gandelsman",
+     "affil": "TTIC",
+     "role": "keynote"
+    },
+    {
+     "name": "Manling Li",
+     "affil": "Northwestern",
+     "role": "keynote"
+    },
+    {
+     "name": "Paul Liang",
+     "affil": "MIT",
+     "role": "keynote"
+    }
+   ]
+  },
+  "LOVEU": {
+   "name": "LOVEU: Long-form Video Understanding",
+   "url": "https://sites.google.com/view/loveucvpr26/home",
+   "speaker": "No keynote designated",
+   "about": "Five equally-billed invited talks (Yu-Xiong Wang, Manling Li, Yaoyao Liu, Ruben Villegas, Xin Eric Wang).",
+   "bio": "—",
+   "note": "The workshop lists no keynote.",
+   "day": 2,
+   "room": "704/706",
+   "speakers": [
+    {
+     "name": "Yu-xiong Wang",
+     "affil": "UIUC",
+     "role": "invited"
+    },
+    {
+     "name": "Manling Li",
+     "affil": "Northeastern University",
+     "role": "invited"
+    },
+    {
+     "name": "Yaoyao Liu",
+     "affil": "UIUC",
+     "role": "invited"
+    },
+    {
+     "name": "Ruben Villegas",
+     "affil": "Google DeepMind",
+     "role": "invited"
+    },
+    {
+     "name": "Xin (Eric) Wang",
+     "affil": "UCSB and Simular",
+     "role": "invited"
+    }
+   ]
+  },
+  "MMR": {
+   "name": "Multimodal Reasoning (MMR) — page unconfirmed",
+   "url": "https://cvpr.thecvf.com/Conferences/2026/Workshops",
+   "speaker": "Kristen Grauman / Ranjay Krishna (per my notes)",
+   "about": "Grounding video / multimodal reasoning in visual evidence. I could not confirm a single official \"MMR\" page — the lineup appears to mix talks from GRAIL-V and others.",
+   "bio": "Grauman: UT Austin / FAIR (egocentric video). Krishna: Univ. of Washington (Visual Genome, grounding).",
+   "note": "No official page matched — link goes to the CVPR 2026 workshop list. Closest real page: GRAIL-V (grailworkshops.github.io).",
+   "day": 2,
+   "room": "3A",
+   "speakers": [
+    {
+     "name": "Yunzhu Li",
+     "affil": "Columbia University",
+     "role": "invited"
+    },
+    {
+     "name": "Alexander Toshev",
+     "affil": "Apple ML Research",
+     "role": "invited"
+    },
+    {
+     "name": "Biwei Huang",
+     "affil": "UC San Diego",
+     "role": "invited"
+    },
+    {
+     "name": "Kristen Grauman",
+     "affil": "University of Texas at Austin",
+     "role": "invited"
+    },
+    {
+     "name": "Ranjay Krishna",
+     "affil": "University of Washington",
+     "role": "invited"
+    }
+   ]
+  },
+  "SAUAFG": {
+   "name": "2nd SAUAFG: Skilled Activity Understanding, Assessment & Feedback Generation",
+   "url": "https://sauafg-workshop.github.io/",
+   "speaker": "Walterio Mayol-Cuevas — University of Bristol / Amazon",
+   "about": "\"Skill Evolution\" — how human/AI skill develops and is understood over time from video.",
+   "bio": "Professor of Robotics, Computer Vision & Mobile Systems at the University of Bristol and an Amazon Scholar; works on wearable / egocentric computing.",
+   "day": 2,
+   "room": "705/707",
+   "speakers": [
+    {
+     "name": "Walterio Mayol-Cuevas",
+     "affil": "University of Bristol + Amazon",
+     "role": "keynote"
+    },
+    {
+     "name": "Anwesa Choudhuri",
+     "affil": "United Imaging Intelligence",
+     "role": "keynote"
+    },
+    {
+     "name": "Guodong Ding",
+     "affil": "National University of Singapore",
+     "role": "keynote"
+    }
+   ]
+  }
+ },
+ "talks": [
+  {
+   "day": 1,
+   "s": 525,
+   "e": 555,
+   "ws": "VAR",
+   "room": "TBD",
+   "who": "Ryoo",
+   "aff": "Google DeepMind / Stony Brook",
+   "topic": "off",
+   "tier": 3,
+   "title": "Ryoo",
+   "tags": [
+    "video-understanding",
+    "robotics",
+    "embodied",
+    "multimodal-llm"
+   ],
+   "id": "t0"
+  },
+  {
+   "day": 1,
+   "s": 540,
+   "e": 560,
+   "ws": "BitterLessons",
+   "room": "3A–3D",
+   "who": "Freeman",
+   "aff": "MIT",
+   "topic": "trends",
+   "tier": 1,
+   "title": "Bitter and non-bitter lessons",
+   "tags": [
+    "cognition",
+    "data-centric"
+   ],
+   "id": "t1"
+  },
+  {
+   "day": 1,
+   "s": 540,
+   "e": 570,
+   "ws": "EgoVis",
+   "room": "704/706",
+   "who": "Pollefeys",
+   "aff": "ETH Zurich",
+   "topic": "off",
+   "tier": 3,
+   "title": "Pollefeys",
+   "tags": [
+    "egocentric",
+    "3d",
+    "embodied"
+   ],
+   "id": "t2"
+  },
+  {
+   "day": 1,
+   "s": 555,
+   "e": 585,
+   "ws": "VAR",
+   "room": "TBD",
+   "who": "Fragkiadaki",
+   "aff": "CMU",
+   "topic": "off",
+   "tier": 3,
+   "title": "Fragkiadaki",
+   "tags": [
+    "robotics",
+    "embodied",
+    "3d",
+    "world-models"
+   ],
+   "id": "t3"
+  },
+  {
+   "day": 1,
+   "s": 560,
+   "e": 580,
+   "ws": "BitterLessons",
+   "room": "3A–3D",
+   "who": "Efros",
+   "aff": "UC Berkeley",
+   "topic": "trends",
+   "tier": 1,
+   "title": "Sweet Lessons",
+   "tags": [
+    "data-centric",
+    "scaling"
+   ],
+   "id": "t4"
+  },
+  {
+   "day": 1,
+   "s": 580,
+   "e": 600,
+   "ws": "BitterLessons",
+   "room": "3A–3D",
+   "who": "Gkioxari",
+   "aff": "Caltech",
+   "topic": "trends",
+   "tier": 3,
+   "title": "The Bittersweet Lessons of Recognition",
+   "tags": [
+    "evaluation",
+    "data-centric"
+   ],
+   "id": "t5"
+  },
+  {
+   "day": 1,
+   "s": 585,
+   "e": 615,
+   "ws": "VAR",
+   "room": "TBD",
+   "who": "Chen (Wenhu)",
+   "aff": "U. Waterloo",
+   "topic": "mm",
+   "tier": 2,
+   "title": "Chen (Wenhu)",
+   "tags": [
+    "multimodal-llm",
+    "vision-language",
+    "reasoning",
+    "evaluation"
+   ],
+   "id": "t6"
+  },
+  {
+   "day": 1,
+   "s": 600,
+   "e": 620,
+   "ws": "BitterLessons",
+   "room": "3A–3D",
+   "who": "Panel 1",
+   "aff": "",
+   "topic": "trends",
+   "tier": 3,
+   "title": "Panel: hard-won lessons under scale",
+   "tags": [
+    "cognition",
+    "evaluation"
+   ],
+   "id": "t7"
+  },
+  {
+   "day": 1,
+   "s": 630,
+   "e": 650,
+   "ws": "BitterLessons",
+   "room": "3A–3D",
+   "who": "Barron",
+   "aff": "Google",
+   "topic": "off",
+   "tier": 3,
+   "title": "Lessons in 3D",
+   "tags": [
+    "3d",
+    "scaling"
+   ],
+   "id": "t8"
+  },
+  {
+   "day": 1,
+   "s": 630,
+   "e": 660,
+   "ws": "VAR",
+   "room": "TBD",
+   "who": "Liu (Ziwei)",
+   "aff": "NTU",
+   "topic": "mm",
+   "tier": 2,
+   "title": "Liu (Ziwei)",
+   "tags": [
+    "multimodal-llm",
+    "vision-language",
+    "video-generation",
+    "3d"
+   ],
+   "id": "t9"
+  },
+  {
+   "day": 1,
+   "s": 645,
+   "e": 675,
+   "ws": "EgoVis",
+   "room": "704/706",
+   "who": "Gupta (Saurabh)",
+   "aff": "UIUC",
+   "topic": "off",
+   "tier": 3,
+   "title": "Video Understanding for Robot Learning",
+   "tags": [
+    "video-understanding",
+    "robotics",
+    "embodied",
+    "egocentric"
+   ],
+   "id": "t10"
+  },
+  {
+   "day": 1,
+   "s": 650,
+   "e": 670,
+   "ws": "BitterLessons",
+   "room": "3A–3D",
+   "who": "Sitzmann",
+   "aff": "MIT",
+   "topic": "off",
+   "tier": 3,
+   "title": "The flavor of the bitter lesson for computer vision",
+   "tags": [
+    "3d",
+    "world-models"
+   ],
+   "id": "t11"
+  },
+  {
+   "day": 1,
+   "s": 660,
+   "e": 690,
+   "ws": "VAR",
+   "room": "TBD",
+   "who": "Qin (Yao)",
+   "aff": "UC Santa Barbara",
+   "topic": "mm",
+   "tier": 2,
+   "title": "Qin (Yao)",
+   "tags": [
+    "vision-language",
+    "multimodal-llm",
+    "evaluation",
+    "interpretability"
+   ],
+   "id": "t12"
+  },
+  {
+   "day": 1,
+   "s": 670,
+   "e": 690,
+   "ws": "BitterLessons",
+   "room": "3A–3D",
+   "who": "Hariharan",
+   "aff": "Cornell",
+   "topic": "trends",
+   "tier": 3,
+   "title": "Mid-level vision is dead; long live mid-level vision!",
+   "tags": [
+    "data-centric",
+    "scaling"
+   ],
+   "id": "t13"
+  },
+  {
+   "day": 1,
+   "s": 690,
+   "e": 710,
+   "ws": "BitterLessons",
+   "room": "3A–3D",
+   "who": "Panel 2",
+   "aff": "",
+   "topic": "trends",
+   "tier": 3,
+   "title": "Panel: structure vs. scale in 3D",
+   "tags": [
+    "3d",
+    "world-models"
+   ],
+   "id": "t14"
+  },
+  {
+   "day": 1,
+   "s": 690,
+   "e": 720,
+   "ws": "VAR",
+   "room": "TBD",
+   "who": "Ordóñez-Román",
+   "aff": "Rice",
+   "topic": "mm",
+   "tier": 2,
+   "title": "Ordóñez-Román",
+   "tags": [
+    "vision-language",
+    "grounding",
+    "multimodal-llm",
+    "data-centric"
+   ],
+   "id": "t15"
+  },
+  {
+   "day": 1,
+   "s": 710,
+   "e": 730,
+   "ws": "BitterLessons",
+   "room": "3A–3D",
+   "who": "Wang (Shenlong)",
+   "aff": "UIUC",
+   "topic": "off",
+   "tier": 3,
+   "title": "Modeling the World After the Bitter Lesson",
+   "tags": [
+    "world-models",
+    "3d"
+   ],
+   "id": "t16"
+  },
+  {
+   "day": 1,
+   "s": 730,
+   "e": 750,
+   "ws": "BitterLessons",
+   "room": "3A–3D",
+   "who": "Hoiem",
+   "aff": "UIUC",
+   "topic": "trends",
+   "tier": 3,
+   "title": "Advice to research by, and the next bitter lesson",
+   "tags": [
+    "cognition",
+    "data-centric"
+   ],
+   "id": "t17"
+  },
+  {
+   "day": 1,
+   "s": 735,
+   "e": 765,
+   "ws": "EgoVis",
+   "room": "704/706",
+   "who": "Jawahar",
+   "aff": "IIIT Hyderabad",
+   "topic": "video",
+   "tier": 2,
+   "title": "Jawahar",
+   "tags": [
+    "egocentric",
+    "video-understanding"
+   ],
+   "id": "t18"
+  },
+  {
+   "day": 1,
+   "s": 750,
+   "e": 770,
+   "ws": "BitterLessons",
+   "room": "3A–3D",
+   "who": "Panel 3",
+   "aff": "",
+   "topic": "trends",
+   "tier": 3,
+   "title": "Panel: the next bitter lesson",
+   "tags": [
+    "world-models",
+    "scaling"
+   ],
+   "id": "t19"
+  },
+  {
+   "day": 1,
+   "s": 790,
+   "e": 830,
+   "ws": "COGVL",
+   "room": "610/612",
+   "who": "Fragkiadaki",
+   "aff": "CMU",
+   "topic": "off",
+   "tier": 3,
+   "title": "Fragkiadaki",
+   "tags": [
+    "embodied",
+    "3d",
+    "robotics",
+    "world-models"
+   ],
+   "id": "t20"
+  },
+  {
+   "day": 1,
+   "s": 790,
+   "e": 820,
+   "ws": "DataMFM",
+   "room": "111",
+   "who": "Krishna",
+   "aff": "U. Washington",
+   "topic": "mm",
+   "tier": 2,
+   "title": "Krishna",
+   "tags": [
+    "vision-language",
+    "grounding",
+    "multimodal-llm"
+   ],
+   "id": "t21"
+  },
+  {
+   "day": 1,
+   "s": 795,
+   "e": 840,
+   "ws": "CV4Smalls",
+   "room": "102/104",
+   "who": "Lal",
+   "aff": "Oracle",
+   "topic": "mm",
+   "tier": 2,
+   "title": "Learning More from Less Multimodal Data",
+   "tags": [
+    "multimodal-llm",
+    "data-centric",
+    "vision-language"
+   ],
+   "id": "t22"
+  },
+  {
+   "day": 1,
+   "s": 810,
+   "e": 840,
+   "ws": "VITA",
+   "room": "108",
+   "who": "Hayden et al.",
+   "aff": "Meta",
+   "topic": "off",
+   "tier": 3,
+   "title": "Aria as a Remote-Expert Data Collection Platform for Egocentric AI Task Assistants",
+   "tags": [
+    "egocentric",
+    "ar-vr",
+    "data-centric"
+   ],
+   "id": "t23"
+  },
+  {
+   "day": 1,
+   "s": 810,
+   "e": 840,
+   "ws": "ViSCALE",
+   "room": "506",
+   "who": "Levine",
+   "aff": "UC Berkeley",
+   "topic": "off",
+   "tier": 3,
+   "title": "Levine",
+   "tags": [
+    "robotics",
+    "embodied",
+    "scaling"
+   ],
+   "id": "t24"
+  },
+  {
+   "day": 1,
+   "s": 810,
+   "e": 840,
+   "ws": "ReLearn",
+   "room": "4AB",
+   "who": "Efros",
+   "aff": "UC Berkeley",
+   "topic": "trends",
+   "tier": 1,
+   "title": "Efros",
+   "tags": [
+    "vision-language",
+    "data-centric",
+    "scaling"
+   ],
+   "id": "t25"
+  },
+  {
+   "day": 1,
+   "s": 840,
+   "e": 870,
+   "ws": "EgoVis",
+   "room": "704/706",
+   "who": "Torresani",
+   "aff": "Northeastern",
+   "topic": "reason",
+   "tier": 1,
+   "title": "Where Perception Isn't Enough: Anticipation, Guidance & Reasoning Over Video",
+   "tags": [
+    "reasoning",
+    "video-understanding",
+    "egocentric"
+   ],
+   "id": "t26"
+  },
+  {
+   "day": 1,
+   "s": 840,
+   "e": 870,
+   "ws": "T4V",
+   "room": "607",
+   "who": "Krishna",
+   "aff": "U. Washington",
+   "topic": "mm",
+   "tier": 2,
+   "title": "Krishna",
+   "tags": [
+    "vision-language",
+    "multimodal-llm",
+    "grounding",
+    "evaluation"
+   ],
+   "id": "t27"
+  },
+  {
+   "day": 1,
+   "s": 840,
+   "e": 870,
+   "ws": "VITA",
+   "room": "108",
+   "who": "Grauman",
+   "aff": "UT Austin / FAIR",
+   "topic": "video",
+   "tier": 1,
+   "title": "Skill++: Learning to Assess and Improve Physical Skills from Video",
+   "tags": [
+    "skill-assessment",
+    "video-understanding",
+    "egocentric"
+   ],
+   "id": "t28"
+  },
+  {
+   "day": 1,
+   "s": 840,
+   "e": 870,
+   "ws": "ViSCALE",
+   "room": "506",
+   "who": "Lee (Yong)",
+   "aff": "UW–Madison",
+   "topic": "mm",
+   "tier": 2,
+   "title": "Lee (Yong)",
+   "tags": [
+    "multimodal-llm",
+    "vision-language"
+   ],
+   "id": "t29"
+  },
+  {
+   "day": 1,
+   "s": 840,
+   "e": 870,
+   "ws": "ReLearn",
+   "room": "4AB",
+   "who": "Li (Manling)",
+   "aff": "Northwestern",
+   "topic": "reason",
+   "tier": 2,
+   "title": "How Foundation Models Build (and Fail to Build) Spatial Minds: A Piagetian View",
+   "tags": [
+    "reasoning",
+    "cognition",
+    "multimodal-llm",
+    "grounding"
+   ],
+   "id": "t30"
+  },
+  {
+   "day": 1,
+   "s": 850,
+   "e": 880,
+   "ws": "DataMFM",
+   "room": "111",
+   "who": "Liu (Ziwei)",
+   "aff": "NTU",
+   "topic": "video",
+   "tier": 2,
+   "title": "Liu (Ziwei)",
+   "tags": [
+    "video-generation",
+    "world-models",
+    "diffusion"
+   ],
+   "id": "t31"
+  },
+  {
+   "day": 1,
+   "s": 870,
+   "e": 900,
+   "ws": "T4V",
+   "room": "607",
+   "who": "Gu (Jiatao)",
+   "aff": "UPenn / Apple",
+   "topic": "mm",
+   "tier": 2,
+   "title": "Gu (Jiatao)",
+   "tags": [
+    "diffusion",
+    "video-generation",
+    "multimodal-llm",
+    "scaling"
+   ],
+   "id": "t32"
+  },
+  {
+   "day": 1,
+   "s": 870,
+   "e": 910,
+   "ws": "COGVL",
+   "room": "610/612",
+   "who": "Fan (Judith)",
+   "aff": "Stanford",
+   "topic": "reason",
+   "tier": 2,
+   "title": "Fan (Judith)",
+   "tags": [
+    "cognition",
+    "reasoning",
+    "vision-language"
+   ],
+   "id": "t33"
+  },
+  {
+   "day": 1,
+   "s": 870,
+   "e": 900,
+   "ws": "VITA",
+   "room": "108",
+   "who": "Laptev",
+   "aff": "MBZUAI",
+   "topic": "video",
+   "tier": 2,
+   "title": "Laptev",
+   "tags": [
+    "video-understanding",
+    "egocentric"
+   ],
+   "id": "t34"
+  },
+  {
+   "day": 1,
+   "s": 870,
+   "e": 900,
+   "ws": "ViSCALE",
+   "room": "506",
+   "who": "Krishna",
+   "aff": "U. Washington",
+   "topic": "mm",
+   "tier": 2,
+   "title": "Krishna",
+   "tags": [
+    "multimodal-llm",
+    "vision-language",
+    "grounding"
+   ],
+   "id": "t35"
+  },
+  {
+   "day": 1,
+   "s": 870,
+   "e": 900,
+   "ws": "ReLearn",
+   "room": "4AB",
+   "who": "Damen",
+   "aff": "U. Bristol / Google DeepMind",
+   "topic": "video",
+   "tier": 2,
+   "title": "Damen",
+   "tags": [
+    "egocentric",
+    "video-understanding",
+    "skill-assessment"
+   ],
+   "id": "t36"
+  },
+  {
+   "day": 1,
+   "s": 900,
+   "e": 930,
+   "ws": "EgoVis",
+   "room": "704/706",
+   "who": "Doughty",
+   "aff": "Leiden University",
+   "topic": "video",
+   "tier": 2,
+   "title": "The Devil is in the Details: Fine-Grained Understanding with Limited Supervision",
+   "tags": [
+    "video-understanding",
+    "grounding",
+    "egocentric"
+   ],
+   "id": "t37"
+  },
+  {
+   "day": 1,
+   "s": 900,
+   "e": 930,
+   "ws": "T4V",
+   "room": "607",
+   "who": "Yang (Sherry)",
+   "aff": "NYU / Google DeepMind",
+   "topic": "video",
+   "tier": 2,
+   "title": "Yang (Sherry)",
+   "tags": [
+    "world-models",
+    "video-generation",
+    "agents",
+    "diffusion"
+   ],
+   "id": "t38"
+  },
+  {
+   "day": 1,
+   "s": 900,
+   "e": 930,
+   "ws": "VITA",
+   "room": "108",
+   "who": "Bertasius",
+   "aff": "UNC Chapel Hill",
+   "topic": "reason",
+   "tier": 1,
+   "title": "From Perception to Agency: The Cognitive Stack for Video Task Assistants",
+   "tags": [
+    "video-understanding",
+    "agents",
+    "reasoning",
+    "cognition"
+   ],
+   "id": "t39"
+  },
+  {
+   "day": 1,
+   "s": 900,
+   "e": 945,
+   "ws": "CV4Smalls",
+   "room": "102/104",
+   "who": "Niebles",
+   "aff": "Salesforce / Stanford",
+   "topic": "reason",
+   "tier": 1,
+   "title": "Agentic Ambient Intelligence: Perception, Reasoning & Action",
+   "tags": [
+    "agents",
+    "reasoning",
+    "vision-language"
+   ],
+   "id": "t40"
+  },
+  {
+   "day": 1,
+   "s": 900,
+   "e": 930,
+   "ws": "ViSCALE",
+   "room": "506",
+   "who": "Liu (Ziwei)",
+   "aff": "NTU",
+   "topic": "video",
+   "tier": 2,
+   "title": "Liu (Ziwei)",
+   "tags": [
+    "video-generation",
+    "world-models",
+    "scaling"
+   ],
+   "id": "t41"
+  },
+  {
+   "day": 1,
+   "s": 930,
+   "e": 970,
+   "ws": "COGVL",
+   "room": "610/612",
+   "who": "Suhr",
+   "aff": "UC Berkeley",
+   "topic": "mm",
+   "tier": 2,
+   "title": "Suhr",
+   "tags": [
+    "vision-language",
+    "grounding",
+    "agents"
+   ],
+   "id": "t42"
+  },
+  {
+   "day": 1,
+   "s": 940,
+   "e": 970,
+   "ws": "ViSCALE",
+   "room": "506",
+   "who": "Li (Manling)",
+   "aff": "Northwestern",
+   "topic": "reason",
+   "tier": 2,
+   "title": "Li (Manling)",
+   "tags": [
+    "reasoning",
+    "agents",
+    "embodied"
+   ],
+   "id": "t43"
+  },
+  {
+   "day": 1,
+   "s": 945,
+   "e": 975,
+   "ws": "DataMFM",
+   "room": "111",
+   "who": "Agrawal",
+   "aff": "U. Montreal / Mila",
+   "topic": "mm",
+   "tier": 2,
+   "title": "Agrawal",
+   "tags": [
+    "vision-language",
+    "multimodal-llm",
+    "evaluation"
+   ],
+   "id": "t44"
+  },
+  {
+   "day": 1,
+   "s": 960,
+   "e": 990,
+   "ws": "T4V",
+   "room": "607",
+   "who": "Niebles",
+   "aff": "Salesforce / Stanford",
+   "topic": "video",
+   "tier": 1,
+   "title": "Niebles",
+   "tags": [
+    "video-understanding",
+    "vision-language",
+    "agents",
+    "reasoning"
+   ],
+   "id": "t45"
+  },
+  {
+   "day": 1,
+   "s": 960,
+   "e": 990,
+   "ws": "VITA",
+   "room": "108",
+   "who": "Pollefeys",
+   "aff": "ETH Zurich",
+   "topic": "off",
+   "tier": 3,
+   "title": "Pollefeys",
+   "tags": [
+    "3d",
+    "ar-vr"
+   ],
+   "id": "t46"
+  },
+  {
+   "day": 1,
+   "s": 960,
+   "e": 990,
+   "ws": "ReLearn",
+   "room": "4AB",
+   "who": "Yuille",
+   "aff": "Johns Hopkins",
+   "topic": "mm",
+   "tier": 2,
+   "title": "Yuille",
+   "tags": [
+    "vision-language",
+    "reasoning",
+    "3d"
+   ],
+   "id": "t47"
+  },
+  {
+   "day": 1,
+   "s": 970,
+   "e": 1010,
+   "ws": "COGVL",
+   "room": "610/612",
+   "who": "Darrell",
+   "aff": "UC Berkeley",
+   "topic": "mm",
+   "tier": 1,
+   "title": "Darrell",
+   "tags": [
+    "multimodal-llm",
+    "vision-language",
+    "grounding"
+   ],
+   "id": "t48"
+  },
+  {
+   "day": 1,
+   "s": 970,
+   "e": 1000,
+   "ws": "ViSCALE",
+   "room": "506",
+   "who": "Assran",
+   "aff": "Meta AI",
+   "topic": "video",
+   "tier": 2,
+   "title": "Assran",
+   "tags": [
+    "world-models",
+    "video-understanding",
+    "scaling"
+   ],
+   "id": "t49"
+  },
+  {
+   "day": 1,
+   "s": 975,
+   "e": 1005,
+   "ws": "EgoVis",
+   "room": "704/706",
+   "who": "Liu (Ziwei)",
+   "aff": "NTU",
+   "topic": "off",
+   "tier": 3,
+   "title": "From Egocentric Experience to Interactive Intelligence",
+   "tags": [
+    "egocentric",
+    "embodied",
+    "world-models",
+    "agents"
+   ],
+   "id": "t50"
+  },
+  {
+   "day": 1,
+   "s": 990,
+   "e": 1020,
+   "ws": "T4V",
+   "room": "607",
+   "who": "Liu (Zhuang)",
+   "aff": "Princeton",
+   "topic": "trends",
+   "tier": 3,
+   "title": "Liu (Zhuang)",
+   "tags": [
+    "efficiency",
+    "scaling",
+    "data-centric",
+    "interpretability"
+   ],
+   "id": "t51"
+  },
+  {
+   "day": 1,
+   "s": 990,
+   "e": 1020,
+   "ws": "VITA",
+   "room": "108",
+   "who": "Niebles",
+   "aff": "Salesforce / Stanford",
+   "topic": "mm",
+   "tier": 2,
+   "title": "Niebles",
+   "tags": [
+    "multimodal-llm",
+    "video-understanding"
+   ],
+   "id": "t52"
+  },
+  {
+   "day": 1,
+   "s": 990,
+   "e": 1020,
+   "ws": "ReLearn",
+   "room": "4AB",
+   "who": "Xie",
+   "aff": "NYU",
+   "topic": "mm",
+   "tier": 1,
+   "title": "Xie",
+   "tags": [
+    "multimodal-llm",
+    "vision-language",
+    "world-models"
+   ],
+   "id": "t53"
+  },
+  {
+   "day": 1,
+   "s": 1005,
+   "e": 1035,
+   "ws": "DataMFM",
+   "room": "111",
+   "who": "Du (Yilun)",
+   "aff": "Harvard",
+   "topic": "off",
+   "tier": 3,
+   "title": "Du (Yilun)",
+   "tags": [
+    "world-models",
+    "embodied",
+    "diffusion"
+   ],
+   "id": "t54"
+  },
+  {
+   "day": 1,
+   "s": 1020,
+   "e": 1050,
+   "ws": "T4V",
+   "room": "607",
+   "who": "Tong (Peter)",
+   "aff": "AMI Labs",
+   "topic": "mm",
+   "tier": 2,
+   "title": "Tong (Peter)",
+   "tags": [
+    "multimodal-llm",
+    "vision-language",
+    "reasoning",
+    "evaluation"
+   ],
+   "id": "t55"
+  },
+  {
+   "day": 1,
+   "s": 1020,
+   "e": 1050,
+   "ws": "VITA",
+   "room": "108",
+   "who": "Furnari",
+   "aff": "U. Catania",
+   "topic": "off",
+   "tier": 3,
+   "title": "Towards Always-On Wearable AI That Perceives, Understands, and Assists",
+   "tags": [
+    "egocentric",
+    "ar-vr",
+    "embodied"
+   ],
+   "id": "t56"
+  },
+  {
+   "day": 1,
+   "s": 1020,
+   "e": 1050,
+   "ws": "ReLearn",
+   "room": "4AB",
+   "who": "Freeman",
+   "aff": "MIT",
+   "topic": "video",
+   "tier": 1,
+   "title": "Freeman",
+   "tags": [
+    "video-generation",
+    "world-models",
+    "diffusion"
+   ],
+   "id": "t57"
+  },
+  {
+   "day": 1,
+   "s": 1050,
+   "e": 1080,
+   "ws": "VITA",
+   "room": "108",
+   "who": "Feiner",
+   "aff": "Columbia",
+   "topic": "off",
+   "tier": 3,
+   "title": "Feiner",
+   "tags": [
+    "ar-vr",
+    "embodied"
+   ],
+   "id": "t58"
+  },
+  {
+   "day": 2,
+   "s": 480,
+   "e": 510,
+   "ws": "A2A-MML",
+   "room": "502",
+   "who": "Zheng",
+   "aff": "U. Macau",
+   "topic": "reason",
+   "tier": 2,
+   "title": "When AI Thinks Like Humans: Cognitive Biases and Uncertainty Awareness",
+   "tags": [
+    "cognition",
+    "reasoning",
+    "multimodal-llm"
+   ],
+   "id": "t59"
+  },
+  {
+   "day": 2,
+   "s": 510,
+   "e": 540,
+   "ws": "CVinW",
+   "room": "TBD",
+   "who": "Li (Manling)",
+   "aff": "Northwestern",
+   "topic": "off",
+   "tier": 3,
+   "title": "Embodied Spatial Intelligence: Closing the Perception-Action Loop",
+   "tags": [
+    "embodied",
+    "3d",
+    "grounding"
+   ],
+   "id": "t60"
+  },
+  {
+   "day": 2,
+   "s": 510,
+   "e": 540,
+   "ws": "KnowledgeMR",
+   "room": "704/706",
+   "who": "Huang (Biwei)",
+   "aff": "UC San Diego",
+   "topic": "reason",
+   "tier": 2,
+   "title": "Causal World Models for the Next AI Paradigm",
+   "tags": [
+    "world-models",
+    "causal",
+    "reasoning"
+   ],
+   "id": "t61"
+  },
+  {
+   "day": 2,
+   "s": 510,
+   "e": 540,
+   "ws": "A2A-MML",
+   "room": "502",
+   "who": "Xie",
+   "aff": "NYU",
+   "topic": "mm",
+   "tier": 1,
+   "title": "Xie",
+   "tags": [
+    "vision-language",
+    "multimodal-llm"
+   ],
+   "id": "t62"
+  },
+  {
+   "day": 2,
+   "s": 540,
+   "e": 570,
+   "ws": "CVinW",
+   "room": "TBD",
+   "who": "Wang (Xiaolong)",
+   "aff": "UC San Diego",
+   "topic": "off",
+   "tier": 3,
+   "title": "Wang (Xiaolong)",
+   "tags": [
+    "robotics",
+    "embodied",
+    "3d"
+   ],
+   "id": "t63"
+  },
+  {
+   "day": 2,
+   "s": 540,
+   "e": 580,
+   "ws": "KnowledgeMR",
+   "room": "704/706",
+   "who": "Wang (Xin)",
+   "aff": "UC Santa Barbara",
+   "topic": "reason",
+   "tier": 2,
+   "title": "The Agentic AI Loop: From Human-Like Reasoning to Group-Evolving Agents",
+   "tags": [
+    "agents",
+    "reasoning",
+    "multimodal-llm"
+   ],
+   "id": "t64"
+  },
+  {
+   "day": 2,
+   "s": 540,
+   "e": 570,
+   "ws": "MAR",
+   "room": "601",
+   "who": "Niebles",
+   "aff": "Salesforce / Stanford",
+   "topic": "mm",
+   "tier": 2,
+   "title": "Niebles",
+   "tags": [
+    "multimodal-llm",
+    "vision-language",
+    "video-understanding"
+   ],
+   "id": "t65"
+  },
+  {
+   "day": 2,
+   "s": 540,
+   "e": 570,
+   "ws": "A2A-MML",
+   "room": "502",
+   "who": "Gkioxari",
+   "aff": "Caltech",
+   "topic": "off",
+   "tier": 3,
+   "title": "Beyond Image and Language: Building 3D Perception Systems",
+   "tags": [
+    "3d",
+    "grounding",
+    "vision-language"
+   ],
+   "id": "t66"
+  },
+  {
+   "day": 2,
+   "s": 570,
+   "e": 600,
+   "ws": "CVinW",
+   "room": "TBD",
+   "who": "Yih (Scott)",
+   "aff": "Meta FAIR",
+   "topic": "reason",
+   "tier": 2,
+   "title": "Say Less, Know More: Latent Representations and Procedural Retrieval for Efficient Reasoning",
+   "tags": [
+    "reasoning",
+    "retrieval",
+    "efficiency"
+   ],
+   "id": "t67"
+  },
+  {
+   "day": 2,
+   "s": 570,
+   "e": 600,
+   "ws": "MAR",
+   "room": "601",
+   "who": "Mao",
+   "aff": "UPenn",
+   "topic": "reason",
+   "tier": 2,
+   "title": "Learning, Reasoning, and Planning with Neuro-Symbolic Concepts",
+   "tags": [
+    "reasoning",
+    "grounding",
+    "embodied"
+   ],
+   "id": "t68"
+  },
+  {
+   "day": 2,
+   "s": 570,
+   "e": 600,
+   "ws": "A2A-MML",
+   "room": "502",
+   "who": "Bansal",
+   "aff": "UNC Chapel Hill",
+   "topic": "mm",
+   "tier": 1,
+   "title": "Multimodal Unification, Communication & Composable Generalization",
+   "tags": [
+    "multimodal-llm",
+    "vision-language",
+    "reasoning"
+   ],
+   "id": "t69"
+  },
+  {
+   "day": 2,
+   "s": 600,
+   "e": 630,
+   "ws": "CVinW",
+   "room": "TBD",
+   "who": "Saenko",
+   "aff": "Boston U. / Meta",
+   "topic": "mm",
+   "tier": 2,
+   "title": "SAM3: Open-vocabulary detection & segmentation with Segment Anything Model 3",
+   "tags": [
+    "vision-language",
+    "grounding"
+   ],
+   "id": "t70"
+  },
+  {
+   "day": 2,
+   "s": 630,
+   "e": 660,
+   "ws": "CVinW",
+   "room": "TBD",
+   "who": "Finn",
+   "aff": "Stanford",
+   "topic": "off",
+   "tier": 3,
+   "title": "Finn",
+   "tags": [
+    "robotics",
+    "embodied",
+    "agents"
+   ],
+   "id": "t71"
+  },
+  {
+   "day": 2,
+   "s": 630,
+   "e": 660,
+   "ws": "KnowledgeMR",
+   "room": "704/706",
+   "who": "Liang",
+   "aff": "MIT",
+   "topic": "mm",
+   "tier": 1,
+   "title": "Self-Evolving Multimodal AI",
+   "tags": [
+    "multimodal-llm",
+    "vision-language",
+    "agents"
+   ],
+   "id": "t72"
+  },
+  {
+   "day": 2,
+   "s": 630,
+   "e": 660,
+   "ws": "A2A-MML",
+   "room": "502",
+   "who": "Gandelsman",
+   "aff": "TTIC",
+   "topic": "mm",
+   "tier": 2,
+   "title": "A neuro-analysis of vision and language models",
+   "tags": [
+    "interpretability",
+    "vision-language",
+    "multimodal-llm"
+   ],
+   "id": "t73"
+  },
+  {
+   "day": 2,
+   "s": 645,
+   "e": 675,
+   "ws": "MAR",
+   "room": "601",
+   "who": "Mitchell",
+   "aff": "Santa Fe Institute",
+   "topic": "trends",
+   "tier": 1,
+   "title": "Six Principles for Evaluating Cognitive Capabilities in AI Models",
+   "tags": [
+    "evaluation",
+    "cognition",
+    "reasoning"
+   ],
+   "id": "t74"
+  },
+  {
+   "day": 2,
+   "s": 660,
+   "e": 690,
+   "ws": "CVinW",
+   "room": "TBD",
+   "who": "Bansal",
+   "aff": "UNC Chapel Hill",
+   "topic": "mm",
+   "tier": 1,
+   "title": "Memory, Action, and Skill Planning for Multimodal Agents",
+   "tags": [
+    "multimodal-llm",
+    "agents",
+    "reasoning"
+   ],
+   "id": "t75"
+  },
+  {
+   "day": 2,
+   "s": 660,
+   "e": 700,
+   "ws": "KnowledgeMR",
+   "room": "704/706",
+   "who": "Gu (Jiatao)",
+   "aff": "UPenn / Apple",
+   "topic": "reason",
+   "tier": 2,
+   "title": "Reasoning in Continuous Space",
+   "tags": [
+    "reasoning",
+    "diffusion",
+    "multimodal-llm"
+   ],
+   "id": "t76"
+  },
+  {
+   "day": 2,
+   "s": 660,
+   "e": 690,
+   "ws": "A2A-MML",
+   "room": "502",
+   "who": "Li (Manling)",
+   "aff": "Northwestern",
+   "topic": "mm",
+   "tier": 2,
+   "title": "Any-View to Any-View: Learning Spatial Intelligence in Multimodal Models",
+   "tags": [
+    "multimodal-llm",
+    "3d",
+    "grounding"
+   ],
+   "id": "t77"
+  },
+  {
+   "day": 2,
+   "s": 675,
+   "e": 705,
+   "ws": "MAR",
+   "room": "601",
+   "who": "Wu (Jialong)",
+   "aff": "Tsinghua",
+   "topic": "reason",
+   "tier": 2,
+   "title": "Bridging World Models and Multimodal Reasoning",
+   "tags": [
+    "world-models",
+    "multimodal-llm",
+    "reasoning"
+   ],
+   "id": "t78"
+  },
+  {
+   "day": 2,
+   "s": 690,
+   "e": 720,
+   "ws": "A2A-MML",
+   "room": "502",
+   "who": "Liang",
+   "aff": "MIT",
+   "topic": "off",
+   "tier": 3,
+   "title": "Expanding AI's Senses: Touch, Smell & Beyond",
+   "tags": [
+    "multimodal-llm",
+    "embodied",
+    "robotics"
+   ],
+   "id": "t79"
+  },
+  {
+   "day": 2,
+   "s": 700,
+   "e": 740,
+   "ws": "KnowledgeMR",
+   "room": "704/706",
+   "who": "Wang (Mengdi)",
+   "aff": "Princeton",
+   "topic": "mm",
+   "tier": 2,
+   "title": "LabOS: The AI-XR Co-Scientist That Sees and Works With Humans",
+   "tags": [
+    "ar-vr",
+    "agents",
+    "vision-language"
+   ],
+   "id": "t80"
+  },
+  {
+   "day": 2,
+   "s": 790,
+   "e": 825,
+   "ws": "MMR",
+   "room": "3A",
+   "who": "Li (Yunzhu)",
+   "aff": "Columbia",
+   "topic": "off",
+   "tier": 3,
+   "title": "Foundation Models for Robotic Manipulation",
+   "tags": [
+    "robotics",
+    "embodied",
+    "world-models"
+   ],
+   "id": "t81"
+  },
+  {
+   "day": 2,
+   "s": 795,
+   "e": 825,
+   "ws": "SAUAFG",
+   "room": "705/707",
+   "who": "Mayol-Cuevas",
+   "aff": "U. Bristol / Amazon",
+   "topic": "off",
+   "tier": 3,
+   "title": "Skill Evolution",
+   "tags": [
+    "skill-assessment",
+    "robotics",
+    "egocentric"
+   ],
+   "id": "t82"
+  },
+  {
+   "day": 2,
+   "s": 825,
+   "e": 845,
+   "ws": "SAUAFG",
+   "room": "705/707",
+   "who": "Choudhuri",
+   "aff": "United Imaging",
+   "topic": "video",
+   "tier": 2,
+   "title": "MedGRPO: Multi-Task RL for Heterogeneous Medical Video Understanding",
+   "tags": [
+    "medical",
+    "video-understanding",
+    "reasoning",
+    "multimodal-llm"
+   ],
+   "id": "t83"
+  },
+  {
+   "day": 2,
+   "s": 830,
+   "e": 865,
+   "ws": "MMR",
+   "room": "3A",
+   "who": "Toshev",
+   "aff": "Apple",
+   "topic": "mm",
+   "tier": 2,
+   "title": "Reasoning Agents for the Digital World",
+   "tags": [
+    "agents",
+    "reasoning",
+    "embodied"
+   ],
+   "id": "t84"
+  },
+  {
+   "day": 2,
+   "s": 855,
+   "e": 885,
+   "ws": "LOVEU",
+   "room": "704/706",
+   "who": "Wang (Yu-xiong)",
+   "aff": "UIUC",
+   "topic": "video",
+   "tier": 2,
+   "title": "Wang (Yu-xiong)",
+   "tags": [
+    "video-understanding",
+    "video-generation",
+    "world-models"
+   ],
+   "id": "t85"
+  },
+  {
+   "day": 2,
+   "s": 885,
+   "e": 915,
+   "ws": "LOVEU",
+   "room": "704/706",
+   "who": "Li (Manling)",
+   "aff": "Northwestern",
+   "topic": "mm",
+   "tier": 2,
+   "title": "Li (Manling)",
+   "tags": [
+    "multimodal-llm",
+    "agents",
+    "reasoning"
+   ],
+   "id": "t86"
+  },
+  {
+   "day": 2,
+   "s": 890,
+   "e": 925,
+   "ws": "MMR",
+   "room": "3A",
+   "who": "Huang (Biwei)",
+   "aff": "UC San Diego",
+   "topic": "reason",
+   "tier": 2,
+   "title": "Causal World Models for the Next AI Paradigm",
+   "tags": [
+    "causal",
+    "world-models",
+    "reasoning"
+   ],
+   "id": "t87"
+  },
+  {
+   "day": 2,
+   "s": 915,
+   "e": 945,
+   "ws": "LOVEU",
+   "room": "704/706",
+   "who": "Liu (Yaoyao)",
+   "aff": "UIUC",
+   "topic": "video",
+   "tier": 2,
+   "title": "Liu (Yaoyao)",
+   "tags": [
+    "video-understanding",
+    "long-video"
+   ],
+   "id": "t88"
+  },
+  {
+   "day": 2,
+   "s": 920,
+   "e": 950,
+   "ws": "SAUAFG",
+   "room": "705/707",
+   "who": "Ding (Guodong)",
+   "aff": "NUS",
+   "topic": "video",
+   "tier": 2,
+   "title": "From Action Segmentation to Skill Understanding",
+   "tags": [
+    "video-understanding",
+    "skill-assessment",
+    "grounding"
+   ],
+   "id": "t89"
+  },
+  {
+   "day": 2,
+   "s": 930,
+   "e": 965,
+   "ws": "MMR",
+   "room": "3A",
+   "who": "Grauman",
+   "aff": "UT Austin / FAIR",
+   "topic": "video",
+   "tier": 1,
+   "title": "Grounding Video Reasoning in Visual Evidence",
+   "tags": [
+    "video-understanding",
+    "grounding",
+    "reasoning"
+   ],
+   "id": "t90"
+  },
+  {
+   "day": 2,
+   "s": 960,
+   "e": 990,
+   "ws": "LOVEU",
+   "room": "704/706",
+   "who": "Villegas",
+   "aff": "Google DeepMind",
+   "topic": "video",
+   "tier": 2,
+   "title": "Villegas",
+   "tags": [
+    "video-generation",
+    "world-models",
+    "diffusion"
+   ],
+   "id": "t91"
+  },
+  {
+   "day": 2,
+   "s": 970,
+   "e": 1005,
+   "ws": "MMR",
+   "room": "3A",
+   "who": "Krishna",
+   "aff": "U. Washington",
+   "topic": "mm",
+   "tier": 1,
+   "title": "It is Time to Rethink Grounding",
+   "tags": [
+    "grounding",
+    "vision-language",
+    "multimodal-llm"
+   ],
+   "id": "t92"
+  },
+  {
+   "day": 2,
+   "s": 990,
+   "e": 1020,
+   "ws": "LOVEU",
+   "room": "704/706",
+   "who": "Wang (Xin)",
+   "aff": "UC Santa Barbara",
+   "topic": "mm",
+   "tier": 2,
+   "title": "Wang (Xin)",
+   "tags": [
+    "multimodal-llm",
+    "agents",
+    "vision-language"
+   ],
+   "id": "t93"
+  }
+ ]
+}

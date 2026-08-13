@@ -20,6 +20,9 @@ const blog = defineCollection({
     date: z.coerce.date(),
     draft: z.boolean().default(false),
     tags: z.array(z.string()).default([]),
+    // If set, the blog index links straight to this URL (e.g. a standalone
+    // HTML page) instead of rendering an internal post page.
+    externalUrl: z.string().optional(),
   }),
 });
 

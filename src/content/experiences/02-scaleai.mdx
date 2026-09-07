@@ -5,7 +5,7 @@ location: "New York City, NY, USA"
 startDate: 2025-01-01
 endDate: 2025-05-31
 bullets:
-  - "Built an Arabic-language AI assistant for the Qatari judicial department to aid judges reviewing active cases."
-  - "Implemented dense and sparse retrieval over Arabic cassation and supreme-court rulings for relevant-precedent lookup."
-  - "Designed Arabic case-summarization and event-extraction pipelines feeding the judge-facing platform."
+  - "Built the judge co-pilot for the Qatari judicial department: a set of case-analysis services, each exposed as an API, deployed together as a judge-facing dashboard."
+  - "Designed the Arabic information-extraction pipeline, running OCR over scanned filings, then event extraction that links each extracted event to the evidence spans supporting it in the case document, feeding a case summarizer built on that structure."
+  - "Built precedent lookup as a RAG system over constitutional bylaws and prior Qatari Supreme Court cassation rulings, combining dense embedding retrieval with sparse lexical matching and reranking the merged candidate set."
 ---

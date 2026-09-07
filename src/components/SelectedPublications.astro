@@ -112,11 +112,10 @@ function resolveImage(image: string | undefined): string | null {
               {pub.projects.map((slug) => {
                 const proj = projects.find((p) => p.slug === slug);
                 if (!proj) return null;
-                const colors = COLOR_CLASSES[proj.color];
                 return (
                   <a
                     href="/publications/"
-                    class={`rounded-full px-2 py-0.5 text-[11px] font-medium transition-colors ${colors.tag}`}
+                    class={`rounded-full px-2 py-0.5 text-[11px] font-medium transition-colors ${COLOR_CLASSES[proj.color].tag}`}
                   >
                     {proj.short ?? proj.name}
                   </a>

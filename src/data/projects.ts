@@ -21,11 +21,11 @@ export interface ResearchProject {
 export const projects: ResearchProject[] = [
   {
     slug: 'multimodal-video-qa',
-    name: 'Multi-modal Long-form Generation',
-    short: 'Long-form Generation',
+    name: 'Long-Form Video Understanding',
+    short: 'Long-form Video',
     color: 'sky',
     summary:
-      'Long-form question-answering and summarization over videos and other multi-modal narratives, with an emphasis on coherence across extended outputs.',
+      'Open-ended question-answering over full-length narrative video — what a model has to locate in a two-hour film, and when locating the right scene is not enough.',
   },
   {
     slug: 'fact-checking',
@@ -111,53 +111,53 @@ export const COLOR_CLASSES: Record<
   { chip: string; chipActive: string; tag: string }
 > = {
   amber: {
-    chip: 'border-amber-200 text-amber-800 hover:border-amber-500 hover:bg-amber-50 dark:border-amber-900/60 dark:text-amber-300 dark:hover:bg-amber-900/20',
-    chipActive: 'border-amber-500 bg-amber-100 text-amber-900 dark:border-amber-400 dark:bg-amber-900/40 dark:text-amber-100',
-    tag: 'bg-amber-100 text-amber-800 hover:bg-amber-200 dark:bg-amber-900/40 dark:text-amber-200 dark:hover:bg-amber-900/60',
+    chip: 'border-[#ddc9a3] text-[#6f5324] hover:border-[#c9ae7e] hover:bg-[#f2ead9] dark:border-amber-900/60 dark:text-amber-300 dark:hover:bg-amber-900/20',
+    chipActive: 'border-[#c9ae7e] bg-[#f2ead9] text-[#6f5324] dark:border-amber-400 dark:bg-amber-900/40 dark:text-amber-100',
+    tag: 'bg-[#f2ead9] text-[#6f5324] hover:bg-[#e8dcc5] dark:bg-amber-900/40 dark:text-amber-200 dark:hover:bg-amber-900/60',
   },
   sky: {
-    chip: 'border-sky-200 text-sky-800 hover:border-sky-500 hover:bg-sky-50 dark:border-sky-900/60 dark:text-sky-300 dark:hover:bg-sky-900/20',
-    chipActive: 'border-sky-500 bg-sky-100 text-sky-900 dark:border-sky-400 dark:bg-sky-900/40 dark:text-sky-100',
-    tag: 'bg-sky-100 text-sky-800 hover:bg-sky-200 dark:bg-sky-900/40 dark:text-sky-200 dark:hover:bg-sky-900/60',
+    chip: 'border-[#b9cfdd] text-[#2b5871] hover:border-[#8fb4ca] hover:bg-[#e3ecf2] dark:border-sky-900/60 dark:text-sky-300 dark:hover:bg-sky-900/20',
+    chipActive: 'border-[#8fb4ca] bg-[#e3ecf2] text-[#2b5871] dark:border-sky-400 dark:bg-sky-900/40 dark:text-sky-100',
+    tag: 'bg-[#e3ecf2] text-[#2b5871] hover:bg-[#d3e2eb] dark:bg-sky-900/40 dark:text-sky-200 dark:hover:bg-sky-900/60',
   },
   emerald: {
-    chip: 'border-emerald-200 text-emerald-800 hover:border-emerald-500 hover:bg-emerald-50 dark:border-emerald-900/60 dark:text-emerald-300 dark:hover:bg-emerald-900/20',
-    chipActive: 'border-emerald-500 bg-emerald-100 text-emerald-900 dark:border-emerald-400 dark:bg-emerald-900/40 dark:text-emerald-100',
-    tag: 'bg-emerald-100 text-emerald-800 hover:bg-emerald-200 dark:bg-emerald-900/40 dark:text-emerald-200 dark:hover:bg-emerald-900/60',
+    chip: 'border-[#b6cfc0] text-[#2f5c46] hover:border-[#8db4a0] hover:bg-[#dfeae2] dark:border-emerald-900/60 dark:text-emerald-300 dark:hover:bg-emerald-900/20',
+    chipActive: 'border-[#8db4a0] bg-[#dfeae2] text-[#2f5c46] dark:border-emerald-400 dark:bg-emerald-900/40 dark:text-emerald-100',
+    tag: 'bg-[#dfeae2] text-[#2f5c46] hover:bg-[#cfded4] dark:bg-emerald-900/40 dark:text-emerald-200 dark:hover:bg-emerald-900/60',
   },
   rose: {
-    chip: 'border-rose-200 text-rose-800 hover:border-rose-500 hover:bg-rose-50 dark:border-rose-900/60 dark:text-rose-300 dark:hover:bg-rose-900/20',
-    chipActive: 'border-rose-500 bg-rose-100 text-rose-900 dark:border-rose-400 dark:bg-rose-900/40 dark:text-rose-100',
-    tag: 'bg-rose-100 text-rose-800 hover:bg-rose-200 dark:bg-rose-900/40 dark:text-rose-200 dark:hover:bg-rose-900/60',
+    chip: 'border-[#dcbdbf] text-[#7a3b42] hover:border-[#c79a9d] hover:bg-[#f2e4e3] dark:border-rose-900/60 dark:text-rose-300 dark:hover:bg-rose-900/20',
+    chipActive: 'border-[#c79a9d] bg-[#f2e4e3] text-[#7a3b42] dark:border-rose-400 dark:bg-rose-900/40 dark:text-rose-100',
+    tag: 'bg-[#f2e4e3] text-[#7a3b42] hover:bg-[#e8d3d2] dark:bg-rose-900/40 dark:text-rose-200 dark:hover:bg-rose-900/60',
   },
   teal: {
-    chip: 'border-teal-200 text-teal-800 hover:border-teal-500 hover:bg-teal-50 dark:border-teal-900/60 dark:text-teal-300 dark:hover:bg-teal-900/20',
-    chipActive: 'border-teal-500 bg-teal-100 text-teal-900 dark:border-teal-400 dark:bg-teal-900/40 dark:text-teal-100',
-    tag: 'bg-teal-100 text-teal-800 hover:bg-teal-200 dark:bg-teal-900/40 dark:text-teal-200 dark:hover:bg-teal-900/60',
+    chip: 'border-[#b3d0ca] text-[#285d57] hover:border-[#8ab5ad] hover:bg-[#deebe8] dark:border-teal-900/60 dark:text-teal-300 dark:hover:bg-teal-900/20',
+    chipActive: 'border-[#8ab5ad] bg-[#deebe8] text-[#285d57] dark:border-teal-400 dark:bg-teal-900/40 dark:text-teal-100',
+    tag: 'bg-[#deebe8] text-[#285d57] hover:bg-[#cee0dc] dark:bg-teal-900/40 dark:text-teal-200 dark:hover:bg-teal-900/60',
   },
   violet: {
-    chip: 'border-violet-200 text-violet-800 hover:border-violet-500 hover:bg-violet-50 dark:border-violet-900/60 dark:text-violet-300 dark:hover:bg-violet-900/20',
-    chipActive: 'border-violet-500 bg-violet-100 text-violet-900 dark:border-violet-400 dark:bg-violet-900/40 dark:text-violet-100',
-    tag: 'bg-violet-100 text-violet-800 hover:bg-violet-200 dark:bg-violet-900/40 dark:text-violet-200 dark:hover:bg-violet-900/60',
+    chip: 'border-[#c4bddd] text-[#4b4477] hover:border-[#a49ac6] hover:bg-[#e7e5f1] dark:border-violet-900/60 dark:text-violet-300 dark:hover:bg-violet-900/20',
+    chipActive: 'border-[#a49ac6] bg-[#e7e5f1] text-[#4b4477] dark:border-violet-400 dark:bg-violet-900/40 dark:text-violet-100',
+    tag: 'bg-[#e7e5f1] text-[#4b4477] hover:bg-[#d9d6e9] dark:bg-violet-900/40 dark:text-violet-200 dark:hover:bg-violet-900/60',
   },
   pink: {
-    chip: 'border-pink-200 text-pink-800 hover:border-pink-500 hover:bg-pink-50 dark:border-pink-900/60 dark:text-pink-300 dark:hover:bg-pink-900/20',
-    chipActive: 'border-pink-500 bg-pink-100 text-pink-900 dark:border-pink-400 dark:bg-pink-900/40 dark:text-pink-100',
-    tag: 'bg-pink-100 text-pink-800 hover:bg-pink-200 dark:bg-pink-900/40 dark:text-pink-200 dark:hover:bg-pink-900/60',
+    chip: 'border-[#ddbecb] text-[#77394f] hover:border-[#c99cb0] hover:bg-[#f2e4ea] dark:border-pink-900/60 dark:text-pink-300 dark:hover:bg-pink-900/20',
+    chipActive: 'border-[#c99cb0] bg-[#f2e4ea] text-[#77394f] dark:border-pink-400 dark:bg-pink-900/40 dark:text-pink-100',
+    tag: 'bg-[#f2e4ea] text-[#77394f] hover:bg-[#e7d3dc] dark:bg-pink-900/40 dark:text-pink-200 dark:hover:bg-pink-900/60',
   },
   orange: {
-    chip: 'border-orange-200 text-orange-800 hover:border-orange-500 hover:bg-orange-50 dark:border-orange-900/60 dark:text-orange-300 dark:hover:bg-orange-900/20',
-    chipActive: 'border-orange-500 bg-orange-100 text-orange-900 dark:border-orange-400 dark:bg-orange-900/40 dark:text-orange-100',
-    tag: 'bg-orange-100 text-orange-800 hover:bg-orange-200 dark:bg-orange-900/40 dark:text-orange-200 dark:hover:bg-orange-900/60',
+    chip: 'border-[#dfc3a8] text-[#7a4a29] hover:border-[#cba482] hover:bg-[#f3e7dc] dark:border-orange-900/60 dark:text-orange-300 dark:hover:bg-orange-900/20',
+    chipActive: 'border-[#cba482] bg-[#f3e7dc] text-[#7a4a29] dark:border-orange-400 dark:bg-orange-900/40 dark:text-orange-100',
+    tag: 'bg-[#f3e7dc] text-[#7a4a29] hover:bg-[#e9d8c8] dark:bg-orange-900/40 dark:text-orange-200 dark:hover:bg-orange-900/60',
   },
   fuchsia: {
-    chip: 'border-fuchsia-200 text-fuchsia-800 hover:border-fuchsia-500 hover:bg-fuchsia-50 dark:border-fuchsia-900/60 dark:text-fuchsia-300 dark:hover:bg-fuchsia-900/20',
-    chipActive: 'border-fuchsia-500 bg-fuchsia-100 text-fuchsia-900 dark:border-fuchsia-400 dark:bg-fuchsia-900/40 dark:text-fuchsia-100',
-    tag: 'bg-fuchsia-100 text-fuchsia-800 hover:bg-fuchsia-200 dark:bg-fuchsia-900/40 dark:text-fuchsia-200 dark:hover:bg-fuchsia-900/60',
+    chip: 'border-[#d7bcd4] text-[#6d3768] hover:border-[#bf9bbb] hover:bg-[#eee3ed] dark:border-fuchsia-900/60 dark:text-fuchsia-300 dark:hover:bg-fuchsia-900/20',
+    chipActive: 'border-[#bf9bbb] bg-[#eee3ed] text-[#6d3768] dark:border-fuchsia-400 dark:bg-fuchsia-900/40 dark:text-fuchsia-100',
+    tag: 'bg-[#eee3ed] text-[#6d3768] hover:bg-[#e2d2e1] dark:bg-fuchsia-900/40 dark:text-fuchsia-200 dark:hover:bg-fuchsia-900/60',
   },
   slate: {
-    chip: 'border-slate-200 text-slate-700 hover:border-slate-500 hover:bg-slate-50 dark:border-slate-800 dark:text-slate-400 dark:hover:bg-slate-800/40',
-    chipActive: 'border-slate-500 bg-slate-100 text-slate-900 dark:border-slate-400 dark:bg-slate-800 dark:text-slate-100',
-    tag: 'bg-slate-100 text-slate-700 hover:bg-slate-200 dark:bg-slate-800 dark:text-slate-300 dark:hover:bg-slate-700',
+    chip: 'border-[#cbc6bc] text-[#4c4941] hover:border-[#aea89b] hover:bg-[#e8e5df] dark:border-slate-900/60 dark:text-slate-300 dark:hover:bg-slate-900/20',
+    chipActive: 'border-[#aea89b] bg-[#e8e5df] text-[#4c4941] dark:border-slate-400 dark:bg-slate-900/40 dark:text-slate-100',
+    tag: 'bg-[#e8e5df] text-[#4c4941] hover:bg-[#dcd8d0] dark:bg-slate-900/40 dark:text-slate-200 dark:hover:bg-slate-900/60',
   },
 };

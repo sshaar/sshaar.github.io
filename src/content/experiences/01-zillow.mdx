@@ -5,6 +5,7 @@ location: "Remote, USA"
 startDate: 2025-05-01
 endDate: 2025-08-31
 bullets:
-  - "Built conversational assistive AI agents for Zillow's real-estate platform using reinforcement-learning methods."
-  - "Designed reward-modeling and evaluation pipelines for grounded multi-turn property-search dialogue."
+  - "Built a home-purchase co-pilot for Zillow: a multi-turn assistant that answers buyer questions, tracks purchase intent as it accumulates over a conversation, and narrows a large listing inventory toward properties that fit."
+  - "Post-trained the dialogue policy on long multi-turn conversation data, running DPO over preference pairs scored on whole dialogues, then GRPO with a trajectory-level reward so credit lands on the conversation rather than the individual turn."
+  - "Built the reward-modeling and evaluation pipeline behind that training, including rollout generation and conversation-level scoring for grounded property-search dialogue."
 ---

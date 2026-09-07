@@ -8,39 +8,6 @@ import { getCollection } from 'astro:content';
 import { publications, ME } from '../data/publications';
 import { projects } from '../data/projects';
 
-const interests = [
-  {
-    title: 'NLP over long inputs',
-    status: 'current' as const,
-    summary:
-      'Question-answering and summarization over full-length videos and other extended, multi-modal narratives — including the long-form generation some of these tasks demand, and the challenge of evaluating open-ended outputs no fixed reference can capture.',
-  },
-  {
-    title: 'Clinical NLP',
-    status: 'current' as const,
-    summary:
-      'Using LLMs to surface clinical decision patterns from unstructured medical narratives, with a focus on heart failure and heart transplant care.',
-  },
-  {
-    title: 'Automated fact-checking',
-    status: 'prior' as const,
-    summary:
-      'Detecting, verifying, and justifying claim veracity across multi-modal, variable-length inputs.',
-  },
-  {
-    title: 'Propaganda detection',
-    status: 'prior' as const,
-    summary:
-      'Identifying propaganda and persuasion techniques across multi-modal inputs in news articles, memes, and other media.',
-  },
-  {
-    title: 'COVID-19 misinformation',
-    status: 'prior' as const,
-    summary:
-      'Analyzing misinformation, vaccine-related fake news, and the broader infodemic on social platforms during the COVID-19 pandemic.',
-  },
-];
-
 const experiences = (await getCollection('experiences')).sort(
   (a, b) => b.data.startDate.getTime() - a.data.startDate.getTime(),
 );
@@ -66,7 +33,6 @@ const fmtRange = (start: Date, end: Date | undefined, ongoing: boolean) => {
 const sections = [
   { id: 'about', label: 'About' },
   { id: 'news', label: 'News' },
-  { id: 'research', label: 'Research' },
   { id: 'experience', label: 'Experience' },
   { id: 'publications', label: 'Publications' },
   { id: 'education', label: 'Education' },
@@ -74,6 +40,10 @@ const sections = [
 ];
 
 const news = [
+  {
+    date: 'Sep 2026',
+    body: 'Visiting the <strong>Berkeley NLP</strong> group this semester, working with Dr. Sewon Min.',
+  },
   {
     date: 'Jun 2026',
     body: '<em>MovieRecapsQA</em>, our open-ended benchmark for question-answering over full-length movies, appeared at <strong>CVPR 2026</strong>.',
@@ -95,7 +65,7 @@ const news = [
 const education = [
   { school: 'Cornell University', location: 'Ithaca, NY', degree: 'PhD in Computer Science', detail: 'Advised by Prof. Claire Cardie · Minor in Applied Mathematics · Graduating Jan 2027', award: 'University Fellowship (2021)', dates: '2021 — present' },
   { school: 'Cornell University', location: 'Ithaca, NY', degree: 'MS in Computer Science', dates: '2021 — 2024' },
-  { school: 'Carnegie Mellon University', location: 'Doha, Qatar', degree: 'BS in Computer Science', detail: 'Minor in Mathematics · University Honors', award: '50% Academic Merit Scholarship (2015)', dates: '2015 — 2019' },
+  { school: 'Carnegie Mellon University', location: 'Doha, Qatar', degree: 'BS in Computer Science', detail: 'Minor in Mathematics · College and University Honors', award: '50% Academic Merit Scholarship (2015)', dates: '2015 — 2019' },
 ];
 
 const personJsonLd = {
@@ -126,12 +96,12 @@ const personJsonLd = {
 <BaseLayout>
   <script type="application/ld+json" set:html={JSON.stringify(personJsonLd)} />
 
-  <div class="page-shell pt-14 md:pt-20">
+  <div class="page-shell pt-12 md:pt-16">
     <SectionNav sections={sections} />
 
     <div class="page-main">
       <!-- Hero -->
-      <section id="about" class="pb-16">
+      <section id="about" class="pb-12">
         <ScrollReveal>
           <p class="section-label mb-3">PhD Candidate · Cornell University</p>
           <h1 class="font-serif text-4xl leading-tight text-ink dark:text-zinc-100 md:text-5xl">
@@ -141,24 +111,33 @@ const personJsonLd = {
             <div class="order-2 min-w-0 sm:order-1">
               <div class="space-y-4 leading-relaxed text-ink-muted dark:text-zinc-300">
                 <p>
-                  I'm a PhD candidate in Computer Science at
-                  <a href="https://www.cornell.edu" class="link">Cornell University</a>, advised by
-                  Prof. <a href="https://www.cs.cornell.edu/home/cardie/" class="link">Claire Cardie</a>.
-                  My thesis focuses on <strong class="text-ink dark:text-zinc-100">NLP tasks over long
-                  inputs</strong> — some of which involve long-form generation — most recently
-                  open-ended question-answering and summarization over full-length videos,
-                  which produced <em>MovieRecapsQA</em> (CVPR 2026). In parallel, I collaborate with
+                  I am a final-year PhD student in Computer Science at
+                  <a href="https://www.cornell.edu" class="link">Cornell University</a>, advised by Prof.
+                  <a href="https://www.cs.cornell.edu/home/cardie/" class="link">Claire Cardie</a>. My
+                  thesis, <em>Long-Form Input Understanding across Vision-and-Language Tasks</em>, asks
+                  what a model needs from a long input: what it has to locate, and when locating the
+                  right piece is not enough. I have studied this question in text
+                  (<a href="https://direct.mit.edu/tacl/article/doi/10.1162/TACL.a.51/134151" class="link">TACL 2025</a>)
+                  and in short videos, where I built the
+                  <a href="https://arxiv.org/abs/2601.02536" class="link">MovieRecapsQA</a> benchmark
+                  (CVPR 2026). I am now investigating
+                  <strong class="font-medium text-ink dark:text-zinc-100">long narrative videos</strong>.
+                  Alongside my thesis, I work with
                   <a href="https://www.nyp.org/" class="link">NewYork-Presbyterian Hospital</a> on
-                  clinical NLP for heart failure and heart transplant care.
+                  heart-failure projects, ranging from analyzing
+                  <a href="https://www.jhltonline.org/article/S1053-2498(26)01051-X/fulltext" class="link">UNOS exception requests</a>
+                  (JHLT 2026) to predictive medication models for heart-failure patients.
                 </p>
                 <p>
-                  Before Cornell, I was at the
-                  <a href="https://www.hbku.edu.qa/en/qcri" class="link">Qatar Computing Research Institute (QCRI, HBKU)</a>
+                  Prior to Cornell, I spent two years as a research assistant at the
+                  <a href="https://www.hbku.edu.qa/en/qcri" class="link">Qatar Computing Research Institute</a>,
                   working with Prof.
                   <a href="https://mbzuai.ac.ae/study/faculty/preslav-nakov/" class="link">Preslav Nakov</a>
-                  on automated fact-checking, propaganda detection, and COVID-19 misinformation —
-                  including <em>That Is a Known Lie</em> (ACL 2020), which introduced the task of
-                  detecting previously fact-checked claims.
+                  and Prof. Giovanni Da San Martino on
+                  <strong class="font-medium text-ink dark:text-zinc-100">news fact-checking and
+                  propaganda detection</strong>, where I introduced the task of detecting previously
+                  fact-checked claims (ACL 2020). I received my BS in Computer Science from Carnegie
+                  Mellon University in 2019, with College and University Honors.
                 </p>
               </div>
               <SocialLinks class="mt-7" iconSize={20} />
@@ -175,13 +154,18 @@ const personJsonLd = {
       </section>
 
       <!-- News -->
-      <section id="news" class="scroll-mt-24 border-t border-zinc-200 py-14 dark:border-zinc-800">
+      <section id="news" class="scroll-mt-24 border-t border-zinc-200 py-12 dark:border-zinc-800">
         <ScrollReveal>
-          <p class="section-label mb-6">News</p>
-          <ul class="space-y-4">
-            {news.map((n) => (
-              <li class="grid grid-cols-[5.5rem_1fr] gap-4 sm:gap-6">
-                <span class="meta pt-0.5">{n.date}</span>
+          <h2 class="section-heading mb-6">News</h2>
+          <ul class="card divide-y divide-zinc-200 dark:divide-zinc-800">
+            {news.map((n, i) => (
+              <li class="flex flex-col gap-1 px-5 py-4 sm:flex-row sm:items-baseline sm:gap-6 sm:px-6">
+                <span class="meta flex shrink-0 items-center gap-1.5 sm:w-24">
+                  {i === 0 && (
+                    <span class="h-1.5 w-1.5 rounded-full bg-accent-600 dark:bg-accent-400" aria-hidden="true" />
+                  )}
+                  {n.date}
+                </span>
                 <p class="text-[15px] leading-relaxed text-ink-muted dark:text-zinc-300" set:html={n.body} />
               </li>
             ))}
@@ -189,30 +173,8 @@ const personJsonLd = {
         </ScrollReveal>
       </section>
 
-      <!-- Research interests -->
-      <section id="research" class="scroll-mt-24 border-t border-zinc-200 py-14 dark:border-zinc-800">
-        <ScrollReveal>
-          <h2 class="section-heading mb-7">Research interests</h2>
-          <ul class="space-y-6">
-            {interests.map((it) => (
-              <li>
-                <p class="font-medium text-ink dark:text-zinc-100">
-                  {it.title}
-                  {it.status === 'prior' && (
-                    <span class="ml-2 align-middle font-mono text-[10px] font-normal uppercase tracking-widest text-ink-subtle dark:text-zinc-500">prior</span>
-                  )}
-                </p>
-                <p class="mt-1 max-w-prose text-sm leading-relaxed text-ink-muted dark:text-zinc-400">
-                  {it.summary}
-                </p>
-              </li>
-            ))}
-          </ul>
-        </ScrollReveal>
-      </section>
-
       <!-- Experience -->
-      <section id="experience" class="scroll-mt-24 border-t border-zinc-200 py-14 dark:border-zinc-800">
+      <section id="experience" class="scroll-mt-24 border-t border-zinc-200 py-12 dark:border-zinc-800">
         <ScrollReveal>
           <h2 class="section-heading mb-8">Experience</h2>
           <ul class="space-y-8">
@@ -243,7 +205,7 @@ const personJsonLd = {
       </section>
 
       <!-- Selected publications -->
-      <section id="publications" class="scroll-mt-24 border-t border-zinc-200 py-14 dark:border-zinc-800">
+      <section id="publications" class="scroll-mt-24 border-t border-zinc-200 py-12 dark:border-zinc-800">
         <ScrollReveal>
           <div class="mb-6 flex flex-wrap items-baseline justify-between gap-x-6 gap-y-1">
             <h2 class="section-heading">Selected publications</h2>
@@ -261,7 +223,7 @@ const personJsonLd = {
       </section>
 
       <!-- Education -->
-      <section id="education" class="scroll-mt-24 border-t border-zinc-200 py-14 dark:border-zinc-800">
+      <section id="education" class="scroll-mt-24 border-t border-zinc-200 py-12 dark:border-zinc-800">
         <ScrollReveal>
           <h2 class="section-heading mb-8">Education</h2>
           <ul class="space-y-5">
@@ -283,12 +245,12 @@ const personJsonLd = {
       </section>
 
       <!-- Contact -->
-      <section id="contact" class="scroll-mt-24 border-t border-zinc-200 py-14 pb-8 dark:border-zinc-800">
+      <section id="contact" class="scroll-mt-24 border-t border-zinc-200 py-12 pb-8 dark:border-zinc-800">
         <ScrollReveal>
           <h2 class="section-heading mb-4">Contact</h2>
           <p class="max-w-xl leading-relaxed text-ink-muted dark:text-zinc-300">
             The best way to reach me is by email at
-            <a href="mailto:sshaar31@gmail.com" class="link font-medium text-ink dark:text-zinc-100">sshaar31@gmail.com</a>
+            <a href="mailto:ss2753@cornell.edu" class="link font-medium text-ink dark:text-zinc-100">ss2753@cornell.edu</a>
             — whether about roles, collaborations, or anything related to the work. A printable CV
             is available as a <a href="/cv.pdf" target="_blank" rel="noopener noreferrer" class="link">PDF</a>.
           </p>

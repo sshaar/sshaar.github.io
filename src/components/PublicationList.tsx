@@ -44,6 +44,17 @@ const VENUE_MONTH: Record<string, number> = {
 
 const venueMonth = (v: string): number => VENUE_MONTH[v] ?? 12;
 
+// Filters read as one restrained system rather than ten competing colours; the
+// accent only appears on what is actually switched on.
+const CHIP_BASE =
+  'inline-flex items-center gap-1.5 rounded-full border px-2.5 py-0.5 text-xs font-medium transition-colors';
+const CHIP_OFF =
+  'border-zinc-300 text-ink-muted hover:border-accent-600 hover:text-accent-700 dark:border-zinc-700 dark:text-zinc-400 dark:hover:border-accent-400 dark:hover:text-accent-300';
+const CHIP_ON =
+  'border-accent-600 bg-accent-50 text-accent-800 dark:border-accent-400 dark:bg-accent-900/40 dark:text-accent-200';
+
+const isFirstAuthor = (pub: Publication, me: string) => pub.authors[0] === me;
+
 function formatAuthors(authors: string[], me: string) {
   return authors.map((a, i) => {
     const isMe = a === me;
@@ -59,6 +70,8 @@ function formatAuthors(authors: string[], me: string) {
 export default function PublicationList({ publications, projects, me }: Props) {
   const [active, setActive] = useState<Set<string>>(new Set());
   const [query, setQuery] = useState('');
+  const [firstOnly, setFirstOnly] = useState(false);
+  const [selectedOnly, setSelectedOnly] = useState(false);
 
   const toggle = (slug: string) => {
     setActive((prev) => {
@@ -69,19 +82,44 @@ export default function PublicationList({ publications, projects, me }: Props) {
     });
   };
 
-  const clear = () => setActive(new Set());
+  const clear = () => {
+    setActive(new Set());
+    setFirstOnly(false);
+    setSelectedOnly(false);
+  };
+
+  const anyFilter = active.size > 0 || firstOnly || selectedOnly;
+
+  // Paper count per project, so a filter says how much it will show.
+  const counts = useMemo(() => {
+    const map = new Map<string, number>();
+    for (const pub of publications)
+      for (const slug of pub.projects) map.set(slug, (map.get(slug) ?? 0) + 1);
+    return map;
+  }, [publications]);
+
+  const firstCount = useMemo(
+    () => publications.filter((p) => isFirstAuthor(p, me)).length,
+    [publications, me],
+  );
+  const selectedCount = useMemo(
+    () => publications.filter((p) => p.selected).length,
+    [publications],
+  );
 
   const filtered = useMemo(() => {
     const q = query.trim().toLowerCase();
     return publications.filter((pub) => {
       if (active.size > 0 && !pub.projects.some((p) => active.has(p))) return false;
+      if (firstOnly && !isFirstAuthor(pub, me)) return false;
+      if (selectedOnly && !pub.selected) return false;
       if (q) {
         const hay = `${pub.title} ${pub.authors.join(' ')} ${pub.venue}`.toLowerCase();
         if (!hay.includes(q)) return false;
       }
       return true;
     });
-  }, [publications, active, query]);
+  }, [publications, active, query, firstOnly, selectedOnly, me]);
 
   const grouped = useMemo(() => {
     const byYear = new Map<number, Publication[]>();
@@ -108,6 +146,25 @@ export default function PublicationList({ publications, projects, me }: Props) {
     <div>
       <div className="mb-8 space-y-4">
         <div className="flex flex-wrap items-center gap-2">
+          <button
+            type="button"
+            className={`${CHIP_BASE} ${firstOnly ? CHIP_ON : CHIP_OFF}`}
+            aria-pressed={firstOnly}
+            onClick={() => setFirstOnly((v) => !v)}
+          >
+            First-authored
+            <span className="opacity-60">{firstCount}</span>
+          </button>
+          <button
+            type="button"
+            className={`${CHIP_BASE} ${selectedOnly ? CHIP_ON : CHIP_OFF}`}
+            aria-pressed={selectedOnly}
+            onClick={() => setSelectedOnly((v) => !v)}
+          >
+            Selected
+            <span className="opacity-60">{selectedCount}</span>
+          </button>
+          <span className="mx-1 h-4 w-px bg-zinc-300 dark:bg-zinc-700" aria-hidden="true" />
           {projects.map((proj) => {
             const isActive = active.has(proj.slug);
             const colors = COLOR_CLASSES[proj.color];
@@ -115,17 +172,16 @@ export default function PublicationList({ publications, projects, me }: Props) {
               <button
                 key={proj.slug}
                 type="button"
-                className={`inline-flex items-center rounded-full border px-2.5 py-0.5 text-xs font-medium transition-colors ${
-                  isActive ? colors.chipActive : colors.chip
-                }`}
+                className={`${CHIP_BASE} ${isActive ? colors.chipActive : colors.chip}`}
                 aria-pressed={isActive}
                 onClick={() => toggle(proj.slug)}
               >
                 {proj.short ?? proj.name}
+                <span className="opacity-60">{counts.get(proj.slug) ?? 0}</span>
               </button>
             );
           })}
-          {active.size > 0 && (
+          {anyFilter && (
             <button
               type="button"
               onClick={clear}
@@ -144,7 +200,7 @@ export default function PublicationList({ publications, projects, me }: Props) {
         />
         <p className="meta">
           {filtered.length} of {publications.length} publications
-          {active.size > 0 ? ` · filtered by ${active.size} project${active.size > 1 ? 's' : ''}` : ''}
+          {anyFilter ? ' · filtered' : ''}
         </p>
       </div>
 
@@ -169,6 +225,14 @@ export default function PublicationList({ publications, projects, me }: Props) {
                   <p className="meta mb-1">
                     <span className="italic">{pub.venueShort ?? pub.venue}</span>
                     {pub.findings ? ' · Findings' : ''} · {typeLabel[pub.type]}
+                    {isFirstAuthor(pub, me) && (
+                      <>
+                        {' · '}
+                        <span className="font-medium text-accent-700 dark:text-accent-300">
+                          First author
+                        </span>
+                      </>
+                    )}
                   </p>
                   {pub.award && (
                     <p className="mb-1 flex items-center gap-1.5 text-xs font-medium text-amber-700 dark:text-amber-400">

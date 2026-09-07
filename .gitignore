@@ -33,7 +33,12 @@ Shaden_PhD_application_CV*.pdf
 # claude
 .claude/
 
-cv/
+# CV LaTeX source is tracked; only its build artifacts are not.
+cv/**/*.aux
+cv/**/*.log
+cv/**/*.out
+cv/**/*.synctex.gz
+cv/**/cv.pdf
 # design-sync (generated: staged scripts, bundle output, machine state)
 .ds-sync/
 ds-bundle/

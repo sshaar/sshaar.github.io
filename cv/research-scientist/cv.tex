@@ -1,0 +1,149 @@
+%!TEX TS-program = xelatex
+%!TEX encoding = UTF-8 Unicode
+% Awesome CV — adapted from LimHyungTae/Awesome-PhD-CV
+% Author of base template: Claud D. Park <posquit0.bj@gmail.com>
+% License: CC BY-SA 4.0
+
+\makeatletter
+\renewcommand\@biblabel[1]{\textbullet}
+\makeatother
+
+%-------------------------------------------------------------------------------
+% CONFIGURATIONS
+%-------------------------------------------------------------------------------
+\documentclass[12pt, a4paper]{awesome-cv}
+
+\geometry{left=1.4cm, top=.8cm, right=1.4cm, bottom=1.8cm, footskip=.5cm}
+
+\usepackage[font=footnotesize]{subcaption}
+\usepackage{enumitem}
+\usepackage{indentfirst}
+\usepackage{hyperref}
+\usepackage{cleveref}
+\usepackage{cite}
+\usepackage{wrapfig}
+\usepackage{xspace}
+\usepackage{wasysym}
+\usepackage{booktabs}
+\usepackage{fontspec}
+\usepackage{pifont}
+\captionsetup[figure]{labelformat={default},labelsep=period,name={Fig.}}
+
+\Crefname{section}{Sec.}{Secs.}
+\Crefname{figure}{Fig.}{Figs.}
+\Crefname{table}{Table}{Tables}
+\crefname{equation}{}{}
+\Crefname{equation}{}{}
+
+\definecolor{justblue}{HTML}{0000F1}
+\definecolor{Violet}{rgb}{0.56, 0.0, 0.85}
+\definecolor{BurntOrange}{rgb}{0.9, 0.45, 0.0}
+\definecolor{Cerulean}{rgb}{0.0, 0.48, 0.90}
+
+\newcommand{\githubstars}[1]{[{\faGithubSquare}\,\ding{72} \textbf{#1}]}
+\newcommand{\paperif}[1]{\textcolor{justblue}{[IF: \textbf{#1}]}}
+\newcommand{\papercitation}[1]{\textcolor{justblue}{[Citations: \textbf{#1}]}}
+\newcommand{\paperinfo}[2]{\textcolor{justblue}{[IF: \textbf{#1}, Citations: \textbf{#2}]}}
+
+% Accent color
+\definecolor{awesome}{HTML}{8C1515}
+
+\setbool{acvSectionColorHighlight}{false}
+\renewcommand{\acvHeaderSocialSep}{\quad\textbar\quad}
+
+% --- Spacing fixes ---
+% Awesome-CV's cvitems env ends with \vspace{-4mm} which pulls the next
+% section heading on top of the last bullet. Redefine without the trailing
+% negative space, and give cvsection more breathing room.
+\renewenvironment{cvitems}{%
+  \vspace{-4.0mm}
+  \begin{justify}
+  \begin{itemize}[leftmargin=2ex, nosep, noitemsep]
+    \setlength{\parskip}{0pt}
+    \renewcommand{\labelitemi}{\bullet}
+}{%
+  \end{itemize}
+  \end{justify}
+}
+\renewcommand{\acvSectionTopSkip}{6mm}
+
+% Title-only cventry variant: a single bold title row + bullet description,
+% with no blank position row underneath. Used for Highlights / Research
+% Interests where there's no org/location/date metadata.
+% Usage: \cvtitleentry{<title>}{<description>}
+\newcommand*{\cvtitleentry}[2]{%
+  \vspace{-2.0mm}
+  \setlength\tabcolsep{0pt}
+  \setlength{\extrarowheight}{0pt}
+  \begin{tabular*}{\textwidth}{@{\extracolsep{\fill}} L{\textwidth} R{0pt}}
+    \entrytitlestyle{#1} & \\
+    \multicolumn{2}{L{\textwidth}}{\descriptionstyle{#2}}
+  \end{tabular*}%
+}
+
+% Numbered publications list. Inherits \descriptionstyle font (9pt light)
+% so entries match the rest of the CV's bullets and descriptions.
+\newenvironment{publist}{%
+  \vspace{1mm}%
+  \fontsize{9pt}{1.15em}\bodyfontlight\upshape\color{text}\selectfont
+  \begin{enumerate}[leftmargin=2.4em, nosep, itemsep=0.45em, label=\arabic*.]
+}{%
+  \end{enumerate}
+}
+
+% Bulleted list, descriptionstyle font, spacing matched to cvitems
+% (used inside cventry descriptions) so a stand-alone Highlights section
+% reads identically to bullets inside Research Interests.
+\newenvironment{cvbullets}{%
+  \vspace{1mm}%
+  \fontsize{9pt}{1.15em}\bodyfontlight\upshape\color{text}\selectfont
+  \begin{itemize}[leftmargin=2ex, nosep, noitemsep, label=\textbullet]
+    \setlength{\parskip}{0pt}
+}{%
+  \end{itemize}
+}
+
+%-------------------------------------------------------------------------------
+% PERSONAL INFORMATION
+%-------------------------------------------------------------------------------
+\name{Shaden}{Shaar}
+\position{NLP Researcher{\enskip\cdotp\enskip}PhD Candidate at Cornell University}
+\address{Ithaca, NY, USA}
+
+\email{ss2753 [at] cornell [dot] edu}
+% Phone deliberately omitted from the public CV.
+% \mobile{...}
+\homepage{sshaar.github.io}
+\github{sshaar}
+\googlescholar{yMArLRcAAAAJ}{Google Scholar}
+
+\newif\ifshowcontent
+\showcontenttrue
+
+% \quote{``Building NLP systems for long-form generation, narrative understanding, and document-level reasoning.''}
+
+%-------------------------------------------------------------------------------
+\begin{document}
+
+\makecvheader
+\makecvfooter
+  {\today}
+  {Shaden Shaar~~~·~~~Curriculum Vitae}
+  {\thepage}
+
+%-------------------------------------------------------------------------------
+%	CV CONTENT
+%-------------------------------------------------------------------------------
+% Order: who I am -> credentials -> what I've done -> output -> recognition
+%        -> service -> teaching. Page breaks are left to LaTeX so the order
+%        survives edits; add \newpage only if a section splits badly.
+\input{cv/aboutme.tex}
+\input{cv/education.tex}
+\input{cv/work_experience.tex}
+% \input{cv/research_projects.tex}   % stale: rewrite around the thesis before enabling
+\input{cv/publications.tex}
+\input{cv/honors.tex}
+\input{cv/services.tex}
+\input{cv/teaching.tex}
+
+\end{document}

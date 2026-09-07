@@ -1,0 +1,25 @@
+{
+  "projectId": "65e3fa1d-e56f-4d6b-9534-244d5be861eb",
+  "shape": "package",
+  "pkg": "shaden-shaar-site",
+  "globalName": "ShadenShaarSite",
+  "buildCmd": "npm run build:ds",
+  "srcDir": "src/design",
+  "tsconfig": "tsconfig.ds.json",
+  "cssEntry": "dist-ds/styles.css",
+  "overrides": {
+    "Nav": {
+      "cardMode": "column"
+    },
+    "Footer": {
+      "cardMode": "column"
+    },
+    "Hero": {
+      "cardMode": "column"
+    },
+    "PublicationCard": {
+      "cardMode": "column"
+    }
+  },
+  "readmeHeader": ".design-sync/conventions.md"
+}

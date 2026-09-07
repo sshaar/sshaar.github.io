@@ -34,3 +34,10 @@ Shaden_PhD_application_CV*.pdf
 .claude/
 
 cv/
+# design-sync (generated: staged scripts, bundle output, machine state)
+.ds-sync/
+ds-bundle/
+dist-ds/
+.design-sync/.cache/
+.design-sync/learnings/
+.design-sync/node_modules

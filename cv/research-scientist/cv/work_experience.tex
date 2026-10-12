@@ -11,9 +11,9 @@
     {May 2025 -- Aug. 2025}
     {
       \begin{cvitems}
-        \item Built a home-purchase co-pilot: a multi-turn assistant that answers buyer questions, tracks purchase intent as it accumulates over a conversation, and narrows a large listing inventory toward properties that fit.
-        \item Post-trained the dialogue policy on long multi-turn conversation data, running DPO over preference pairs scored on whole dialogues, then GRPO with a trajectory-level reward so credit lands on the conversation rather than the individual turn.
-        \item Built the reward-modeling and evaluation pipeline behind that training, including rollout generation and conversation-level scoring for grounded property-search dialogue.
+        \item Built a home-purchase assistant: a multi-turn chatbot that answers buyer questions, tracks purchase intent over the conversation, and narrows a large listing inventory to matching properties.
+        \item Post-trained the dialogue model on long multi-turn conversations, first with DPO on preference pairs over whole dialogues, then with GRPO using a trajectory-level reward rather than a per-turn reward.
+        \item Built the reward model and the evaluation pipeline for this training, including rollout generation and conversation-level scoring for grounded property-search dialogue.
       \end{cvitems}
     }
 
@@ -24,9 +24,10 @@
     {Jan. 2025 -- May 2025}
     {
       \begin{cvitems}
-        \item Built the judge co-pilot for the Qatari judicial department: a set of case-analysis services, each exposed as an API, deployed together as a judge-facing dashboard.
-        \item Designed the Arabic information-extraction pipeline, running OCR over scanned filings, then event extraction that links each extracted event to the evidence spans supporting it in the case document, feeding a case summarizer built on that structure.
-        \item Built precedent lookup as a RAG system over constitutional bylaws and prior Qatari Supreme Court cassation rulings, combining dense embedding retrieval with sparse lexical matching and reranking the merged candidate set.
+        \item Built precedent retrieval as a hybrid RAG system over constitutional bylaws and prior Qatari Supreme Court cassation rulings: dense embedding retrieval fused with sparse lexical matching, followed by reranking of the merged candidate set.
+        \item Fine-tuned an Arabic LLM with SFT on data collected specifically for Qatari court cases, for event extraction and case summarization.
+        \item Designed the Arabic information-extraction pipeline: OCR over scanned filings, then event extraction that links each event to its supporting evidence spans, feeding a structured case summarizer.
+        \item Deployed the above as API services behind a judge-facing case-analysis dashboard for the Qatari judicial department.
       \end{cvitems}
     }
 
@@ -37,9 +38,9 @@
     {May 2022 -- Aug. 2022}
     {
       \begin{cvitems}
-        \item Built a conditional synthetic dialogue generator for Siri training with \href{https://www.linkedin.com/in/alex-churchill-1361931a/?originalSubdomain=uk}{Dr.\ Alex Churchill}, producing multi-turn conversation data for scenarios with little or no real usage data to draw on.
-        \item Simulated user behaviour to generate the human side of each conversation, so the pipeline produced complete multi-turn dialogues rather than isolated utterances.
-        \item Conditioned generation on intent and user behaviour, letting a target dataset be specified to arbitrary requirements rather than freely sampled, and ran zero-shot without seed dialogues for the target scenarios.
+        \item Built a conditional synthetic dialogue generator for Siri training data, targeting scenarios with little or no real usage data. Mentored by Dr.\ Alex Churchill.
+        \item Simulated the user side of each conversation so the pipeline produced complete multi-turn dialogues rather than isolated utterances.
+        \item Conditioned generation on intent and user behavior, allowing a target dataset to be specified by requirements, and ran it zero-shot without seed dialogues.
       \end{cvitems}
     }
 
@@ -50,11 +51,12 @@
     {Jul. 2019 -- Aug. 2021}
     {
       \begin{cvitems}
-        \item \textbf{Automated fact-checking:} introduced the task of detecting previously fact-checked claims, matching an incoming claim against a database of prior verdicts so a checker could reuse existing work instead of starting over. Follow-up work extended it to document-level matching and to the role of surrounding context, with papers at ACL, EMNLP, NAACL, and IJCAI.
-        \item \textbf{Propaganda and persuasion detection:} built \textit{Prta}, a public system that flags propaganda techniques in news articles (ACL 2020 Best Demo, Honorable Mention), then extended the work to multimodal memes where the technique is split across text and image, published at ACL and SemEval.
-        \item \textbf{COVID-19 misinformation:} built pipelines for factuality, harmfulness, and framing of pandemic claims across multiple languages and social platforms, with papers at ICWSM, EMNLP, RANLP, and COLING.
-        \item \textbf{Emotion detection:} cross-lingual classification for low-resource languages with little annotated data (LREC 2022).
-        \item Co-organized shared tasks at SemEval, CLEF--CheckThat!, and ACL workshops, releasing the datasets and evaluation setups these problems are still benchmarked on. Advised by \href{https://scholar.google.com/citations?hl=en&user=DfXsKZ4AAAAJ}{Dr.\ Preslav Nakov} and \href{https://scholar.google.com/citations?user=Q_UujkkAAAAJ}{Prof.\ Giovanni Da San Martino}.
+        \item Research assistant advised by Dr.\ Preslav Nakov and Prof.\ Giovanni Da San Martino.
+        \item Introduced the task of detecting previously fact-checked claims, with a retrieve-then-rerank pipeline: BM25 candidate retrieval, Sentence-BERT semantic similarity, and a learning-to-rank reranker (ACL 2020). Extended it to document-level claim retrieval and to context modeling with Transformer encoders over surrounding tweets and co-mentions (Findings of EMNLP 2022, Findings of NAACL 2022, IJCAI 2021).
+        \item Built \textit{Prta}, a public system for fine-grained propaganda detection in news articles, combining span-level sequence tagging and sentence-level classification with a BERT-based multi-granularity network (ACL 2020, Best Demo Award Honorable Mention). Extended it to memes as multimodal multi-label classification with text--image fusion models (ACL 2021, SemEval-2021).
+        \item Built multilingual, multi-label classifiers on fine-tuned Transformer encoders for the factuality, harmfulness, and framing of COVID-19 claims across Arabic, English, and Bulgarian social media (ICWSM 2021, Findings of EMNLP 2021, RANLP 2021, COLING 2022).
+        \item Built cross-lingual emotion classifiers for low-resource languages using multilingual encoders and machine translation for transfer (LREC 2022).
+        \item Co-organized shared tasks on check-worthiness estimation and verified-claim retrieval at CLEF--CheckThat! 2020 and 2021, on persuasion techniques in memes at SemEval-2021 Task 6, and at NLP4IF-2021, releasing the datasets and evaluation setups.
       \end{cvitems}
     }
 

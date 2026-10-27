@@ -1,4 +1,4 @@
-%!TEX TS-program = xelatex
+%!TEX TS-program = lualatex
 %!TEX encoding = UTF-8 Unicode
 % Awesome CV — adapted from LimHyungTae/Awesome-PhD-CV
 % Author of base template: Claud D. Park <posquit0.bj@gmail.com>
@@ -13,7 +13,16 @@
 %-------------------------------------------------------------------------------
 \documentclass[12pt, a4paper]{awesome-cv}
 
-\geometry{left=1.4cm, top=.8cm, right=1.4cm, bottom=1.8cm, footskip=.5cm}
+% --- Machine readability (resume parsers in job portals) ---
+% Compile with LuaLaTeX, not XeLaTeX. XeLaTeX's PDF writer maps the hyphen
+% glyph of Source Sans to U+2011 (non-breaking hyphen) and small caps to
+% mixed case, so "fine-tuned" or "Cornell University" never match a keyword
+% search. LuaLaTeX writes plain ASCII and gives the icons a text mapping.
+% If you must use XeLaTeX, the line below at least fixes poppler-based
+% extractors (pdftotext); other parsers still see U+2011.
+\ifxetex\XeTeXgenerateactualtext=1\fi
+
+\geometry{left=1.6cm, right=1.6cm, top=1.6cm, bottom=2.2cm, footskip=1.1cm}
 
 \usepackage[font=footnotesize]{subcaption}
 \usepackage{enumitem}
@@ -49,37 +58,131 @@
 \definecolor{awesome}{HTML}{8C1515}
 
 \setbool{acvSectionColorHighlight}{false}
-\renewcommand{\acvHeaderSocialSep}{\quad\textbar\quad}
+\renewcommand{\acvHeaderSocialSep}{\enskip\textbar\enskip}
 
-% --- Spacing fixes ---
-% Awesome-CV's cvitems env ends with \vspace{-4mm} which pulls the next
-% section heading on top of the last bullet. Redefine without the trailing
-% negative space, and give cvsection more breathing room.
+% Plain-text contact line. The Font Awesome icons have no text mapping in
+% the PDF, so parsers read them as stray letters glued to the email and
+% URLs ("u sshaar.github.io"). Drop the icons; the links stay clickable.
+\renewcommand{\acvHeaderIconSep}{}
+\renewcommand{\faEnvelope}{}
+\renewcommand{\faHome}{}
+\renewcommand{\faGraduationCap}{}
+\renewcommand{\faMobile}{}
+% PDF metadata; some parsers read the document title and author.
+\hypersetup{pdftitle={Shaden Shaar - Curriculum Vitae}, pdfauthor={Shaden Shaar}}
+
+% --- Layout for machine readability ------------------------------------------
+% Awesome-CV sets every entry as a two-column table (title | location over
+% position | date) with the position line in small caps, and the honors and
+% skills sections as three- and two-column tables. Resume parsers read that
+% badly, and it was reproduced with pdftotext, pdfminer, pypdf and pdf.js:
+%   * the right-hand cells come out as a separate column (pdfminer) or as
+%     blocks split by blank lines (pdftotext), so dates detach from entries;
+%   * small caps extract as ALL CAPS, and a short ALL-CAPS line is what most
+%     parsers take for a section heading, so each job's position line ended
+%     the Experience section (the second page of jobs was lost) and the
+%     Education entries, "headed" by CORNELL UNIVERSITY, were classified by
+%     content, i.e. as jobs;
+%   * the footer (name, "Curriculum Vitae", date) sat between the two pages
+%     of Experience and was read as a heading or as a job date.
+% Everything below avoids those: entries are plain text lines (the location
+% and date are pushed right with \hfill on the same line, not a table cell),
+% entry lines are mixed case, only section headings extract as ALL CAPS, and
+% the footer is a bare page number. Experience must not start right after a
+% page break mid-entry; entries are unbreakable blocks. Word spacing is
+% widened a little because pypdf (used by Python screeners) drops spaces
+% narrower than about a quarter em and ran whole sentences together.
+\makeatletter
+\newcommand{\acvWordSpace}{\spaceskip=0.28em plus 0.15em minus 0.05em\relax}
+\AddToHook{selectfont}{\acvWordSpace}
+\emergencystretch=1em
+
+% Section headings in small caps: they read as title case on the page and
+% extract as ALL CAPS, which is how parsers recognize a heading.
+\renewcommand*{\sectionstyle}[1]{{\fontsize{15pt}{1em}\bodyfont\bfseries\scshape\color{text}#1}}
+% Sub-headings (Publications): bold mixed case, so they do not look like headings.
+\renewcommand*{\subsectionstyle}[1]{{\fontsize{10.5pt}{1em}\bodyfont\bfseries\color{text} #1}}
+% Headline under the name: mixed case instead of small caps.
+\renewcommand*{\headerpositionstyle}[1]{{\fontsize{8.5pt}{1em}\bodyfont\color{awesome} #1}}
+% Position / institution line of an entry: italic mixed case, not small caps
+% (small caps extract as ALL CAPS and were read as section headings).
+\renewcommand*{\entrypositionstyle}[1]{{\fontsize{9pt}{1em}\bodyfont\itshape\color{graytext} #1}}
+\makeatother
+
+\renewcommand{\acvSectionTopSkip}{6mm}
+% Keep a sub-heading (Journals, Conferences) on the same page as its first item.
+\usepackage{needspace}
+\usepackage{lastpage}% total page count for the footer
+\renewcommand{\cvsubsection}[1]{%
+  \Needspace{5\baselineskip}%
+  \vspace{\acvSectionContentTopSkip}
+  \vspace{-3mm}
+  \subsectionstyle{#1}
+  \phantomsection
+}
+% Separator inside an entry line. Small gaps on purpose: pdfminer starts a
+% new text line at a gap wider than about two character widths.
+\newcommand{\acvEntrySep}{{\fontsize{9pt}{1em}\selectfont\hspace{0.3em}\textperiodcentered\hspace{0.3em}}}
+% Gap between entries. Parsers that split entries on vertical whitespace need
+% it clearly larger than the line spacing inside an entry.
+\newcommand{\acvEntrySkip}{2.6mm}
+
+% An entry is one unbreakable block of plain text lines (no table):
+%   Title (bold) ............................ Location
+%   Position (italic) ............................ Date
+%   description
+% The right-hand field sits on the same text line as the left one, so every
+% extractor keeps them together; a table cell would be read as a column.
+\newif\ifacvinline % set by \acvinlinetrue inside a section (see cv/education.tex)
+\renewenvironment{cventries}{\par\vspace{\acvSectionContentTopSkip}\vspace{-\acvEntrySkip}}{\par}
+\renewcommand*{\cventry}[5]{%
+  \par\vspace{\acvEntrySkip}%
+  \noindent\begin{minipage}{\textwidth}
+    \ifacvinline
+      % Inline variant (Education): nothing right-aligned. When Education comes
+      % before Experience, pdfminer moved the right-aligned school dates below
+      % the Experience heading and counted them as jobs.
+      \entrytitlestyle{#2}\par\vspace{0.3mm}%
+      \entrypositionstyle{#1}\acvEntrySep\entrypositionstyle{#3}\acvEntrySep\entrypositionstyle{#4}\par
+    \else
+    \ifempty{#2#3}{}{%
+      \entrytitlestyle{#2}\hfill\entrylocationstyle{#3}\endgraf% \par is not allowed inside \ifempty
+      \vspace{0.3mm}}%
+    \entrypositionstyle{#1}\hfill\entrydatestyle{#4}\par
+    \fi
+    \ifempty{#5}{}{\vspace{0.5mm}\descriptionstyle{#5}}%
+  \end{minipage}\par
+}
+
+% Bullets inside an entry description. (No ragged2e justify environment: it
+% resets \spaceskip, which brought pypdf's run-together words back.)
 \renewenvironment{cvitems}{%
-  \vspace{-4.0mm}
-  \begin{justify}
   \begin{itemize}[leftmargin=2ex, nosep, noitemsep]
-    \setlength{\parskip}{0pt}
+    \setlength{\parskip}{0pt}\acvWordSpace
     \renewcommand{\labelitemi}{\bullet}
 }{%
   \end{itemize}
-  \end{justify}
 }
-\renewcommand{\acvSectionTopSkip}{6mm}
 
-% Title-only cventry variant: a single bold title row + bullet description,
-% with no blank position row underneath. Used for Highlights / Research
-% Interests where there's no org/location/date metadata.
-% Usage: \cvtitleentry{<title>}{<description>}
+% Title-only entry (Research Interests): bold title line, then description.
 \newcommand*{\cvtitleentry}[2]{%
-  \vspace{-2.0mm}
-  \setlength\tabcolsep{0pt}
-  \setlength{\extrarowheight}{0pt}
-  \begin{tabular*}{\textwidth}{@{\extracolsep{\fill}} L{\textwidth} R{0pt}}
-    \entrytitlestyle{#1} & \\
-    \multicolumn{2}{L{\textwidth}}{\descriptionstyle{#2}}
-  \end{tabular*}%
+  \par\vspace{\acvEntrySkip}%
+  \noindent\begin{minipage}{\textwidth}
+    \entrytitlestyle{#1}\par
+    \vspace{0.4mm}\descriptionstyle{#2}%
+  \end{minipage}\par
 }
+
+% Honors / service: one line per item, no table. The three-column table was
+% read column by column (all years, then all titles, then all places).
+\renewenvironment{cvhonors}{\par\vspace{\acvSectionContentTopSkip}\vspace{-1.5mm}\begin{flushleft}\setlength{\parskip}{0.8mm}}{\end{flushleft}}
+\renewcommand*{\cvhonor}[4]{%
+  \noindent\honorpositionstyle{#1}, \honortitlestyle{#2}\ifempty{#3}{}{\acvEntrySep\honorlocationstyle{#3}}\hfill\honordatestyle{#4}\par
+}
+
+% Skills: "Category: items" lines, no table.
+\renewenvironment{cvskills}{\par\vspace{\acvSectionContentTopSkip}\vspace{-1.5mm}\begin{flushleft}\setlength{\parskip}{0.6mm}}{\end{flushleft}}
+\renewcommand*{\cvskill}[2]{\noindent\skilltypestyle{#1}:\enskip\skillsetstyle{#2}\par}
 
 % Numbered publications list. Inherits \descriptionstyle font (9pt light)
 % so entries match the rest of the CV's bullets and descriptions.
@@ -91,9 +194,7 @@
   \end{enumerate}
 }
 
-% Bulleted list, descriptionstyle font, spacing matched to cvitems
-% (used inside cventry descriptions) so a stand-alone Highlights section
-% reads identically to bullets inside Research Interests.
+% Bulleted list in descriptionstyle font (Highlights, Service).
 \newenvironment{cvbullets}{%
   \vspace{1mm}%
   \fontsize{9pt}{1.15em}\bodyfontlight\upshape\color{text}\selectfont
@@ -110,12 +211,24 @@
 \position{NLP Researcher{\enskip\cdotp\enskip}PhD Candidate at Cornell University}
 \address{Ithaca, NY, USA}
 
-\email{ss2753 [at] cornell [dot] edu}
-% Phone deliberately omitted from the public CV.
-% \mobile{...}
+% The copy you upload to job portals needs the real address: parsers find
+% the email by pattern, and "[at] ... [dot]" matches nothing, so the contact
+% block (and the mailto link) came out empty. Set \publiccvtrue to build the
+% website copy with the obfuscated address instead.
+\newif\ifpubliccv
+\publiccvfalse
+\ifpubliccv
+  \email{ss2753 [at] cornell [dot] edu}
+\else
+  \email{ss2753@cornell.edu}
+\fi
+% Phone: job portals expect one. Uncomment and fill in for the uploaded copy.
+% \mobile{+1 (xxx) xxx-xxxx}
 \homepage{sshaar.github.io}
-\github{sshaar}
 \googlescholar{yMArLRcAAAAJ}{Google Scholar}
+% Single line, link text kept short: email | website | Google Scholar | LinkedIn | GitHub.
+\extrainfo{\href{https://www.linkedin.com/in/shaden-shaar}{LinkedIn}%
+  \acvHeaderSocialSep\href{https://github.com/sshaar}{github.com/sshaar}}
 
 \newif\ifshowcontent
 \showcontenttrue
@@ -126,10 +239,11 @@
 \begin{document}
 
 \makecvheader
-\makecvfooter
-  {\today}
-  {Shaden Shaar~~~·~~~Curriculum Vitae}
-  {\thepage}
+% Footer: page number only, as "1 / 4". Name, date or "Curriculum Vitae"
+% repeated on every page landed between entries and was read by parsers as
+% a heading or a job date; a bare number has no letters to misread.
+\fancyfoot{}
+\fancyfoot[C]{{\fontsize{8pt}{1em}\bodyfontlight\color{lighttext}\thepage\ /\ \pageref*{LastPage}}}
 
 %-------------------------------------------------------------------------------
 %	CV CONTENT
@@ -142,7 +256,6 @@
 \input{cv/work_experience.tex}
 % \input{cv/research_projects.tex}   % stale: rewrite around the thesis before enabling
 \input{cv/publications.tex}
-\newpage
 \input{cv/honors.tex}
 \input{cv/services.tex}
 \input{cv/teaching.tex}
